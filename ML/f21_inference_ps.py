@@ -36,7 +36,7 @@ import os
 
 def load_training_data(override_path, samples, args):
     files = base.get_datafile_list('noisy', args, extn='csv', override_path=override_path)
-    numgroups = samples//10
+    numgroups = samples//args.training_sample_size
     X_train = np.zeros((numgroups*len(files), 16))
     y_train = np.zeros((numgroups*len(files), 2))
     
@@ -124,16 +124,57 @@ def main():
     #parser.add_argument('--datapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/mixed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250607223018/ps/", help='')
     #parser.add_argument('--testdatapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/mixed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250607223018/test_ps/", help='')
 
-    parser.add_argument('--datapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250511164401/ps/", help='')
-    parser.add_argument('--testdatapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250511164401/test_ps/", help='')
+    #parser.add_argument('--datapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250511164401/ps/", help='')
+    #parser.add_argument('--testdatapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250511164401/test_ps/", help='')
 
     #parser.add_argument('--datapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/mixed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250608062755/ps/", help='')
     #parser.add_argument('--testdatapath', type=str, default="../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/mixed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250608062755/test_ps/", help='')
 
     #../data/denoised_gmrt50h/f21_unet_ps_dum_train_test_uGMRT_t50.0_20250417191012/denoised_ps
+
+    parser.add_argument('--datapath', type=str, help='PS data path')
+    parser.add_argument('--testdatapath', type=str, help='test PS data path')
+    parser.add_argument('--training_sample_size', type=int, default=10, help='Number of samples of spectrum to be grouped')
+    parser.add_argument('--pstype', type=str, default="noisy", help='noisy or denoised')
     
     args = parser.parse_args()
 
+    if args.datapath is None:
+        ## Set the datapath
+
+        # noisy
+        if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'noisy':
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_g50/f21_ps_dum_train_test_uGMRT_t50.0_20250410153928/ps/"
+        if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'noisy':
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_500/f21_ps_dum_train_test_uGMRT_t500.0_20250511105815/ps/"
+        if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'noisy':
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_ska/f21_ps_dum_train_test_SKA1-low_t50.0_20250511105922/ps/"
+
+        # denoised
+        if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'denoised':
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/mixed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250607223018/ps/"
+        if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'denoised':
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_500/mixed_f21_unet_ps_dum_train_test_uGMRT_t500.0_20250604091744/ps/"
+        if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'denoised':
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/mixed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250608062755/ps/"
+    if args.testdatapath is None:
+        ## Set the testdatapath
+
+        # noisy
+        if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'noisy':
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_g50/f21_ps_dum_train_test_uGMRT_t50.0_20250410153928/test_ps/"
+        if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'noisy':
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_500/f21_ps_dum_train_test_uGMRT_t500.0_20250511105815/test_ps/"
+        if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'noisy':
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_ska/f21_ps_dum_train_test_SKA1-low_t50.0_20250511105922/test_ps/"
+
+        # denoised
+        if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'denoised':
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/mixed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250607223018/test_ps/"
+        if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'denoised':
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_500/mixed_f21_unet_ps_dum_train_test_uGMRT_t500.0_20250604091744/test_ps/"
+        if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'denoised':
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/mixed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250608062755/test_ps/"
     output_dir = base.create_output_dir(args=args)
     logger = base.setup_logging(output_dir)
 
@@ -191,6 +232,7 @@ def main():
     logger.info(f"RMSE: {rmse:.4f}")
     base.save_test_results(y_pred, y_test, output_dir)
 
+    """
     pltr.summarize_test_1000(y_pred, y_test, output_dir=output_dir, showplots=False, saveplots=True, label=f"{args.telescope}, {args.t_int:.0f}h")
     # Plot results
     plt.figure(figsize=(12, 5))
@@ -216,7 +258,7 @@ def main():
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, 'predictions.pdf'), format='pdf')
 
-
+    """
     logger.info(f"\nResults saved to {output_dir}")
 
 if __name__ == '__main__':

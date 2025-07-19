@@ -3,13 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 import glob
+import argparse
 
-for filename in glob.glob("saved_output/inference_*h/*/test_results.csv"):
+parser = argparse.ArgumentParser(description='Calculate Effectiveness Score based on posterior deistribution')
+parser.add_argument('--plot', action='store_true', help='Show plots of kde contours')
+parser.add_argument('-p', '--path', type=str, default='saved_output', help='filepath')
+args = parser.parse_args()
+
+for filename in glob.glob(f"{args.path}/inference_*h/*/test_results.csv"):
     if "archive" in filename:
         continue
-    path = filename.split("/")
-    telescope = path[1].split('_')[1]
-    feature = path[2].split('_')[0]
+    print(f"filename={filename}")
+    path = filename.split("inference_")[1].split("/")
+    print(f"path[0]={path[0]}")
+    telescope = path[0]
+    feature = path[1].split('_')[0]
     if feature not in ['noisy', 'denoised', 'latent', 'laten1']:
         continue
     print(f'processing telescope={telescope}, feature={feature}')
@@ -23,7 +31,8 @@ for filename in glob.glob("saved_output/inference_*h/*/test_results.csv"):
     df.columns = ["x", "y", "test_x", "test_y"]
 
     # ------- 2. Prepare the figure --------------------------------------------------
-    fig, ax = plt.subplots(figsize=(7, 6))
+    if args.plot:
+        fig, ax = plt.subplots(figsize=(7, 6))
 
     # A common evaluation grid for all KDEs
     x_min, x_max = df["x"].min() - 0.1, df["x"].max() + 0.1
@@ -48,7 +57,8 @@ for filename in glob.glob("saved_output/inference_*h/*/test_results.csv"):
         xs, ys = sample
 
         # Scatter plot of this sample (colour comes from Matplotlib’s default cycle)
-        ax.scatter(xs, ys, s=5, alpha=0.3, label=f"Sample {idx + 1}", c='grey')
+        if args.plot:
+            ax.scatter(xs, ys, s=5, alpha=0.3, label=f"Sample {idx + 1}", c='grey')
 
         # Fit & evaluate the Gaussian KDE
         kde = gaussian_kde(sample)
@@ -60,10 +70,11 @@ for filename in glob.glob("saved_output/inference_*h/*/test_results.csv"):
         print(total_prob)                    # 0.999…  (very close to 1)
 
         # Overlay KDE contours
-        contours = ax.contour(XX, YY, ZZ, levels=30, linewidths=1.0, alpha=0.8,  cmap='plasma')
+        #contours = ax.contour(XX, YY, ZZ, levels=30, linewidths=1.0, alpha=0.8,  cmap='plasma')
 
         # Plot the test value as a star
-        ax.plot(tx, ty, marker="*", markersize=12, color="black")
+        if args.plot:
+            ax.plot(tx, ty, marker="*", markersize=12, color="black")
 
         # Store the KDE value at its own test point
         dx_tile = 0.05
@@ -74,15 +85,17 @@ for filename in glob.glob("saved_output/inference_*h/*/test_results.csv"):
         product *= val
         avg += val
 
-    fig.colorbar(contours, ax=ax, label='Density')
+    if args.plot:
+        fig.colorbar(contours, ax=ax, label='Density')
 
     # ------- 4. Final plot cosmetics -----------------------------------------------
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
-    ax.set_title("Five samples with their Gaussian KDE contours")
-    ax.legend(fontsize="small", frameon=False)
-    plt.tight_layout()
-    plt.show()
+    if args.plot:
+        ax.set_xlabel("x")
+        ax.set_ylabel("y")
+        ax.set_title("Five samples with their Gaussian KDE contours")
+        ax.legend(fontsize="small", frameon=False)
+        plt.tight_layout()
+        plt.show()
 
     # ------- 5. Report the KDE values & their product ------------------------------
     print("KDE values evaluated at each sample’s test (x, y):")

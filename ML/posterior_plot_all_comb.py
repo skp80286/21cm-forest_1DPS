@@ -82,7 +82,7 @@ def average_combined_std(data: np.ndarray) -> float:
 
 
 parser = argparse.ArgumentParser(description='Master posterior plot for all methods and telescopes')
-
+parser.add_argument('--results_dir', type=str, default="saved_output", help='')
 args = parser.parse_args()
 
 #Set parameters describing data
@@ -199,7 +199,7 @@ for i in range(5):
         if i > 1:
             tele = teles[j]
             feat = feats[i-2]
-            filepath = f"saved_output/inference_{tele}/{feat}*/test_results.csv"
+            filepath = f"{args.results_dir}/inference_{tele}/{feat}*/test_results.csv"
             #print(filepath)
             file = glob.glob(filepath)[0]
 

@@ -11,7 +11,7 @@ from datetime import datetime
 import f21_predict_base as base
 import PS1D
 import F21Stats as f21stats
-
+from logging import info
 from matplotlib.colors import LinearSegmentedColormap, colorConverter
 try:
     from scipy.ndimage import gaussian_filter
@@ -83,8 +83,8 @@ def summarize_test_1000(y_pred, y_test, output_dir=".", showplots=False, saveplo
     unique_test_points = np.unique(y_test[:,:2], axis=0)
     sorted_indices_lex = np.lexsort((unique_test_points[:, 0], unique_test_points[:, 1]))
     unique_test_points = unique_test_points[sorted_indices_lex]    
-    print(f"Number of unique test points: {len(unique_test_points)}")
-    print(f"Unique test points: {unique_test_points}")
+    info(f"Number of unique test points: {len(unique_test_points)}")
+    info(f"Unique test points: {unique_test_points}")
     
     # Calculate mean predictions for each unique test point
     mean_predictions = []
@@ -221,7 +221,7 @@ def summarize_test_1000(y_pred, y_test, output_dir=".", showplots=False, saveplo
 
 markers=['o', 'x', '*']
 def plot_power_spectra(ps_set, ks, title, labels, xscale='log', yscale='log', showplots=False, saveplots=True, output_dir='tmp_out'):
-    #print(f"plot_power_spectra: shapes: {ps_set.shape},{ks.shape}")
+    #info(f"plot_power_spectra: shapes: {ps_set.shape},{ks.shape}")
 
     base.initplt()
     plt.title(f'{title}')
@@ -288,7 +288,7 @@ def plot_denoised_ps(los_test, y_test_so, y_pred_so, samples=1, showplots=False,
     ks_pred, ps_pred = PS1D.get_P_set(y_pred_so, signal_bandwidth, scaled=True)
     ks_pred, ps_pred = f21stats.logbin_power_spectrum_by_k(ks_pred, ps_pred)
     ps_pred_mean = np.mean(ps_pred, axis=0)
-    print(f'{ps_so_mean.shape}')
+    info(f'{ps_so_mean.shape}')
     plot_power_spectra(np.vstack((ps_so_mean,ps_noisy_mean,ps_pred_mean)), ks_noisy[0,:], title=label, labels=["signal-only", "noisy-signal", "reconstructed"], output_dir=output_dir)
 
 def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None):
@@ -338,10 +338,10 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         #plt.legend(loc='best')#lower right')
         if saveplots: 
             plt.savefig(f"{output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf", format="pdf", bbox_inches='tight')
-            print(f"Saved denoised los plot to {output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf")
+            info(f"Saved denoised los plot to {output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf")
         if i> 5: break
         if showplots: plt.show()
-        print(f'denoising {label}: χ²={chisq_noisy:.2f} χ²={chisq_denoised:.2f}')
+        info(f'denoising {label}: χ²={chisq_noisy:.2f} χ²={chisq_denoised:.2f}')
         plt.close()
 
 
@@ -393,7 +393,7 @@ def log_cosh_loss(predictions, targets):
 """Sample plotting code"""
 if __name__ == "__main__":
     all_results = np.loadtxt("saved_output/unet_inference/test_results.csv", delimiter=",", skiprows=1)
-    print(f"loaded data shape: {all_results.shape}")
+    info(f"loaded data shape: {all_results.shape}")
     y_pred = all_results[:,:2]
     y_test = all_results[:,2:4]
     summarize_test_1000(y_pred, y_test, output_dir="./tmp_out", showplots=True, saveplots=True, label="test")
@@ -506,7 +506,7 @@ def hist2d(x, y, bins=20, range=None, weights=None, levels=None, smooth=None,
         contour_cmap = [list(rgba_sec_color) for l in levels] + [list(rgba_sec_color)]
     for i, l in enumerate(levels):
         contour_cmap[i][-1] *= float(i) / (len(levels)+1)
-        #print(f'contour_cmap[{i}][-1]= {contour_cmap[i][-1]}')
+        #info(f'contour_cmap[{i}][-1]= {contour_cmap[i][-1]}')
 
     # We'll make the 2D histogram to directly estimate the density.
     try:

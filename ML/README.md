@@ -31,6 +31,29 @@ Most of the `.py` scripts support `-h` or `--help` to display usage instructions
 | `posterior_maps_*.py`, `posterior_plot*.py` | Scripts to generate posterior plots and statistical summaries. |
 | `plot_results.py`            | Visualization utilities. |
 
+### Modular Inference Pipeline Components
+| File | Description |
+|------|-------------|
+| `config_manager.py`          | Handles argument parsing and configuration setup for the inference pipeline. |
+| `data_loader.py`             | Loads training and test data from CSV files for the inference pipeline. |
+| `regression_trainer.py`      | Handles training of XGBoost regression models. |
+| `model_tester.py`            | Handles making predictions with trained models. |
+| `metrics_calculator.py`      | Calculates performance metrics from test results. |
+| `results_plotter.py`         | Creates plots and visualizations for model results. |
+| `f21_inference_with_uncert.py` | Modular implementation of the f21 inference pipeline with uncertainty quantification. |
+
+### Testing Framework
+| File | Description |
+|------|-------------|
+| `tests/`                     | Directory containing comprehensive unit tests for all pipeline components. |
+| `tests/test_config_manager.py` | Unit tests for configuration management. |
+| `tests/test_data_loader.py`  | Unit tests for data loading functionality. |
+| `tests/test_regression_trainer.py` | Unit tests for regression training. |
+| `tests/test_model_tester.py` | Unit tests for model testing. |
+| `tests/test_metrics_calculator.py` | Unit tests for metrics calculation. |
+| `tests/test_results_plotter.py` | Unit tests for results plotting. |
+| `tests/run_tests.py`         | Test runner script for executing all tests. |
+
 ### Jupyter notebooks
 | File | Purpose |
 |------|---------|
@@ -51,4 +74,41 @@ Most of the `.py` scripts support `-h` or `--help` to display usage instructions
 Most scripts support:
 ```bash
 python script_name.py -h
+```
+
+### Running the Modular Inference Pipeline
+
+```bash
+# Run the main inference script
+python f21_inference_with_uncert.py --telescope uGMRT --t_int 50 --pstype noisy
+
+# Run individual components
+python config_manager.py --help
+python data_loader.py --help
+python regression_trainer.py --help
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+cd tests
+python run_tests.py
+
+# Run specific test modules
+python -m unittest test_config_manager
+python -m unittest test_data_loader
+python -m unittest test_regression_trainer
+```
+
+---
+
+## Benefits of the Modular Structure
+
+1. **Modularity**: Each component has a single responsibility
+2. **Reusability**: Individual modules can be used independently
+3. **Maintainability**: Easier to modify and debug specific functionality
+4. **Testability**: Each module can be tested independently with comprehensive unit tests
+5. **Readability**: Clear separation of concerns makes the code easier to understand
+6. **Reliability**: Unit tests ensure code quality and catch regressions
 

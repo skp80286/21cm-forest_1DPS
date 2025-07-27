@@ -40,7 +40,7 @@ def calculate_metrics(y_test, y_pred):
         'overall': {
             'r2': r2,
             'mse': mse,
-            'rmse': rmse
+            'rmse': rmse,
         },
         'per_output': metrics_per_output
     }

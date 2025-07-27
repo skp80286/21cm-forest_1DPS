@@ -36,7 +36,7 @@ import os
 
 def load_training_data(override_path, samples, args):
     files = base.get_datafile_list('noisy', args, extn='csv', override_path=override_path)
-    numgroups = samples//args.training_sample_size
+    numgroups = samples//args.training_sample_group_size
     X_train = np.zeros((numgroups*len(files), 16))
     y_train = np.zeros((numgroups*len(files), 2))
     
@@ -134,7 +134,7 @@ def main():
 
     parser.add_argument('--datapath', type=str, help='PS data path')
     parser.add_argument('--testdatapath', type=str, help='test PS data path')
-    parser.add_argument('--training_sample_size', type=int, default=10, help='Number of samples of spectrum to be grouped')
+    parser.add_argument('--training_sample_group_size', type=int, default=10, help='Number of samples of spectrum to be grouped')
     parser.add_argument('--pstype', type=str, default="noisy", help='noisy or denoised')
     
     args = parser.parse_args()

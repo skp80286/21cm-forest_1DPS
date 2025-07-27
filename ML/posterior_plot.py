@@ -115,7 +115,10 @@ fig = plt.figure(figsize=(8.,8.))
 gs = gridspec.GridSpec(1,1)
 ax0 = plt.subplot(gs[0,0])
 print(f"loading result file using pattern {args.filepath}")
-all_results = np.loadtxt(args.filepath, delimiter=",", skiprows=1)
+if args.filepath.endswith('.csv'):
+    all_results = np.loadtxt(args.filepath, delimiter=",", skiprows=1)
+elif args.filepath.endswith('.npy'):
+    all_results = np.load(args.filepath)
 xHI_mean = np.reshape(all_results[:,2],(-1,Nsteps))[:,0]
 logfX    = np.reshape(all_results[:,3],(-1,Nsteps))[:,0]
 #print(xHI_mean)

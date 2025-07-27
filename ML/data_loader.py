@@ -21,7 +21,7 @@ def load_training_data(override_path, samples, args):
         tuple: (X_train, y_train) - Features and labels for training
     """
     files = base.get_datafile_list('noisy', args, extn='csv', override_path=override_path)
-    numgroups = samples//args.training_sample_size
+    numgroups = samples//args.training_sample_group_size
     X_train = np.zeros((numgroups*len(files), 16))
     y_train = np.zeros((numgroups*len(files), 2))
     

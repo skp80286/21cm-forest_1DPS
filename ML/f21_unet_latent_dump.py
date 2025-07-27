@@ -46,7 +46,7 @@ def dump_latent(datafile, dir):
     latent = model.get_latent_features(X_train_tensor)
     logger.info(f" Latent features shape={latent.shape}")
     # Save the latent features to a file
-    latent_file = f'{latent_dir}/{file_name_no_ext}.npy' 
+    latent_file = f'{dir}/{file_name_no_ext}.npy' 
     np.save(latent_file, latent)
     logger.info(f" Saved latent features to {latent_file}")
 

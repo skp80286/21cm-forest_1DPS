@@ -18,8 +18,10 @@ def setup_argument_parser():
     # Add specific arguments for this script
     parser.add_argument('--datapath', type=str, help='PS data path')
     parser.add_argument('--testdatapath', type=str, help='test PS data path')
-    parser.add_argument('--training_sample_size', type=int, default=10, 
+    parser.add_argument('--training_sample_group_size', type=int, default=10, 
                        help='Number of samples of spectrum to be grouped')
+    parser.add_argument('--testing_sample_group_size', type=int, default=10, 
+                       help='Number of samples of spectrum to be grouped while testing')
     parser.add_argument('--pstype', type=str, default="noisy", 
                        help='noisy or denoised')
     

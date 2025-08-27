@@ -1,0 +1,1713 @@
+2025-08-22 11:31:33 INFO     Commandline: ./f21_inference_latent.py --limitsamplesize 200 --t_int 50
+2025-08-22 11:31:33 INFO     ####
+2025-08-22 11:31:33 INFO     ### Using "mps" device ###
+2025-08-22 11:31:33 INFO     ####
+2025-08-22 11:31:33 INFO     Loading training data from ../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_g50/f21_unet_latent_dum_train_test_uGMRT_t50.0_20250720131101/latent/...
+2025-08-22 11:31:33 INFO     Loading files with pattern ../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_g50/f21_unet_latent_dum_train_test_uGMRT_t50.0_20250720131101/latent/F21_noisy_21cmFAST_200Mpc_z6.0_fX*_xHI*_uGMRT_8kHz_t50h_Smin64.2mJy_alphaR-0.44.npy
+2025-08-22 11:31:33 INFO     Found 529 files matching pattern
+2025-08-22 11:31:33 INFO     curr_xHI=0.0, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.0034089593682438135, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     Original array shape: (200, 256)
+2025-08-22 11:31:33 INFO     Shape after grouping and taking mean: (20, 256)
+2025-08-22 11:31:33 INFO     currps sample:
+[0.01951675 0.49218938 0.76656425 0.9084074  0.8803275  0.8685678
+ 0.39300418 1.6034259  0.1875883  1.177983  ]
+2025-08-22 11:31:33 INFO     currps sample grouped:
+1.426033616065979
+2025-08-22 11:31:33 INFO     curr_xHI=0.05, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.04835174232721329, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.1, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.09718798100948334, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.15, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.15416058897972107, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.19, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.1896267533302307, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.25, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.2498556226491928, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.29, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.28555259108543396, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.35, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.3463872969150543, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.39, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.39228907227516174, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.44, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.4422883689403534, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.5, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.4963943660259247, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.55, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.554746150970459, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.59, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.5854173302650452, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.65, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.6491464376449585, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.71, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.7143814563751221, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.75, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.7457243204116821, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.81, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.807768702507019, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.84, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.8392692804336548, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.9, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.903710126876831, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.94, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.9436756372451782, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.98, curr_logfx=-0.2
+2025-08-22 11:31:33 INFO     curr_xHI=0.9779895544052124, curr_logfx=-0.20000000298023224
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.0, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.003698070300742984, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.05, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.050428226590156555, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.1, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.10080438107252121, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.14, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.13930167257785797, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.2, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.19560542702674866, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.24, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.24004264175891876, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.29, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.2927761673927307, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.35, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.35414478182792664, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.4, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.40029236674308777, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.45, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.45043081045150757, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.5, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.5046606063842773, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.56, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.56305330991745, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.59, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.5936824083328247, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.66, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.6573660373687744, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.69, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.6901800632476807, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.75, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.753491997718811, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.82, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.8153927326202393, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.85, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.8468001484870911, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.91, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.9111345410346985, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.95, curr_logfx=-0.4
+2025-08-22 11:31:33 INFO     curr_xHI=0.9510165452957153, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:33 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:33 INFO     curr_xHI=0.99, curr_logfx=-0.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.9852950572967529, curr_logfx=-0.4000000059604645
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.0, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.003915360197424889, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.05, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.05193142965435982, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.1, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.10339026898145676, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.14, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.14267045259475708, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.2, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.19980493187904358, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.24, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.24472711980342865, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.3, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.2978428900241852, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.36, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.3595125675201416, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.41, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.4058414101600647, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.46, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.456080824136734, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.51, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.510353684425354, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.54, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.5390961170196533, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.6, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.599394679069519, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.66, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.6630032062530518, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.7, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.6957162022590637, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.76, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.7587975263595581, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.79, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.7893917560577393, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.85, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.8519044518470764, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.88, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.8831256031990051, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.96, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.9559940695762634, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.99, curr_logfx=-0.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.9902480244636536, curr_logfx=-0.6000000238418579
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.0, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.00406056921929121, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.05, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.05296178162097931, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.11, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.10518583655357361, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.14, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.1449700891971588, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.2, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.2026575654745102, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.25, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.24791713058948517, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.3, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.30124056339263916, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.36, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.3631496727466583, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.39, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.38588663935661316, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.46, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.45986902713775635, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.51, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.5141941905021667, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.54, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.5429294109344482, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.6, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.6032039523124695, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.67, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.6667829155921936, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.7, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.699446439743042, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.76, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.762361466884613, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.79, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.7929112315177917, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.86, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.8553289175033569, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.89, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.8865099549293518, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.96, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.959435760974884, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.99, curr_logfx=-0.8
+2025-08-22 11:31:34 INFO     curr_xHI=0.9935672283172607, curr_logfx=-0.800000011920929
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.0, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.004162702709436417, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.05, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.05365224555134773, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.15, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.14653469622135162, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.2, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.20458726584911346, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.25, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.25006887316703796, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.3, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.3035367429256439, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.34, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.3438693881034851, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.39, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.388357937335968, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.46, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.46240663528442383, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.52, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.5167608857154846, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.55, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.545474648475647, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.61, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.6057512760162354, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.64, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.6371028423309326, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.7, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.7019304037094116, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.76, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.7647270560264587, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.86, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.857607901096344, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.89, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.8887526988983154, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.96, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.9621326327323914, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=1.0, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     curr_xHI=0.9957664012908936, curr_logfx=-1.0
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.0, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.00423068180680275, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.05, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.05412188172340393, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.11, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.10719674825668335, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.15, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.14756546914577484, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.21, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.205862358212471, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.25, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.2514967918395996, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.31, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.3050701320171356, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.35, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.3454442620277405, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.39, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.38997411727905273, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.44, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.43840765953063965, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.52, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.5184531807899475, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.55, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.5471552014350891, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.61, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.6074273586273193, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.64, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.63876873254776, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.7, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.7035509943962097, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.74, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.7353919744491577, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.8, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.7967941164970398, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.86, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.8591076731681824, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.89, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.8902351260185242, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.94, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.9369917511940002, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=1.0, curr_logfx=-1.2
+2025-08-22 11:31:34 INFO     curr_xHI=0.9972156286239624, curr_logfx=-1.2000000476837158
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.0, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.004275411367416382, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.05, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.05442618206143379, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.11, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.10772504657506943, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.15, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.1482420414686203, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.21, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.2067091166973114, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.25, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.2524268627166748, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.31, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.3060716390609741, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.35, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.34647074341773987, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.39, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.3910479247570038, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.44, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.4395107924938202, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.52, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.5195609927177429, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.55, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.5482568144798279, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.61, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.6085267066955566, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.64, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.6398540735244751, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.7, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.7046144604682922, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.74, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.7364290952682495, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.8, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.7978015542030334, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.86, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.8600855469703674, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.89, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.8912028670310974, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.94, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.9379326701164246, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=1.0, curr_logfx=-1.4
+2025-08-22 11:31:34 INFO     curr_xHI=0.9981611967086792, curr_logfx=-1.399999976158142
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.0, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.00430478248745203, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.05, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.054622307419776917, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.11, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.10806667804718018, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.15, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.14868496358394623, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.21, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.20725718140602112, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.25, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.25304242968559265, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.31, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.30672648549079895, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.35, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.34714338183403015, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.39, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.3917485773563385, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.44, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.44021642208099365, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.52, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.5202767252922058, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.55, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.5489706993103027, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.61, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.6092395782470703, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.64, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.6405556797981262, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.71, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.705304741859436, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.74, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.7371018528938293, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.8, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.7984500527381897, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.86, curr_logfx=-1.6
+2025-08-22 11:31:34 INFO     curr_xHI=0.8607114553451538, curr_logfx=-1.600000023841858
+2025-08-22 11:31:34 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:34 INFO     curr_xHI=0.89, curr_logfx=-1.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.8918206095695496, curr_logfx=-1.600000023841858
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.94, curr_logfx=-1.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.9385358691215515, curr_logfx=-1.600000023841858
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=1.0, curr_logfx=-1.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.9987660646438599, curr_logfx=-1.600000023841858
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.0, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.00432463176548481, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.05, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.0547497496008873, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.11, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.10829096287488937, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.15, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.14897865056991577, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.21, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.207608163356781, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.25, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.2534399628639221, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.31, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.30713826417922974, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.35, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.34757673740386963, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.39, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.3921947777271271, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.44, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.4406754970550537, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.52, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.5207369327545166, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.55, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.5494304895401001, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.61, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.6096938252449036, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.64, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.6410048007965088, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.71, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.7057415843009949, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.74, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.7375291585922241, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.8, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.7988620400428772, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.86, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.8611137270927429, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.89, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.8922184705734253, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.94, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.9389252662658691, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=1.0, curr_logfx=-1.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.9991486668586731, curr_logfx=-1.7999999523162842
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.0, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.004337502643465996, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.05, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.05483648553490639, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.11, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.10843496024608612, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.15, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.14916108548641205, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.21, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.2078302800655365, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.25, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.2536918818950653, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.31, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.30740416049957275, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.35, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.3478529751300812, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.39, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.3924884498119354, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.44, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.4409638047218323, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.55, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.5497211813926697, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.61, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.6099849343299866, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.64, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.6412929892539978, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.71, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.706023097038269, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.74, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.7378026843070984, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.8, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.7991275191307068, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.86, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.8613702058792114, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.89, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.8924728035926819, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.94, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.9391726851463318, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=1.0, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     curr_xHI=0.9993957877159119, curr_logfx=-2.0
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.0, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.004345777910202742, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.05, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.05488922446966171, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.11, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.10852549970149994, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.15, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.14927978813648224, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.21, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.20797528326511383, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.25, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.2538498640060425, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.31, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.30757662653923035, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.35, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.3480263948440552, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.39, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.39266690611839294, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.44, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.4411472976207733, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.52, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.5212196111679077, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.55, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.5499096512794495, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.61, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.610170304775238, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.64, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.6414807438850403, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.71, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.7062059640884399, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.74, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.7379828095436096, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.8, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.7993038296699524, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.86, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.8615474104881287, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.89, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.892651379108429, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.94, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.9393303394317627, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=1.0, curr_logfx=-2.2
+2025-08-22 11:31:35 INFO     curr_xHI=0.9995515942573547, curr_logfx=-2.200000047683716
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.0, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.004350648261606693, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.05, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.054923754185438156, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.11, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.10858452320098877, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.15, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.1493537575006485, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.21, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.20806723833084106, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.25, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.253949910402298, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.31, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.3076837658882141, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.35, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.3481369912624359, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.39, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.3927805423736572, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.44, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.4412657618522644, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.52, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.5213370323181152, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.55, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.5500296354293823, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.61, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.610285758972168, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.64, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.6415923237800598, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.71, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.7063171863555908, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.74, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.7380883693695068, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.8, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.7994032502174377, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.86, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.8616397380828857, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.89, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.8927391171455383, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.94, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.9394309520721436, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=1.0, curr_logfx=-2.4
+2025-08-22 11:31:35 INFO     curr_xHI=0.999651312828064, curr_logfx=-2.4000000953674316
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.0, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.004353807773441076, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.05, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.05494492128491402, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.11, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.10862153768539429, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.15, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.14940236508846283, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.21, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.20812542736530304, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.25, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.25401365756988525, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.31, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.3077527582645416, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.35, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.3482048511505127, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.39, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.3928541839122772, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.44, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.44134169816970825, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.52, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.5214095115661621, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.55, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.5501042604446411, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.61, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.6103639006614685, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.64, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.6416693925857544, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.71, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.7063905000686646, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.74, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.7381596565246582, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.8, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.7994717359542847, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.86, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.8617085218429565, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.89, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.8928109407424927, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.94, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.9394937753677368, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=1.0, curr_logfx=-2.6
+2025-08-22 11:31:35 INFO     curr_xHI=0.9997470378875732, curr_logfx=-2.5999999046325684
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.0, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.00435554189607501, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.05, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.054958563297986984, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.11, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.1086437925696373, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.15, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.14943081140518188, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.21, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.2081604152917862, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.25, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.2540559470653534, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.31, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.3077956736087799, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.35, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.34824976325035095, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.39, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.39290109276771545, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.44, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.4413907527923584, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.52, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.5214597582817078, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.55, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.550155758857727, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.61, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.6104050874710083, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.64, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.64171302318573, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.71, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.7064357995986938, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.74, curr_logfx=-2.8
+2025-08-22 11:31:35 INFO     curr_xHI=0.7382050156593323, curr_logfx=-2.799999952316284
+2025-08-22 11:31:35 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:35 INFO     curr_xHI=0.8, curr_logfx=-2.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.799514889717102, curr_logfx=-2.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.86, curr_logfx=-2.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.8617461919784546, curr_logfx=-2.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.89, curr_logfx=-2.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.8928383588790894, curr_logfx=-2.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.94, curr_logfx=-2.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.9395340085029602, curr_logfx=-2.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=1.0, curr_logfx=-2.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.999759316444397, curr_logfx=-2.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.0, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.0043569291010499, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.05, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.05496703460812569, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.15, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.14945143461227417, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.21, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.20818550884723663, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.25, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.2540811002254486, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.31, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.3078230619430542, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.35, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.34828153252601624, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.39, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.3929324746131897, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.44, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.44142043590545654, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.52, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.5214874148368835, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.55, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.550184428691864, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.61, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.6104360222816467, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.64, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.641743004322052, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.71, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.7064655423164368, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.74, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.7382357120513916, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.86, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.8617757558822632, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.89, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.8928699493408203, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.94, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.9395606517791748, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=1.0, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     curr_xHI=0.9997802972793579, curr_logfx=-3.0
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.0, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.004357644356787205, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.05, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.054973069578409195, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.11, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.10866799205541611, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.15, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.14946269989013672, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.21, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.2081998735666275, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.25, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.2540976405143738, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.31, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.3078388273715973, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.35, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.34829962253570557, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.39, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.3929523229598999, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.44, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.4414398968219757, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.52, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.5215066075325012, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.55, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.550204873085022, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.61, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.6104575991630554, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.64, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.6417639255523682, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.71, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.7064874768257141, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.74, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.7382591366767883, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.8, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.7995719313621521, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.86, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.8618043065071106, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.89, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.8929010629653931, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.94, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.9395754933357239, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=1.0, curr_logfx=-3.2
+2025-08-22 11:31:36 INFO     curr_xHI=0.9997860193252563, curr_logfx=-3.200000047683716
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.0, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.0043582608923316, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.05, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.05497660115361214, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.11, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.10867300629615784, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.15, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.14947043359279633, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.21, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.20820872485637665, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.25, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.25410792231559753, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.31, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.30784961581230164, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.35, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.3483090400695801, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.39, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.39296501874923706, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.44, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.4414527416229248, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.52, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.5215187072753906, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.55, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.5502152442932129, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.61, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.6104683876037598, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.64, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.6417734026908875, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.71, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.7064974308013916, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.74, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.738269567489624, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.8, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.799583375453949, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.86, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.8618179559707642, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.89, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.8929136395454407, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.94, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.9395856857299805, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=1.0, curr_logfx=-3.4
+2025-08-22 11:31:36 INFO     curr_xHI=0.9998478293418884, curr_logfx=-3.4000000953674316
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.0, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.004358607344329357, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.05, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.05497833713889122, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.11, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.10867680609226227, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.15, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.14947430789470673, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.21, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.20821453630924225, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.25, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.25411495566368103, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.31, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.30785688757896423, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.35, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.34831562638282776, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.39, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.392971932888031, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.44, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.4414595067501068, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.52, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.5215272903442383, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.55, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.5502223372459412, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.61, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.6104757785797119, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.64, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.6417795419692993, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.71, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.7065032720565796, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.74, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.7382744550704956, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.8, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.7995883822441101, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.86, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.8618243336677551, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.89, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.8929203152656555, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.94, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.9395921230316162, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=1.0, curr_logfx=-3.6
+2025-08-22 11:31:36 INFO     curr_xHI=0.9998490810394287, curr_logfx=-3.5999999046325684
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.0, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.0043587577529251575, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.05, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.05497950315475464, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.11, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.10867880284786224, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.15, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.14947745203971863, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.21, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.20821814239025116, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.25, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.2541195750236511, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.31, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.3078615367412567, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.35, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.34831932187080383, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.39, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.3929770886898041, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.44, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.44146454334259033, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.52, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.5215327143669128, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.55, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.550226628780365, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.61, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.6104812622070312, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.64, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.641783595085144, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.71, curr_logfx=-3.8
+2025-08-22 11:31:36 INFO     curr_xHI=0.7065064311027527, curr_logfx=-3.799999952316284
+2025-08-22 11:31:36 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:36 INFO     curr_xHI=0.74, curr_logfx=-3.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.7382773160934448, curr_logfx=-3.799999952316284
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.8, curr_logfx=-3.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.7995914220809937, curr_logfx=-3.799999952316284
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.86, curr_logfx=-3.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.8618296384811401, curr_logfx=-3.799999952316284
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.89, curr_logfx=-3.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.8929246664047241, curr_logfx=-3.799999952316284
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.94, curr_logfx=-3.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.9395967125892639, curr_logfx=-3.799999952316284
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=1.0, curr_logfx=-3.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.9998505115509033, curr_logfx=-3.799999952316284
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.0, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.004358834121376276, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.05, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.05498022958636284, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.11, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.10868078470230103, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.15, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.1494794487953186, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.21, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.2082206904888153, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.25, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.2541224956512451, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.31, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.3078640103340149, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.35, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.34832242131233215, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.39, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.392979234457016, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.44, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.441467821598053, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.52, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.5215359330177307, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.55, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.5502300262451172, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.61, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.6104837656021118, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.64, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.6417863965034485, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.71, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.7065085172653198, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.74, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.7382795214653015, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.8, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.7995927333831787, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.86, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.8618320822715759, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.89, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.8929280042648315, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.94, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.9395992159843445, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=1.0, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.9998530149459839, curr_logfx=-4.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.0, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.003028135048225522, curr_logfx=2.6645352591003757e-15
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.05, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.05102309212088585, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.09, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.09226753562688828, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.14, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.13716791570186615, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.19, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.194624662399292, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.24, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.2402464747428894, curr_logfx=1.1102230246251565e-16
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.31, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.31442591547966003, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.34, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.3354988396167755, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.38, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.3810095191001892, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.46, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.4571879208087921, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.51, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.5133076906204224, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.54, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.5429617762565613, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.61, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.6051740646362305, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.64, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.6374073624610901, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.7, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.7030131220817566, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.73, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.7345709204673767, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.8, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.7968620657920837, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.86, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.859965443611145, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.89, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.8930836915969849, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.97, curr_logfx=0.0
+2025-08-22 11:31:37 INFO     curr_xHI=0.9675082564353943, curr_logfx=3.552713678800501e-15
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.0, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.0025462347548455, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.05, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.04700309410691261, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.09, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.09147612750530243, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.15, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.14766041934490204, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.21, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.21158818900585175, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.24, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.2441343069076538, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.3, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.3000982403755188, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.34, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.34275585412979126, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.39, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.38988596200942993, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.44, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.44135257601737976, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.5, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.49727964401245117, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.56, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.5574918985366821, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.59, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.5891255736351013, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.65, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.6545776128768921, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.69, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.6873694658279419, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.75, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.750349760055542, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.81, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.8135980367660522, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.85, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.8452277183532715, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.89, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.8929882049560547, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.95, curr_logfx=0.2
+2025-08-22 11:31:37 INFO     curr_xHI=0.9529613256454468, curr_logfx=0.20000000298023224
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.0, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.001981341280043125, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.05, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.04721314460039139, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.09, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.09441691637039185, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.16, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.1559445708990097, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.2, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.19502240419387817, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.24, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.24345813691616058, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.3, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.30095037817955017, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.34, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.34493258595466614, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.39, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.3935716450214386, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.45, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.4467301368713379, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.5, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.5045867562294006, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.54, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.5351788997650146, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.6, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.5991240739822388, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.63, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.6324681639671326, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.7, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.6980229020118713, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.76, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.7609925866127014, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.79, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.7930517196655273, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.86, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.8580769896507263, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.9, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.8971934914588928, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.93, curr_logfx=0.4
+2025-08-22 11:31:37 INFO     curr_xHI=0.9330147504806519, curr_logfx=0.4000000059604645
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.0, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.0013775690458714962, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.05, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.048730917274951935, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.1, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.10201004147529602, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.14, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.13796842098236084, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.2, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.20355361700057983, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.26, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.25580033659935, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.3, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.29601263999938965, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.34, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.3411695659160614, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.39, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.39119473099708557, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.45, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.4460464119911194, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.51, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.5057642459869385, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.54, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.5372947454452515, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.6, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.6030315160751343, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.64, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.6367533802986145, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.7, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.7013834118843079, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.73, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.7331141233444214, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.8, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.797521710395813, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.85, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.846303403377533, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.91, curr_logfx=0.6
+2025-08-22 11:31:37 INFO     curr_xHI=0.9059139490127563, curr_logfx=0.6000000238418579
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.0, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.0007567544816993177, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.05, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.04709364473819733, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.11, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.11386324465274811, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.15, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.1457742601633072, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.2, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.20357400178909302, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.26, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.2591806948184967, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.3, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.3025105893611908, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.35, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.3511861264705658, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.41, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.4050835371017456, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.46, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.46447333693504333, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.5, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.49601104855537415, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.56, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.5621383786201477, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.6, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.5965447425842285, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.66, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.6630170941352844, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.7, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.6951680183410645, curr_logfx=0.800000011920929
+2025-08-22 11:31:37 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:37 INFO     curr_xHI=0.76, curr_logfx=0.8
+2025-08-22 11:31:37 INFO     curr_xHI=0.760604202747345, curr_logfx=0.800000011920929
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.79, curr_logfx=0.8
+2025-08-22 11:31:38 INFO     curr_xHI=0.7939156889915466, curr_logfx=0.800000011920929
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.87, curr_logfx=0.8
+2025-08-22 11:31:38 INFO     curr_xHI=0.8696737885475159, curr_logfx=0.800000011920929
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.0, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.0002836731437128037, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.05, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.04815363883972168, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.11, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.11015737056732178, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.16, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.15905801951885223, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.21, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.2092370092868805, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.25, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.24916154146194458, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.29, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.2949697971343994, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.35, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.34684455394744873, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.4, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.40487074851989746, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.44, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.4362499713897705, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.5, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.502691388130188, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.54, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.5374191999435425, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.61, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.6065438389778137, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.64, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.6395254135131836, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.71, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.706388533115387, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.74, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.7400435209274292, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.82, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.8168074488639832, curr_logfx=1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (200, 256)
+2025-08-22 11:31:38 INFO     Training data shape: X=(10580, 256), y=(10580, 2)
+2025-08-22 11:31:38 INFO     Loading test data from ../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_g50/f21_unet_latent_dum_train_test_uGMRT_t50.0_20250822101747_diffseed/test_latent/...
+2025-08-22 11:31:38 INFO     Loading files with pattern ../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_g50/f21_unet_latent_dum_train_test_uGMRT_t50.0_20250822101747_diffseed/test_latent/F21_noisy_21cmFAST_200Mpc_z6.0_fX*_xHI*_uGMRT_8kHz_t50h_Smin64.2mJy_alphaR-0.44_diffseed.npy
+2025-08-22 11:31:38 INFO     Found 5 files matching pattern
+2025-08-22 11:31:38 INFO     curr_xHI=0.11, curr_logfx=-1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.1063900887966156, curr_logfx=-1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (800, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.8, curr_logfx=-1.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.7952508330345154, curr_logfx=-1.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (800, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.52, curr_logfx=-2.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.5210317373275757, curr_logfx=-2.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (800, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.11, curr_logfx=-3.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.10865846276283264, curr_logfx=-3.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (800, 256)
+2025-08-22 11:31:38 INFO     curr_xHI=0.8, curr_logfx=-3.0
+2025-08-22 11:31:38 INFO     curr_xHI=0.7995437383651733, curr_logfx=-3.0
+2025-08-22 11:31:38 INFO     loaded training data from file. shape: (800, 256)
+2025-08-22 11:31:38 INFO     Test data shape: X=(50000, 256), y=(50000, 2)
+2025-08-22 11:31:38 INFO     Training XGBoost model...
+2025-08-22 11:31:41 INFO     Fitted regressor: XGBRegressor(base_score=None, booster=None, callbacks=None,
+             colsample_bylevel=None, colsample_bynode=None,
+             colsample_bytree=None, device=None, early_stopping_rounds=None,
+             enable_categorical=False, eval_metric=None, feature_types=None,
+             gamma=None, grow_policy=None, importance_type=None,
+             interaction_constraints=None, learning_rate=None, max_bin=None,
+             max_cat_threshold=None, max_cat_to_onehot=None,
+             max_delta_step=None, max_depth=None, max_leaves=None,
+             min_child_weight=None, missing=nan, monotone_constraints=None,
+             multi_strategy=None, n_estimators=None, n_jobs=None,
+             num_parallel_tree=None, random_state=42, ...)
+2025-08-22 11:31:41 INFO     Booster: <xgboost.core.Booster object at 0x165e63620>
+2025-08-22 11:31:41 INFO     Saving model to: output/f21_inference_latent_train_test_uGMRT_t50.0_20250822113133/xgb-f21-inf-ps.json
+2025-08-22 11:31:41 INFO     Feature importance: [2.74532009e-04 4.62340133e-04 3.78147466e-04 3.82246828e-04
+ 4.67125239e-04 9.28865920e-04 4.35253169e-04 3.94780538e-04
+ 3.51672614e-04 7.81277253e-04 1.03258656e-03 1.07539969e-03
+ 8.77580373e-04 9.80451470e-04 6.92138216e-04 7.97553686e-04
+ 7.26337836e-04 1.17470871e-03 1.24622567e-03 1.04951649e-03
+ 3.16310721e-03 1.72118959e-03 4.62878168e-01 1.13303470e-03
+ 1.11925451e-03 1.07453868e-03 1.27675675e-03 1.77416801e-02
+ 9.38373967e-04 1.08246948e-03 1.27239025e-03 5.20252669e-03
+ 9.61513142e-04 1.03494711e-03 1.26122346e-03 6.56838994e-04
+ 8.57331208e-04 1.05961727e-03 1.13817735e-03 9.31300514e-04
+ 1.50023168e-03 8.46963783e-04 1.46613643e-03 2.01433012e-03
+ 1.01619062e-03 1.02446368e-03 9.59838566e-04 8.49415606e-04
+ 6.52342220e-04 6.42424100e-04 9.00690095e-04 9.33676842e-04
+ 9.07551672e-04 1.00337411e-03 1.08950830e-03 1.28699606e-03
+ 1.05353282e-03 4.80073097e-04 1.23684679e-03 1.04148372e-03
+ 1.89514225e-03 9.91457840e-04 1.95047515e-03 8.05260323e-04
+ 8.14059400e-04 1.47518879e-02 1.38403347e-03 3.42778140e-03
+ 4.99399379e-03 7.72615196e-04 7.54021225e-04 7.90353806e-04
+ 8.04191397e-04 2.77646002e-03 1.24417839e-03 8.12546874e-04
+ 1.21985399e-03 1.05692481e-03 5.08567784e-04 1.27578084e-03
+ 1.16281922e-03 6.37679943e-04 7.22597411e-04 9.34946176e-04
+ 1.71022455e-03 9.29653412e-04 1.40991306e-03 1.84929732e-03
+ 2.31510634e-03 1.08412432e-03 2.06001895e-03 1.32209412e-03
+ 7.90397986e-04 1.08551886e-03 1.07090792e-03 1.18230982e-03
+ 1.14708405e-03 6.70598354e-04 1.42695452e-03 2.24845856e-03
+ 1.29989395e-03 1.98214245e-03 6.77541830e-03 1.19979875e-02
+ 8.28051125e-04 3.19737685e-03 1.11505005e-03 1.02384004e-03
+ 1.17889838e-03 2.55835475e-03 7.28417828e-04 2.16629542e-03
+ 1.48129079e-03 8.60977801e-04 3.56661447e-04 1.42258331e-02
+ 1.84678403e-03 1.78410369e-03 1.33583590e-03 1.98769523e-03
+ 1.10044971e-03 2.63027102e-03 1.27583207e-03 1.08604308e-03
+ 1.77179521e-03 1.16499222e-03 1.21119339e-03 2.30288673e-02
+ 2.02682288e-03 7.76430184e-04 1.22594449e-03 7.25168618e-04
+ 9.93797090e-04 1.33842381e-03 1.52773480e-03 2.52812053e-03
+ 1.06055615e-03 9.39670834e-04 1.34788151e-03 1.16227334e-03
+ 7.16239738e-04 1.69384433e-03 7.20966491e-04 1.75257563e-03
+ 5.42079855e-04 3.75134696e-04 9.62745631e-04 1.20462698e-03
+ 6.80536847e-04 1.42907156e-02 1.11446367e-03 9.26396518e-04
+ 9.40862519e-04 9.77806631e-04 1.58840790e-03 5.20198490e-04
+ 1.22203515e-03 7.01830257e-03 1.71704660e-03 1.31094446e-02
+ 2.56845029e-03 5.56931412e-03 1.37149577e-03 1.22616719e-03
+ 5.58915955e-04 1.81634037e-03 1.20461255e-03 1.41050806e-03
+ 9.26000881e-04 8.38294392e-04 1.28252874e-03 1.27691333e-03
+ 5.04012103e-04 2.45078118e-03 1.96696562e-03 6.27829111e-04
+ 2.00868472e-02 1.80375576e-03 7.38640204e-02 1.82182202e-03
+ 1.01000606e-03 3.43620963e-03 7.84365635e-04 1.30522810e-03
+ 1.03692035e-03 8.56633298e-04 8.67639203e-04 1.36286544e-03
+ 7.22777564e-04 9.02755302e-04 1.31833716e-03 4.23637917e-04
+ 1.16809865e-03 1.31315971e-03 1.50647853e-03 1.07608351e-03
+ 1.33405987e-03 1.80552085e-03 2.19467212e-03 8.62793589e-04
+ 1.24694849e-03 2.64624320e-03 1.09750801e-03 1.37880340e-03
+ 9.77608259e-04 8.51040473e-04 1.78041880e-03 5.66519238e-03
+ 1.01456454e-03 1.97211606e-03 1.13807886e-03 5.85972448e-04
+ 5.72403136e-04 1.22179696e-03 1.05679559e-03 1.20945508e-03
+ 3.78464727e-04 1.07902102e-03 2.04452616e-03 9.76626761e-04
+ 9.91516048e-04 1.31270802e-03 1.23538903e-03 1.55450602e-03
+ 1.33127719e-03 2.35371990e-03 1.04253297e-03 1.52258237e-03
+ 1.04869390e-03 1.41094881e-03 1.15780660e-03 8.66499031e-04
+ 3.46743478e-03 7.33515073e-04 9.18573118e-04 6.95783179e-03
+ 6.49105757e-04 9.91233741e-04 2.18435214e-03 1.36756781e-03
+ 7.01422628e-04 7.15784787e-04 8.53070931e-04 1.29921269e-03
+ 2.76874891e-03 7.38612260e-04 6.80692901e-04 1.17517705e-03
+ 1.72446575e-03 1.76588469e-03 9.10764735e-04 2.04790081e-03
+ 1.03110715e-03 8.53685255e-04 6.89312059e-04 1.15179596e-03]
+2025-08-22 11:31:41 INFO     Importance type weight: {'f0': 479.0, 'f1': 162.0, 'f2': 137.0, 'f3': 81.0, 'f4': 113.0, 'f5': 103.0, 'f6': 86.0, 'f7': 102.0, 'f8': 93.0, 'f9': 77.0, 'f10': 62.0, 'f11': 57.0, 'f12': 75.0, 'f13': 66.0, 'f14': 79.0, 'f15': 50.0, 'f16': 52.0, 'f17': 29.0, 'f18': 30.0, 'f19': 54.0, 'f20': 23.0, 'f21': 29.0, 'f22': 82.0, 'f23': 43.0, 'f24': 37.0, 'f25': 43.0, 'f26': 46.0, 'f27': 39.0, 'f28': 33.0, 'f29': 53.0, 'f30': 49.0, 'f31': 59.0, 'f32': 52.0, 'f33': 32.0, 'f34': 41.0, 'f35': 41.0, 'f36': 63.0, 'f37': 33.0, 'f38': 54.0, 'f39': 30.0, 'f40': 43.0, 'f41': 65.0, 'f42': 42.0, 'f43': 38.0, 'f44': 60.0, 'f45': 36.0, 'f46': 48.0, 'f47': 54.0, 'f48': 56.0, 'f49': 59.0, 'f50': 42.0, 'f51': 36.0, 'f52': 54.0, 'f53': 53.0, 'f54': 48.0, 'f55': 51.0, 'f56': 42.0, 'f57': 24.0, 'f58': 44.0, 'f59': 59.0, 'f60': 55.0, 'f61': 39.0, 'f62': 17.0, 'f63': 46.0, 'f64': 41.0, 'f65': 18.0, 'f66': 27.0, 'f67': 13.0, 'f68': 27.0, 'f69': 14.0, 'f70': 44.0, 'f71': 34.0, 'f72': 37.0, 'f73': 48.0, 'f74': 48.0, 'f75': 47.0, 'f76': 50.0, 'f77': 48.0, 'f78': 45.0, 'f79': 18.0, 'f80': 34.0, 'f81': 45.0, 'f82': 35.0, 'f83': 37.0, 'f84': 49.0, 'f85': 58.0, 'f86': 58.0, 'f87': 25.0, 'f88': 29.0, 'f89': 38.0, 'f90': 36.0, 'f91': 34.0, 'f92': 12.0, 'f93': 57.0, 'f94': 16.0, 'f95': 41.0, 'f96': 29.0, 'f97': 18.0, 'f98': 41.0, 'f99': 45.0, 'f100': 30.0, 'f101': 11.0, 'f102': 31.0, 'f103': 50.0, 'f104': 64.0, 'f105': 38.0, 'f106': 42.0, 'f107': 46.0, 'f108': 39.0, 'f109': 14.0, 'f110': 41.0, 'f111': 28.0, 'f112': 31.0, 'f113': 38.0, 'f114': 6.0, 'f115': 61.0, 'f116': 57.0, 'f117': 30.0, 'f118': 8.0, 'f119': 48.0, 'f120': 18.0, 'f121': 22.0, 'f122': 45.0, 'f123': 39.0, 'f124': 51.0, 'f125': 66.0, 'f126': 53.0, 'f127': 57.0, 'f128': 35.0, 'f129': 34.0, 'f130': 24.0, 'f131': 40.0, 'f132': 51.0, 'f133': 34.0, 'f134': 37.0, 'f135': 24.0, 'f136': 62.0, 'f137': 39.0, 'f138': 19.0, 'f139': 42.0, 'f140': 46.0, 'f141': 17.0, 'f142': 55.0, 'f143': 32.0, 'f144': 36.0, 'f145': 26.0, 'f146': 23.0, 'f147': 44.0, 'f148': 49.0, 'f149': 49.0, 'f150': 31.0, 'f151': 38.0, 'f152': 45.0, 'f153': 33.0, 'f154': 54.0, 'f155': 30.0, 'f156': 52.0, 'f157': 14.0, 'f158': 39.0, 'f159': 25.0, 'f160': 53.0, 'f161': 26.0, 'f162': 57.0, 'f163': 55.0, 'f164': 48.0, 'f165': 29.0, 'f166': 23.0, 'f167': 25.0, 'f168': 26.0, 'f169': 44.0, 'f170': 22.0, 'f171': 43.0, 'f172': 39.0, 'f173': 29.0, 'f174': 43.0, 'f175': 35.0, 'f176': 46.0, 'f177': 26.0, 'f178': 41.0, 'f179': 28.0, 'f180': 43.0, 'f181': 23.0, 'f182': 52.0, 'f183': 26.0, 'f184': 41.0, 'f185': 45.0, 'f186': 22.0, 'f187': 28.0, 'f188': 58.0, 'f189': 44.0, 'f190': 54.0, 'f191': 60.0, 'f192': 46.0, 'f193': 18.0, 'f194': 29.0, 'f195': 31.0, 'f196': 29.0, 'f197': 43.0, 'f198': 3.0, 'f199': 58.0, 'f200': 47.0, 'f201': 52.0, 'f202': 38.0, 'f203': 19.0, 'f204': 47.0, 'f205': 30.0, 'f206': 30.0, 'f207': 52.0, 'f208': 38.0, 'f209': 30.0, 'f210': 32.0, 'f211': 32.0, 'f212': 37.0, 'f213': 27.0, 'f214': 34.0, 'f215': 28.0, 'f216': 16.0, 'f217': 43.0, 'f218': 45.0, 'f219': 36.0, 'f220': 42.0, 'f221': 55.0, 'f222': 50.0, 'f223': 49.0, 'f224': 36.0, 'f225': 24.0, 'f226': 20.0, 'f227': 52.0, 'f228': 33.0, 'f229': 34.0, 'f230': 38.0, 'f231': 34.0, 'f232': 23.0, 'f233': 37.0, 'f234': 38.0, 'f235': 31.0, 'f236': 17.0, 'f237': 15.0, 'f238': 30.0, 'f239': 17.0, 'f240': 46.0, 'f241': 23.0, 'f242': 38.0, 'f243': 14.0, 'f244': 13.0, 'f245': 39.0, 'f246': 24.0, 'f247': 29.0, 'f248': 16.0, 'f249': 30.0, 'f250': 15.0, 'f251': 39.0, 'f252': 22.0, 'f253': 34.0, 'f254': 30.0, 'f255': 34.0}
+2025-08-22 11:31:41 INFO     Importance type gain: {'f0': 0.21478943526744843, 'f1': 0.3617275059223175, 'f2': 0.2958565056324005, 'f3': 0.2990638017654419, 'f4': 0.3654713034629822, 'f5': 0.7267298102378845, 'f6': 0.34053510427474976, 'f7': 0.30886995792388916, 'f8': 0.275143027305603, 'f9': 0.6112588047981262, 'f10': 0.8078792095184326, 'f11': 0.841375470161438, 'f12': 0.6866047978401184, 'f13': 0.7670895457267761, 'f14': 0.5415178537368774, 'f15': 0.6239932179450989, 'f16': 0.5682750940322876, 'f17': 0.919073224067688, 'f18': 0.9750269651412964, 'f19': 0.8211249113082886, 'f20': 2.474764347076416, 'f21': 1.3466311693191528, 'f22': 362.1484680175781, 'f23': 0.886468231678009, 'f24': 0.8756868243217468, 'f25': 0.8407018184661865, 'f26': 0.9989140629768372, 'f27': 13.880805969238281, 'f28': 0.7341687679290771, 'f29': 0.8469067811965942, 'f30': 0.9954977035522461, 'f31': 4.07037353515625, 'f32': 0.7522724866867065, 'f33': 0.8097259998321533, 'f34': 0.9867609739303589, 'f35': 0.5139002799987793, 'f36': 0.6707621812820435, 'f37': 0.8290275931358337, 'f38': 0.8904917240142822, 'f39': 0.7286345958709717, 'f40': 1.1737571954727173, 'f41': 0.6626508831977844, 'f42': 1.1470816135406494, 'f43': 1.5759795904159546, 'f44': 0.7950512766838074, 'f45': 0.8015239238739014, 'f46': 0.7509623169898987, 'f47': 0.6645691394805908, 'f48': 0.5103821158409119, 'f49': 0.5026223063468933, 'f50': 0.7046855092048645, 'f51': 0.7304937839508057, 'f52': 0.7100538611412048, 'f53': 0.7850238680839539, 'f54': 0.8524138331413269, 'f55': 1.006925106048584, 'f56': 0.8242671489715576, 'f57': 0.37560150027275085, 'f58': 0.9676890969276428, 'f59': 0.8148401975631714, 'f60': 1.4827289581298828, 'f61': 0.7757007479667664, 'f62': 1.5260205268859863, 'f63': 0.6300227642059326, 'f64': 0.6369070410728455, 'f65': 11.541640281677246, 'f66': 1.0828455686569214, 'f67': 2.6818411350250244, 'f68': 3.9072208404541016, 'f69': 0.6044817566871643, 'f70': 0.5899341106414795, 'f71': 0.618360161781311, 'f72': 0.6291864514350891, 'f73': 2.172257900238037, 'f74': 0.9734252095222473, 'f75': 0.6357236504554749, 'f76': 0.9543942213058472, 'f77': 0.8269210457801819, 'f78': 0.39789527654647827, 'f79': 0.9981505274772644, 'f80': 0.9097710847854614, 'f81': 0.4989105761051178, 'f82': 0.5653486251831055, 'f83': 0.7314869165420532, 'f84': 1.3380522727966309, 'f85': 0.7273459434509277, 'f86': 1.1030933856964111, 'f87': 1.4468605518341064, 'f88': 1.8113020658493042, 'f89': 0.8482014536857605, 'f90': 1.6117258071899414, 'f91': 1.0343852043151855, 'f92': 0.6183947324752808, 'f93': 0.8492925763130188, 'f94': 0.837861180305481, 'f95': 0.9250202775001526, 'f96': 0.8974601626396179, 'f97': 0.5246654152870178, 'f98': 1.1164263486862183, 'f99': 1.7591580152511597, 'f100': 1.0170161724090576, 'f101': 1.5507965087890625, 'f102': 5.300978660583496, 'f103': 9.387033462524414, 'f104': 0.6478539109230042, 'f105': 2.5015764236450195, 'f106': 0.8723973035812378, 'f107': 0.80103600025177, 'f108': 0.9223511815071106, 'f109': 2.0016157627105713, 'f110': 0.5699024200439453, 'f111': 1.694874882698059, 'f112': 1.1589381694793701, 'f113': 0.6736152172088623, 'f114': 0.2790462076663971, 'f115': 11.130064010620117, 'f116': 1.4448941946029663, 'f117': 1.395854115486145, 'f118': 1.045136570930481, 'f119': 1.5551409721374512, 'f120': 0.8609742522239685, 'f121': 2.0578818321228027, 'f122': 0.9981905817985535, 'f123': 0.8497027158737183, 'f124': 1.3862241506576538, 'f125': 0.9114712476730347, 'f126': 0.947618305683136, 'f127': 18.01741600036621, 'f128': 1.5857537984848022, 'f129': 0.6074665188789368, 'f130': 0.9591593146324158, 'f131': 0.5673602819442749, 'f132': 0.7775309085845947, 'f133': 1.047161340713501, 'f134': 1.1952751874923706, 'f135': 1.9779610633850098, 'f136': 0.8297621011734009, 'f137': 0.7351834177970886, 'f138': 1.054560899734497, 'f139': 0.9093440175056458, 'f140': 0.5603744983673096, 'f141': 1.3252366781234741, 'f142': 0.5640726089477539, 'f143': 1.3711870908737183, 'f144': 0.4241145849227905, 'f145': 0.2934993803501129, 'f146': 0.7532367706298828, 'f147': 0.9424808621406555, 'f148': 0.5324411392211914, 'f149': 11.180827140808105, 'f150': 0.8719385266304016, 'f151': 0.724797785282135, 'f152': 0.7361157536506653, 'f153': 0.7650202512741089, 'f154': 1.2427449226379395, 'f155': 0.40699493885040283, 'f156': 0.9561007022857666, 'f157': 5.491007328033447, 'f158': 1.3433897495269775, 'f159': 10.256619453430176, 'f160': 2.009514331817627, 'f161': 4.35734224319458, 'f162': 1.0730363130569458, 'f163': 0.9593335390090942, 'f164': 0.4372868835926056, 'f165': 1.4210755825042725, 'f166': 0.9424695372581482, 'f167': 1.103558897972107, 'f168': 0.7244882583618164, 'f169': 0.6558681130409241, 'f170': 1.003429889678955, 'f171': 0.9990365505218506, 'f172': 0.3943310081958771, 'f173': 1.9174519777297974, 'f174': 1.5389223098754883, 'f175': 0.4912034273147583, 'f176': 15.715627670288086, 'f177': 1.4112296104431152, 'f178': 57.7900276184082, 'f179': 1.425364375114441, 'f180': 0.7902125120162964, 'f181': 2.6884353160858154, 'f182': 0.6136751174926758, 'f183': 1.021189570426941, 'f184': 0.8112698793411255, 'f185': 0.6702161431312561, 'f186': 0.6788269877433777, 'f187': 1.0662840604782104, 'f188': 0.5654895901679993, 'f189': 0.7063012719154358, 'f190': 1.031445860862732, 'f191': 0.3314475119113922, 'f192': 0.913901686668396, 'f193': 1.0273951292037964, 'f194': 1.1786446571350098, 'f195': 0.8419104814529419, 'f196': 1.043747067451477, 'f197': 1.4126105308532715, 'f198': 1.717076301574707, 'f199': 0.6750358939170837, 'f200': 0.9755924940109253, 'f201': 2.070378303527832, 'f202': 0.8586726784706116, 'f203': 1.0787537097930908, 'f204': 0.7648650407791138, 'f205': 0.6658404469490051, 'f206': 1.392971158027649, 'f207': 4.432355880737305, 'f208': 0.7937790155410767, 'f209': 1.5429519414901733, 'f210': 0.8904146552085876, 'f211': 0.4584554433822632, 'f212': 0.44783902168273926, 'f213': 0.9559143781661987, 'f214': 0.826819896697998, 'f215': 0.9462582468986511, 'f216': 0.2961047291755676, 'f217': 0.8442087173461914, 'f218': 1.5996044874191284, 'f219': 0.7640971541404724, 'f220': 0.77574622631073, 'f221': 1.0270416736602783, 'f222': 0.9665486216545105, 'f223': 1.2162206172943115, 'f224': 1.0415699481964111, 'f225': 1.8415127992630005, 'f226': 0.8156610727310181, 'f227': 1.1912440061569214, 'f228': 0.8204813003540039, 'f229': 1.1039037704467773, 'f230': 0.9058493375778198, 'f231': 0.6779349446296692, 'f232': 2.7128653526306152, 'f233': 0.5738904476165771, 'f234': 0.7186768651008606, 'f235': 5.443696022033691, 'f236': 0.507849931716919, 'f237': 0.7755253911018372, 'f238': 1.709002137184143, 'f239': 1.0699630975723267, 'f240': 0.5487818121910095, 'f241': 0.5600185394287109, 'f242': 0.6674290299415588, 'f243': 1.016483187675476, 'f244': 2.166224718093872, 'f245': 0.5778784155845642, 'f246': 0.5325632095336914, 'f247': 0.9194397330284119, 'f248': 1.3491944074630737, 'f249': 1.3815999031066895, 'f250': 0.7125677466392517, 'f251': 1.6022447347640991, 'f252': 0.8067216873168945, 'f253': 0.6679096817970276, 'f254': 0.5393067002296448, 'f255': 0.9011467099189758}
+2025-08-22 11:31:41 INFO     Importance type cover: {'f0': 80.62213134765625, 'f1': 523.8641967773438, 'f2': 452.6861267089844, 'f3': 523.6173095703125, 'f4': 768.247802734375, 'f5': 241.84466552734375, 'f6': 381.093017578125, 'f7': 269.9313659667969, 'f8': 587.0645141601562, 'f9': 530.2337646484375, 'f10': 519.4677124023438, 'f11': 1523.0526123046875, 'f12': 924.0266723632812, 'f13': 428.8939514160156, 'f14': 1265.8101806640625, 'f15': 390.3399963378906, 'f16': 457.2115478515625, 'f17': 167.7586212158203, 'f18': 1819.63330078125, 'f19': 2088.74072265625, 'f20': 1132.95654296875, 'f21': 1954.3448486328125, 'f22': 2781.0, 'f23': 456.2558288574219, 'f24': 404.5135192871094, 'f25': 677.465087890625, 'f26': 1886.7608642578125, 'f27': 1086.2564697265625, 'f28': 204.60606384277344, 'f29': 747.26416015625, 'f30': 308.8571472167969, 'f31': 1131.6610107421875, 'f32': 536.5192260742188, 'f33': 1689.59375, 'f34': 1186.048828125, 'f35': 1267.292724609375, 'f36': 1702.96826171875, 'f37': 1006.5757446289062, 'f38': 870.870361328125, 'f39': 1304.5999755859375, 'f40': 684.2092895507812, 'f41': 922.5999755859375, 'f42': 1207.357177734375, 'f43': 2048.0, 'f44': 437.98333740234375, 'f45': 597.9166870117188, 'f46': 1370.9583740234375, 'f47': 1589.2962646484375, 'f48': 1294.857177734375, 'f49': 886.440673828125, 'f50': 1601.6190185546875, 'f51': 1357.0, 'f52': 2001.648193359375, 'f53': 822.7546997070312, 'f54': 1294.0625, 'f55': 978.11767578125, 'f56': 840.1666870117188, 'f57': 1314.4583740234375, 'f58': 1029.1590576171875, 'f59': 1606.1864013671875, 'f60': 1154.109130859375, 'f61': 1483.15380859375, 'f62': 1882.11767578125, 'f63': 775.7825927734375, 'f64': 347.6097412109375, 'f65': 2223.611083984375, 'f66': 1095.1851806640625, 'f67': 521.6153564453125, 'f68': 753.9629516601562, 'f69': 1057.7142333984375, 'f70': 964.7954711914062, 'f71': 213.85293579101562, 'f72': 584.6756591796875, 'f73': 770.3541870117188, 'f74': 1225.1458740234375, 'f75': 825.14892578125, 'f76': 1280.47998046875, 'f77': 951.6875, 'f78': 1254.199951171875, 'f79': 504.1666564941406, 'f80': 421.1176452636719, 'f81': 1398.4444580078125, 'f82': 1943.17138671875, 'f83': 247.7567596435547, 'f84': 1125.2857666015625, 'f85': 1727.534423828125, 'f86': 2104.086181640625, 'f87': 1220.56005859375, 'f88': 628.9310302734375, 'f89': 1399.631591796875, 'f90': 1779.1944580078125, 'f91': 473.6176452636719, 'f92': 3787.833251953125, 'f93': 983.8070068359375, 'f94': 841.6875, 'f95': 563.8536376953125, 'f96': 1179.72412109375, 'f97': 1741.9444580078125, 'f98': 2308.682861328125, 'f99': 873.7999877929688, 'f100': 1324.0999755859375, 'f101': 440.81817626953125, 'f102': 1131.8387451171875, 'f103': 2753.93994140625, 'f104': 1232.25, 'f105': 1370.5263671875, 'f106': 1207.5714111328125, 'f107': 1518.5869140625, 'f108': 2538.41015625, 'f109': 3700.0, 'f110': 1459.195068359375, 'f111': 643.6428833007812, 'f112': 2781.838623046875, 'f113': 222.5, 'f114': 3576.666748046875, 'f115': 2588.26220703125, 'f116': 746.6842041015625, 'f117': 1599.7332763671875, 'f118': 770.375, 'f119': 2268.9375, 'f120': 1072.8333740234375, 'f121': 851.8636474609375, 'f122': 1812.022216796875, 'f123': 228.025634765625, 'f124': 1454.2745361328125, 'f125': 900.9393920898438, 'f126': 2457.943359375, 'f127': 1896.350830078125, 'f128': 2014.771484375, 'f129': 642.1764526367188, 'f130': 963.2916870117188, 'f131': 1606.425048828125, 'f132': 2411.01953125, 'f133': 627.7058715820312, 'f134': 1137.648681640625, 'f135': 754.375, 'f136': 1443.290283203125, 'f137': 459.1538391113281, 'f138': 712.3157958984375, 'f139': 2190.21435546875, 'f140': 972.1956787109375, 'f141': 1031.7646484375, 'f142': 2077.763671875, 'f143': 884.28125, 'f144': 1126.138916015625, 'f145': 1751.3846435546875, 'f146': 340.2608642578125, 'f147': 952.0454711914062, 'f148': 1691.5714111328125, 'f149': 2575.81640625, 'f150': 1284.3226318359375, 'f151': 2253.71044921875, 'f152': 427.8444519042969, 'f153': 1285.697021484375, 'f154': 946.4629516601562, 'f155': 2623.333251953125, 'f156': 1480.15380859375, 'f157': 956.1428833007812, 'f158': 4867.33349609375, 'f159': 955.47998046875, 'f160': 846.2830200195312, 'f161': 3960.730712890625, 'f162': 1845.9473876953125, 'f163': 1383.800048828125, 'f164': 1161.7291259765625, 'f165': 2456.896484375, 'f166': 897.6956787109375, 'f167': 392.55999755859375, 'f168': 3652.5, 'f169': 1170.727294921875, 'f170': 1872.95458984375, 'f171': 1144.2325439453125, 'f172': 886.6410522460938, 'f173': 2595.62060546875, 'f174': 484.3953552246094, 'f175': 1275.4571533203125, 'f176': 2742.28271484375, 'f177': 1488.5, 'f178': 1600.243896484375, 'f179': 1207.0357666015625, 'f180': 1153.44189453125, 'f181': 934.3912963867188, 'f182': 578.923095703125, 'f183': 2097.923095703125, 'f184': 674.0975341796875, 'f185': 958.5111083984375, 'f186': 3485.272705078125, 'f187': 955.9642944335938, 'f188': 2208.034423828125, 'f189': 2362.95458984375, 'f190': 1768.3148193359375, 'f191': 838.0166625976562, 'f192': 1182.934814453125, 'f193': 964.6666870117188, 'f194': 2113.72412109375, 'f195': 481.4193420410156, 'f196': 1293.4482421875, 'f197': 963.6046752929688, 'f198': 3550.333251953125, 'f199': 2462.22412109375, 'f200': 1710.74462890625, 'f201': 867.8846435546875, 'f202': 1424.6842041015625, 'f203': 1202.4736328125, 'f204': 1396.3616943359375, 'f205': 754.433349609375, 'f206': 511.9333190917969, 'f207': 1885.1922607421875, 'f208': 696.0263061523438, 'f209': 2498.833251953125, 'f210': 1256.5625, 'f211': 373.53125, 'f212': 1317.162109375, 'f213': 359.7407531738281, 'f214': 642.5294189453125, 'f215': 1238.0, 'f216': 871.6875, 'f217': 946.18603515625, 'f218': 1868.177734375, 'f219': 2019.52783203125, 'f220': 652.5238037109375, 'f221': 1692.0909423828125, 'f222': 1214.97998046875, 'f223': 774.8367309570312, 'f224': 699.8055419921875, 'f225': 1857.5, 'f226': 199.75, 'f227': 978.826904296875, 'f228': 498.6363525390625, 'f229': 903.6764526367188, 'f230': 831.2105102539062, 'f231': 479.558837890625, 'f232': 1177.2608642578125, 'f233': 259.6756896972656, 'f234': 1217.7894287109375, 'f235': 1556.8387451171875, 'f236': 1185.88232421875, 'f237': 1438.800048828125, 'f238': 592.8666381835938, 'f239': 1337.3529052734375, 'f240': 610.9347534179688, 'f241': 1291.04345703125, 'f242': 2032.73681640625, 'f243': 808.5714111328125, 'f244': 1719.076904296875, 'f245': 734.6153564453125, 'f246': 2363.041748046875, 'f247': 2913.6552734375, 'f248': 3605.5, 'f249': 600.2666625976562, 'f250': 2377.333251953125, 'f251': 997.5384521484375, 'f252': 1668.95458984375, 'f253': 807.38232421875, 'f254': 236.76666259765625, 'f255': 817.38232421875}
+2025-08-22 11:31:41 INFO     Importance type total_gain: {'f0': 102.88414001464844, 'f1': 58.599857330322266, 'f2': 40.53234100341797, 'f3': 24.22416877746582, 'f4': 41.298255920410156, 'f5': 74.8531723022461, 'f6': 29.28601837158203, 'f7': 31.504735946655273, 'f8': 25.588302612304688, 'f9': 47.06692886352539, 'f10': 50.0885124206543, 'f11': 47.95840072631836, 'f12': 51.495361328125, 'f13': 50.62791061401367, 'f14': 42.779911041259766, 'f15': 31.199661254882812, 'f16': 29.550304412841797, 'f17': 26.65312385559082, 'f18': 29.250808715820312, 'f19': 44.34074401855469, 'f20': 56.919578552246094, 'f21': 39.052303314208984, 'f22': 29696.173828125, 'f23': 38.118133544921875, 'f24': 32.400413513183594, 'f25': 36.150177001953125, 'f26': 45.95004653930664, 'f27': 541.3514404296875, 'f28': 24.227569580078125, 'f29': 44.88605880737305, 'f30': 48.779388427734375, 'f31': 240.15203857421875, 'f32': 39.118167877197266, 'f33': 25.911231994628906, 'f34': 40.45719909667969, 'f35': 21.06991195678711, 'f36': 42.258018493652344, 'f37': 27.35791015625, 'f38': 48.086551666259766, 'f39': 21.859037399291992, 'f40': 50.471561431884766, 'f41': 43.07230758666992, 'f42': 48.17742919921875, 'f43': 59.88722229003906, 'f44': 47.70307540893555, 'f45': 28.854860305786133, 'f46': 36.04619216918945, 'f47': 35.88673400878906, 'f48': 28.58139991760254, 'f49': 29.65471649169922, 'f50': 29.596792221069336, 'f51': 26.29777717590332, 'f52': 38.3429069519043, 'f53': 41.606266021728516, 'f54': 40.915863037109375, 'f55': 51.353179931640625, 'f56': 34.61922073364258, 'f57': 9.014435768127441, 'f58': 42.57831954956055, 'f59': 48.0755729675293, 'f60': 81.55009460449219, 'f61': 30.252328872680664, 'f62': 25.94234848022461, 'f63': 28.981046676635742, 'f64': 26.113189697265625, 'f65': 207.74952697753906, 'f66': 29.23682975769043, 'f67': 34.86393356323242, 'f68': 105.49496459960938, 'f69': 8.46274471282959, 'f70': 25.95709991455078, 'f71': 21.024246215820312, 'f72': 23.279897689819336, 'f73': 104.26837921142578, 'f74': 46.72441101074219, 'f75': 29.879011154174805, 'f76': 47.71971130371094, 'f77': 39.69221115112305, 'f78': 17.90528678894043, 'f79': 17.96670913696289, 'f80': 30.93221664428711, 'f81': 22.45097541809082, 'f82': 19.787202835083008, 'f83': 27.06501579284668, 'f84': 65.56455993652344, 'f85': 42.186065673828125, 'f86': 63.97941589355469, 'f87': 36.171512603759766, 'f88': 52.52775955200195, 'f89': 32.23165512084961, 'f90': 58.02212905883789, 'f91': 35.169097900390625, 'f92': 7.420736789703369, 'f93': 48.40967559814453, 'f94': 13.405778884887695, 'f95': 37.92583084106445, 'f96': 26.026344299316406, 'f97': 9.443977355957031, 'f98': 45.77347946166992, 'f99': 79.162109375, 'f100': 30.51048469543457, 'f101': 17.058761596679688, 'f102': 164.33033752441406, 'f103': 469.3516540527344, 'f104': 41.462650299072266, 'f105': 95.05990600585938, 'f106': 36.64068603515625, 'f107': 36.84765625, 'f108': 35.97169494628906, 'f109': 28.022619247436523, 'f110': 23.365999221801758, 'f111': 47.45649719238281, 'f112': 35.92708206176758, 'f113': 25.59737777709961, 'f114': 1.6742771863937378, 'f115': 678.9338989257812, 'f116': 82.35897064208984, 'f117': 41.8756217956543, 'f118': 8.361092567443848, 'f119': 74.64676666259766, 'f120': 15.497536659240723, 'f121': 45.273399353027344, 'f122': 44.918575286865234, 'f123': 33.138404846191406, 'f124': 70.69743347167969, 'f125': 60.157100677490234, 'f126': 50.22377014160156, 'f127': 1026.99267578125, 'f128': 55.501380920410156, 'f129': 20.65386199951172, 'f130': 23.01982307434082, 'f131': 22.69441032409668, 'f132': 39.654075622558594, 'f133': 35.603485107421875, 'f134': 44.225181579589844, 'f135': 47.471065521240234, 'f136': 51.44525146484375, 'f137': 28.67215347290039, 'f138': 20.036657333374023, 'f139': 38.192447662353516, 'f140': 25.7772274017334, 'f141': 22.529024124145508, 'f142': 31.02399253845215, 'f143': 43.877986907958984, 'f144': 15.2681245803833, 'f145': 7.630983829498291, 'f146': 17.324445724487305, 'f147': 41.46915817260742, 'f148': 26.089614868164062, 'f149': 547.8605346679688, 'f150': 27.030094146728516, 'f151': 27.542316436767578, 'f152': 33.12520980834961, 'f153': 25.245668411254883, 'f154': 67.10822296142578, 'f155': 12.209848403930664, 'f156': 49.71723556518555, 'f157': 76.87409973144531, 'f158': 52.3922004699707, 'f159': 256.4154968261719, 'f160': 106.50426483154297, 'f161': 113.29090118408203, 'f162': 61.16307067871094, 'f163': 52.763343811035156, 'f164': 20.989770889282227, 'f165': 41.2111930847168, 'f166': 21.676799774169922, 'f167': 27.588972091674805, 'f168': 18.836694717407227, 'f169': 28.858196258544922, 'f170': 22.075458526611328, 'f171': 42.95857238769531, 'f172': 15.37890911102295, 'f173': 55.60610580444336, 'f174': 66.17366027832031, 'f175': 17.192119598388672, 'f176': 722.9188842773438, 'f177': 36.69197082519531, 'f178': 2369.39111328125, 'f179': 39.91020202636719, 'f180': 33.9791374206543, 'f181': 61.834014892578125, 'f182': 31.91110610961914, 'f183': 26.550928115844727, 'f184': 33.26206588745117, 'f185': 30.159727096557617, 'f186': 14.93419361114502, 'f187': 29.855953216552734, 'f188': 32.798397064208984, 'f189': 31.07725715637207, 'f190': 55.69807815551758, 'f191': 19.886850357055664, 'f192': 42.03947830200195, 'f193': 18.493112564086914, 'f194': 34.180694580078125, 'f195': 26.099224090576172, 'f196': 30.268665313720703, 'f197': 60.742252349853516, 'f198': 5.151228904724121, 'f199': 39.15208053588867, 'f200': 45.852848052978516, 'f201': 107.65966796875, 'f202': 32.62956237792969, 'f203': 20.496320724487305, 'f204': 35.94865798950195, 'f205': 19.9752140045166, 'f206': 41.78913497924805, 'f207': 230.48251342773438, 'f208': 30.163602828979492, 'f209': 46.28855895996094, 'f210': 28.493268966674805, 'f211': 14.670574188232422, 'f212': 16.570043563842773, 'f213': 25.809688568115234, 'f214': 28.111875534057617, 'f215': 26.49523162841797, 'f216': 4.737675666809082, 'f217': 36.30097579956055, 'f218': 71.9822006225586, 'f219': 27.507497787475586, 'f220': 32.58134078979492, 'f221': 56.48728942871094, 'f222': 48.327430725097656, 'f223': 59.594810485839844, 'f224': 37.496517181396484, 'f225': 44.19630813598633, 'f226': 16.313220977783203, 'f227': 61.94468688964844, 'f228': 27.075883865356445, 'f229': 37.5327262878418, 'f230': 34.42227554321289, 'f231': 23.049787521362305, 'f232': 62.39590072631836, 'f233': 21.233945846557617, 'f234': 27.309720993041992, 'f235': 168.75457763671875, 'f236': 8.633448600769043, 'f237': 11.632881164550781, 'f238': 51.27006530761719, 'f239': 18.189373016357422, 'f240': 25.24396324157715, 'f241': 12.880426406860352, 'f242': 25.362302780151367, 'f243': 14.230765342712402, 'f244': 28.160921096801758, 'f245': 22.53725814819336, 'f246': 12.781517028808594, 'f247': 26.66375160217285, 'f248': 21.58711051940918, 'f249': 41.447998046875, 'f250': 10.688516616821289, 'f251': 62.487545013427734, 'f252': 17.74787712097168, 'f253': 22.70892906188965, 'f254': 16.179201126098633, 'f255': 30.638988494873047}
+2025-08-22 11:31:41 INFO     Importance type total_cover: {'f0': 38618.0, 'f1': 84866.0, 'f2': 62018.0, 'f3': 42413.0, 'f4': 86812.0, 'f5': 24910.0, 'f6': 32774.0, 'f7': 27533.0, 'f8': 54597.0, 'f9': 40828.0, 'f10': 32207.0, 'f11': 86814.0, 'f12': 69302.0, 'f13': 28307.0, 'f14': 99999.0, 'f15': 19517.0, 'f16': 23775.0, 'f17': 4865.0, 'f18': 54589.0, 'f19': 112792.0, 'f20': 26058.0, 'f21': 56676.0, 'f22': 228042.0, 'f23': 19619.0, 'f24': 14967.0, 'f25': 29131.0, 'f26': 86791.0, 'f27': 42364.0, 'f28': 6752.0, 'f29': 39605.0, 'f30': 15134.0, 'f31': 66768.0, 'f32': 27899.0, 'f33': 54067.0, 'f34': 48628.0, 'f35': 51959.0, 'f36': 107287.0, 'f37': 33217.0, 'f38': 47027.0, 'f39': 39138.0, 'f40': 29421.0, 'f41': 59969.0, 'f42': 50709.0, 'f43': 77824.0, 'f44': 26279.0, 'f45': 21525.0, 'f46': 65806.0, 'f47': 85822.0, 'f48': 72512.0, 'f49': 52300.0, 'f50': 67268.0, 'f51': 48852.0, 'f52': 108089.0, 'f53': 43606.0, 'f54': 62115.0, 'f55': 49884.0, 'f56': 35287.0, 'f57': 31547.0, 'f58': 45283.0, 'f59': 94765.0, 'f60': 63476.0, 'f61': 57843.0, 'f62': 31996.0, 'f63': 35686.0, 'f64': 14252.0, 'f65': 40025.0, 'f66': 29570.0, 'f67': 6781.0, 'f68': 20357.0, 'f69': 14808.0, 'f70': 42451.0, 'f71': 7271.0, 'f72': 21633.0, 'f73': 36977.0, 'f74': 58807.0, 'f75': 38782.0, 'f76': 64024.0, 'f77': 45681.0, 'f78': 56439.0, 'f79': 9075.0, 'f80': 14318.0, 'f81': 62930.0, 'f82': 68011.0, 'f83': 9167.0, 'f84': 55139.0, 'f85': 100197.0, 'f86': 122037.0, 'f87': 30514.0, 'f88': 18239.0, 'f89': 53186.0, 'f90': 64051.0, 'f91': 16103.0, 'f92': 45454.0, 'f93': 56077.0, 'f94': 13467.0, 'f95': 23118.0, 'f96': 34212.0, 'f97': 31355.0, 'f98': 94656.0, 'f99': 39321.0, 'f100': 39723.0, 'f101': 4849.0, 'f102': 35087.0, 'f103': 137697.0, 'f104': 78864.0, 'f105': 52080.0, 'f106': 50718.0, 'f107': 69855.0, 'f108': 98998.0, 'f109': 51800.0, 'f110': 59827.0, 'f111': 18022.0, 'f112': 86237.0, 'f113': 8455.0, 'f114': 21460.0, 'f115': 157884.0, 'f116': 42561.0, 'f117': 47992.0, 'f118': 6163.0, 'f119': 108909.0, 'f120': 19311.0, 'f121': 18741.0, 'f122': 81541.0, 'f123': 8893.0, 'f124': 74168.0, 'f125': 59462.0, 'f126': 130271.0, 'f127': 108092.0, 'f128': 70517.0, 'f129': 21834.0, 'f130': 23119.0, 'f131': 64257.0, 'f132': 122962.0, 'f133': 21342.0, 'f134': 42093.0, 'f135': 18105.0, 'f136': 89484.0, 'f137': 17907.0, 'f138': 13534.0, 'f139': 91989.0, 'f140': 44721.0, 'f141': 17540.0, 'f142': 114277.0, 'f143': 28297.0, 'f144': 40541.0, 'f145': 45536.0, 'f146': 7826.0, 'f147': 41890.0, 'f148': 82887.0, 'f149': 126215.0, 'f150': 39814.0, 'f151': 85641.0, 'f152': 19253.0, 'f153': 42428.0, 'f154': 51109.0, 'f155': 78700.0, 'f156': 76968.0, 'f157': 13386.0, 'f158': 189826.0, 'f159': 23887.0, 'f160': 44853.0, 'f161': 102979.0, 'f162': 105219.0, 'f163': 76109.0, 'f164': 55763.0, 'f165': 71250.0, 'f166': 20647.0, 'f167': 9814.0, 'f168': 94965.0, 'f169': 51512.0, 'f170': 41205.0, 'f171': 49202.0, 'f172': 34579.0, 'f173': 75273.0, 'f174': 20829.0, 'f175': 44641.0, 'f176': 126145.0, 'f177': 38701.0, 'f178': 65610.0, 'f179': 33797.0, 'f180': 49598.0, 'f181': 21491.0, 'f182': 30104.0, 'f183': 54546.0, 'f184': 27638.0, 'f185': 43133.0, 'f186': 76676.0, 'f187': 26767.0, 'f188': 128066.0, 'f189': 103970.0, 'f190': 95489.0, 'f191': 50281.0, 'f192': 54415.0, 'f193': 17364.0, 'f194': 61298.0, 'f195': 14924.0, 'f196': 37510.0, 'f197': 41435.0, 'f198': 10651.0, 'f199': 142809.0, 'f200': 80405.0, 'f201': 45130.0, 'f202': 54138.0, 'f203': 22847.0, 'f204': 65629.0, 'f205': 22633.0, 'f206': 15358.0, 'f207': 98030.0, 'f208': 26449.0, 'f209': 74965.0, 'f210': 40210.0, 'f211': 11953.0, 'f212': 48735.0, 'f213': 9713.0, 'f214': 21846.0, 'f215': 34664.0, 'f216': 13947.0, 'f217': 40686.0, 'f218': 84068.0, 'f219': 72703.0, 'f220': 27406.0, 'f221': 93065.0, 'f222': 60749.0, 'f223': 37967.0, 'f224': 25193.0, 'f225': 44580.0, 'f226': 3995.0, 'f227': 50899.0, 'f228': 16455.0, 'f229': 30725.0, 'f230': 31586.0, 'f231': 16305.0, 'f232': 27077.0, 'f233': 9608.0, 'f234': 46276.0, 'f235': 48262.0, 'f236': 20160.0, 'f237': 21582.0, 'f238': 17786.0, 'f239': 22735.0, 'f240': 28103.0, 'f241': 29694.0, 'f242': 77244.0, 'f243': 11320.0, 'f244': 22348.0, 'f245': 28650.0, 'f246': 56713.0, 'f247': 84496.0, 'f248': 57688.0, 'f249': 18008.0, 'f250': 35660.0, 'f251': 38904.0, 'f252': 36717.0, 'f253': 27451.0, 'f254': 7103.0, 'f255': 27791.0}
+2025-08-22 11:31:41 INFO     Making predictions...
+2025-08-22 11:31:41 INFO     
+Model Performance:
+2025-08-22 11:31:41 INFO     R2 Score: 0.6737
+2025-08-22 11:31:41 INFO     MSE: 0.1480
+2025-08-22 11:31:41 INFO     RMSE: 0.3847
+2025-08-22 11:31:41 INFO     Saved test results to output/f21_inference_latent_train_test_uGMRT_t50.0_20250822113133/test_results.csv
+2025-08-22 11:31:41 INFO     
+Results saved to output/f21_inference_latent_train_test_uGMRT_t50.0_20250822113133

@@ -57,16 +57,16 @@ def average_combined_std(data: np.ndarray) -> float:
 
     # row-wise errors
     err    = (pred - truth)**2      # shape (N, 2)
-    print(f'err.shape={err.shape} \n{err[:2]}')
+    #print(f'err.shape={err.shape} \n{err[:2]}')
     # combined variance for each row (population variance across the two errors)
     row_var = np.sum(err, axis=1)   # shape (N,)
-    print(f'row_var.shape={row_var.shape} \n{row_var[:2]}')
+    #print(f'row_var.shape={row_var.shape} \n{row_var[:2]}')
 
     # group rows by their true-value pair
     buckets = defaultdict(list)
     for rv, (x_t, logf_t) in zip(row_var, truth):
         buckets[(x_t, logf_t)].append(rv)
-    print(f'buckets.keys()={buckets.keys()}')
+    #print(f'buckets.keys()={buckets.keys()}')
 
     # std-dev of the row-variances inside each true-value group
     group_stds = [np.sqrt(np.mean(v)) for v in buckets.values()]
@@ -111,12 +111,12 @@ plt.rcParams['axes.labelsize'] = fsize
 plt.rcParams['xtick.labelsize'] = fsize
 plt.rcParams['ytick.labelsize'] = fsize
 plt.rcParams['legend.fontsize'] = fsize
-fig, axes = plt.subplots(5, 3, figsize=(18, 25), sharey=True, sharex=True)
-print(f'axes.shape={axes.shape}')
-#gs = gridspec.GridSpec(1,1)
 
 teles = ['gmrt50h', 'gmrt500h', 'ska50h']
-feats = ['noisy', 'denoised', 'latent']
+feats = ['noisy', 'denoised', 'latent', 'latentdiffseed']
+fig, axes = plt.subplots(len(feats)+2, len(teles), figsize=(18, 30), sharey=True, sharex=True)
+#print(f'axes.shape={axes.shape}')
+#gs = gridspec.GridSpec(1,1)
 folders = ['', 'noise_sub/']
 tags = ['', 'nsub_']
 autocorr_cut = 1000
@@ -138,8 +138,12 @@ def compute_pvalue_for_group(predictions, true_value):
     p_value = np.mean(deviations_preds >= deviation_true)
     return p_value
 
-for i in range(5):
-    for j in range(3):
+scoresg={}
+scoresp={}
+scoresf={}
+scoresx={}
+for i in range(len(feats)+2):
+    for j in range(len(teles)):
         ax0 = axes[i,j]
         g_score = 0.0
         f_score = 0.0
@@ -199,14 +203,14 @@ for i in range(5):
         if i > 1:
             tele = teles[j]
             feat = feats[i-2]
-            filepath = f"{args.results_dir}/inference_{tele}/{feat}*/test_results.csv"
+            filepath = f"{args.results_dir}/inference_{tele}/{feat}_*/test_results.csv"
             #print(filepath)
             file = glob.glob(filepath)[0]
 
             #Plot the x_HI measurements from the Lyα forest
             #ax0.axvspan(0,0.21+0.17,alpha=0.2,color='grey')
             #ax0.text(0.025, -3.82,r'Limit from Ly$\alpha$ data',color='darkgrey',fontsize=fsize_meas)       #Greig et al. 2024, MNRAS, 530, 3208
-            #print(f"loading result file: {file}")
+            print(f"###############\nloading result file: {file}\n################")
             all_results = np.loadtxt(file, delimiter=",", skiprows=1)
 
             #xHI_mean = np.reshape(all_results[:,2],(-1,Nsteps))[:,0]
@@ -220,8 +224,8 @@ for i in range(5):
             logfX_post = np.reshape(all_results[:,1],(-1,Nsteps))
             logfX_post = np.vstack((logfX_post[0], logfX_post[1], logfX_post[3], logfX_post[2],logfX_post[4]))
 
-            print(xHI_mean_post)
-            print(logfX_post)
+            #print(xHI_mean_post)
+            #print(logfX_post)
 
             logfX_infer = np.empty(len(logfX))
             xHI_infer = np.empty(len(logfX))
@@ -257,7 +261,10 @@ for i in range(5):
             x_score = np.sqrt(np.mean((((xHI_infer-xHI_mean)**2))))
             g_score = np.sqrt(np.mean((xHI_infer-xHI_mean)**2+((logfX_infer-logfX)**2)/25.0))
             print('G-Score=%.6f, p-value=%.6f, f-Score=%.6f, x-Score=%.6f' % (g_score, np.mean(p_values), f_score, x_score))
-
+            scoresg[f"{feat}-{tele}"]= g_score
+            scoresp[f"{feat}-{tele}"]= np.mean(p_values)
+            scoresf[f"{feat}-{tele}"]= f_score
+            scoresx[f"{feat}-{tele}"]= x_score
 
         #Make the plot look nice
         
@@ -310,6 +317,8 @@ axes[3,2].yaxis.set_label_position('right')
 axes[3,2].set_ylabel('Method B2', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
 axes[4,2].yaxis.set_label_position('right')
 axes[4,2].set_ylabel('Method B3', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
+axes[5,2].yaxis.set_label_position('right')
+axes[5,2].set_ylabel('Method B3\'', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
             
 axes[0,0].set_title(r'uGMRT$\,50\mathrm{hr}$', fontsize=fsize)
 axes[0,1].set_title(r'uGMRT$\,500\mathrm{hr}$', fontsize=fsize)
@@ -327,3 +336,8 @@ plt.savefig('%s/posterior_plot_all_comb.pdf' % ("./tmp_out"), format='pdf', bbox
 
 plt.show()
 plt.close()
+
+print(f"scoresg:\n{scoresg}")
+print(f"scoresp:\n{scoresp}")
+print(f"scoresf:\n{scoresf}")
+print(f"scoresx:\n{scoresx}")

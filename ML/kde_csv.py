@@ -18,7 +18,8 @@ for filename in glob.glob(f"{args.path}/inference_*h/*/test_results.csv"):
     print(f"path[0]={path[0]}")
     telescope = path[0]
     feature = path[1].split('_')[0]
-    if feature not in ['noisy', 'denoised', 'latent', 'laten1']:
+    #if feature not in ['noisy', 'denoised', 'latent', 'laten1']:
+    if feature not in ['latent', 'latentdiffseed']:
         continue
     print(f'processing telescope={telescope}, feature={feature}')
     # ------- 1. Read the data -------------------------------------------------------

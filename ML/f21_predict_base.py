@@ -454,6 +454,7 @@ def setup_args_parser():
     parser.add_argument('--logfx_only', action='store_true', help='calc loss for logfx only')
     parser.add_argument('--filter_test', action='store_true', help='Filter test points in important range of xHI')
     parser.add_argument('--filter_train', action='store_true', help='Filter training points in important range of xHI')
+    parser.add_argument('--extra_file_tag', type=str, default='', help='Extra tag on datafiles (e.g. _diffseed)')
 
     return parser
 
@@ -464,8 +465,8 @@ def get_datafile_list(type, args, extn='dat', filter=None, override_path=None):
     if override_path is not None:
         path = override_path
     if type == 'noisy':
-        filepattern = str('%sF21_noisy_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%dkHz_t%dh_Smin%.1fmJy_alphaR%.2f.%s' % 
-               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.spec_res, args.t_int, args.s147, args.alpha_r, extn))
+        filepattern = str('%sF21_noisy_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%dkHz_t%dh_Smin%.1fmJy_alphaR%.2f%s.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.spec_res, args.t_int, args.s147, args.alpha_r, args.extra_file_tag, extn))
     elif type == 'signalonly':
         filepattern = str('%sF21_signalonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%dkHz.%s' % 
                (path, args.redshift,args.log_fx, args.xHI, args.spec_res, extn))

@@ -100,10 +100,10 @@ def average_combined_std(data: np.ndarray) -> float:
 
 
 parser = argparse.ArgumentParser(description='Predict reionization parameters from 21cm forest')
-parser.add_argument('-p', '--filepath', type=str, default='unet', help='filepath for the test results')
-parser.add_argument('-d', '--datapath', type=str, default='unet', help='directory path for the IGM data')
+parser.add_argument('-p', '--filepath', type=str, default='saved_output/inference_gmrt50h', help='filepath for the test results')
+parser.add_argument('-d', '--datapath', type=str, default='../datasets', help='directory path for the IGM data')
 parser.add_argument('-t', '--telescope', type=str, default='uGMRT', help='telescope')
-parser.add_argument('-i', '--t_int', type=float, default=500, help='integration time of obsevation in hours')
+parser.add_argument('-i', '--t_int', type=float, default=50, help='integration time of obsevation in hours')
 parser.add_argument('-n', '--num_methods', type=int, default=500, help='Stop after n methods')
 parser.add_argument('--format', type=str, default='pdf', help='output image format')
 args = parser.parse_args()
@@ -135,10 +135,10 @@ method_labels = ['Method A1', 'Method A2', 'Method B1', 'Method B2', 'Method B3'
 fsize = 20
 fsize_meas = 16
 fsize_legend = 14
-colours  = ['royalblue','fuchsia','forestgreen','darkorange','red','lightcoral','slateblue','limegreen','teal','navy']
+#colours  = ['royalblue','fuchsia','forestgreen','darkorange','red','lightcoral','slateblue','limegreen','teal','navy']
 
 #colours  = ['royalblue','fuchsia','forestgreen','darkorange','limegreen','slateblue','lightcoral','red','teal','navy']
-#colours  = ['royalblue','mediumseagreen','darkorange','mediumturquoise','orchid', 'burlywood','forestgreen','teal','slateblue','limegreen','lightcoral','fuchsia','red','navy']
+colours  = ['royalblue','mediumseagreen','darkorange','mediumturquoise','orchid', 'burlywood','forestgreen','teal','slateblue','limegreen','lightcoral','fuchsia','red','navy']
 #colours  = ['#A7D9F0','#B3E0B3','#FFDAB9','#B3E0D9','#D9B3E0']
 #colours  = ['royalblue','mediumseagreen','darkorange','mediumturquoise','orchid'] 
 #colours = ['#1A9892', '#44328E', '#9E0142', '#216633', '#08306B']

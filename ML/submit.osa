@@ -1,0 +1,13 @@
+repeat 
+	set myTime to time string of (current date)
+	#do shell script "echo " & myTime & " >> /dev/tty"
+	if {myTime > "11:30:00 PM"} then
+		tell application "Safari" to activate
+		tell application "System Events"
+			click at {1330, 695}
+		end tell
+		exit repeat
+	end if
+end repeat
+do shell script "echo " & myTime & " >> /dev/tty"
+do shell script "echo Done! >> /dev/tty"

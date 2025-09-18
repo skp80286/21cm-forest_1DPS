@@ -15,6 +15,8 @@ from matplotlib import gridspec
 import argparse
 import plot_results as pltr
 from sklearn.metrics import r2_score
+import pandas as pd
+from scipy.stats import gaussian_kde
 
 from collections import defaultdict
 import f21_predict_base as base
@@ -80,9 +82,77 @@ def average_combined_std(data: np.ndarray) -> float:
 # y_pred = np.random.normal(loc=y_true, scale=1.0, size=50000)
 # print(average_group_std(y_true, y_pred))
 
+def kde_score(filename):
+    print(f"calculating E-score: filename={filename}")
+    path = filename.split("inference_")[1].split("/")
+    print(f"path[0]={path[0]}")
+    telescope = path[0]
+    feature = path[1].split('_')[0]
+
+    print(f'processing telescope={telescope}, feature={feature}')
+    # ------- 1. Read the data -------------------------------------------------------
+    # The CSV file lives on the notebook file‑system at this path
+    df = pd.read_csv(filename)
+
+    # The file has four columns:  (x, y) sample coordinates +
+    # two columns holding a *test* (x, y) value that identifies which
+    # of the five samples each row belongs to.
+    df.columns = ["x", "y", "test_x", "test_y"]
+
+    # A common evaluation grid for all KDEs
+    x_min, x_max = df["x"].min() - 0.1, df["x"].max() + 0.1
+    y_min, y_max = df["y"].min() - 0.1, df["y"].max() + 0.1
+    XX, YY = np.mgrid[x_min:x_max:200j, y_min:y_max:200j]
+    grid_positions = np.vstack([XX.ravel(), YY.ravel()])
+
+    # Containers for the density values at the five test points
+    kde_at_test = []
+    product = 1.0
+    avg = 0.0
+
+    # ------- 3. Loop over the five samples -----------------------------------------
+    unique_tests = df[["test_x", "test_y"]].drop_duplicates().reset_index(drop=True)
+
+    for idx, row in unique_tests.iterrows():
+        tx, ty = row["test_x"], row["test_y"]
+
+        # Extract rows that share this test point ⇒ one sample
+        mask = (df["test_x"] == tx) & (df["test_y"] == ty)
+        sample = df.loc[mask, ["x", "y"]].values.T        # shape (2, N)
+
+        # Fit & evaluate the Gaussian KDE
+        kde = gaussian_kde(sample)
+        ZZ = kde(grid_positions).reshape(XX.shape)
+
+        dx = (x_max - x_min) / 199           # 200 grid points → 199 intervals
+        dy = (y_max - y_min) / 199
+        total_prob = (ZZ.sum() * dx * dy)
+        print(total_prob)                    # 0.999…  (very close to 1)
+
+
+        # Store the KDE value at its own test point
+        dx_tile = 0.05
+        dy_tile = 0.2 
+        val = kde([tx, ty])[0]*dx_tile*dy_tile  # density * area = probability
+        print(f"True values: ({tx:.2f}, {ty:.2f}) for sample {idx + 1}")
+        kde_at_test.append(val)
+        product *= val
+        avg += val
+
+    # ------- 5. Report the KDE values & their product ------------------------------
+    print("KDE values evaluated at each sample’s test (x, y):")
+    for i, v in enumerate(kde_at_test, 1):
+        print(f"  Sample {i}: {v:.6e}")
+    e_score = 100 * (product**0.2)
+    print(f"\ntelescope={telescope}, feature={feature}, Product of the five KDE values: {product:.6e}")
+    print(f"\ntelescope={telescope}, feature={feature}, E-score : {e_score:.6e}")
+    print(f"\ntelescope={telescope}, feature={feature}, Avg of the five KDE values: {avg:.6e}")
+    return e_score
 
 parser = argparse.ArgumentParser(description='Master posterior plot for all methods and telescopes')
 parser.add_argument('--results_dir', type=str, default="saved_output", help='')
+parser.add_argument('--show_score', action='store_true', help='')
+parser.add_argument('--maxrows', type=int, default=20, help='')
 args = parser.parse_args()
 
 #Set parameters describing data
@@ -113,10 +183,15 @@ plt.rcParams['ytick.labelsize'] = fsize
 plt.rcParams['legend.fontsize'] = fsize
 
 teles = ['gmrt50h', 'gmrt500h', 'ska50h']
-feats = ['noisy', 'denoised', 'latent', 'latentdiffseed']
-fig, axes = plt.subplots(len(feats)+2, len(teles), figsize=(18, 30), sharey=True, sharex=True)
-#print(f'axes.shape={axes.shape}')
+#feats = ['noisy', 'noisydiffseed', 'denoised', 'denoiseddiffseed', 'latent', 'latentdiffseed']
+feats = ['noisy','denoised', 'latent']
+numrows = np.min([args.maxrows,len(feats)+2])
+fig, axes = plt.subplots(numrows, len(teles), figsize=(6*len(teles), 5*(numrows)), sharey=True, sharex=True)
+print(f'axes.shape={axes.shape}')
 #gs = gridspec.GridSpec(1,1)
+if numrows == 1: axes = axes.reshape((1,-1))
+print(f'axes.shape={axes.shape}')
+
 folders = ['', 'noise_sub/']
 tags = ['', 'nsub_']
 autocorr_cut = 1000
@@ -139,13 +214,15 @@ def compute_pvalue_for_group(predictions, true_value):
     return p_value
 
 scoresg={}
+scorese={}
 scoresp={}
 scoresf={}
 scoresx={}
-for i in range(len(feats)+2):
+for i in range(numrows):
     for j in range(len(teles)):
         ax0 = axes[i,j]
         g_score = 0.0
+        e_score = 0.0
         f_score = 0.0
         x_score = 0.0
         if i <= 1:
@@ -260,8 +337,10 @@ for i in range(len(feats)+2):
             f_score = np.sqrt(np.mean((((logfX_infer-logfX)**2))))
             x_score = np.sqrt(np.mean((((xHI_infer-xHI_mean)**2))))
             g_score = np.sqrt(np.mean((xHI_infer-xHI_mean)**2+((logfX_infer-logfX)**2)/25.0))
-            print('G-Score=%.6f, p-value=%.6f, f-Score=%.6f, x-Score=%.6f' % (g_score, np.mean(p_values), f_score, x_score))
+            e_score = kde_score(file)
+            print('G-Score=%.6f, E-score=%6f, p-value=%.6f, f-Score=%.6f, x-Score=%.6f' % (g_score, e_score, np.mean(p_values), f_score, x_score))
             scoresg[f"{feat}-{tele}"]= g_score
+            scorese[f"{feat}-{tele}"]= e_score
             scoresp[f"{feat}-{tele}"]= np.mean(p_values)
             scoresf[f"{feat}-{tele}"]= f_score
             scoresx[f"{feat}-{tele}"]= x_score
@@ -287,38 +366,31 @@ for i in range(len(feats)+2):
             ax0.yaxis.get_majorticklabels()[0].set_verticalalignment("bottom")
         #set title
         title = ''
-        score_str = rf'$G={g_score:.2f}, f={f_score:.2f}, x={x_score:.2f}$'
+        score_str = rf'$G={g_score:.2f}, E={e_score:.4f}$'
         
-        """
-        ax0.text(
-            0.1, -3.75,  # x, y position
-            score_str,
-            fontsize=fsize,
-            color='black',
-            bbox=dict(
-                facecolor='white',   # Background color
-                alpha=0.5,           # Transparency (0=fully transparent, 1=opaque)
-                edgecolor='black'    # Optional border
+        if args.show_score:
+            ax0.text(
+                0.1, -3.75,  # x, y position
+                score_str,
+                fontsize=fsize,
+                color='black',
+                bbox=dict(
+                    facecolor='white',   # Background color
+                    alpha=0.5,           # Transparency (0=fully transparent, 1=opaque)
+                    edgecolor='black'    # Optional border
+                )
             )
-        )
-        """
+        
         
 #axes[1,0].setylabel(r'$\log_{10}f_{\mathrm{X}}$', fontsize=fsize)
 #axes[2,1].set_xlabel(r'$\langle x_{\rm HI}\rangle$', fontsize=fsize)
 fig.supylabel(r'$\log_{10}f_{\mathrm{X}}$', fontsize=fsize)
 fig.supxlabel(r'$\langle x_{\rm HI}\rangle$', fontsize=fsize)
-axes[0,2].yaxis.set_label_position('right')
-axes[0,2].set_ylabel('Method A1', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
-axes[1,2].yaxis.set_label_position('right')
-axes[1,2].set_ylabel('Method A2', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
-axes[2,2].yaxis.set_label_position('right')
-axes[2,2].set_ylabel('Method B1', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
-axes[3,2].yaxis.set_label_position('right')
-axes[3,2].set_ylabel('Method B2', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
-axes[4,2].yaxis.set_label_position('right')
-axes[4,2].set_ylabel('Method B3', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
-axes[5,2].yaxis.set_label_position('right')
-axes[5,2].set_ylabel('Method B3\'', fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
+method_labels = ['Method A1', 'Method A2', 'Method B1', 'Method B2', 'Method B3']
+
+for l in range(numrows):
+    axes[l,len(feats)-1].yaxis.set_label_position('right')
+    axes[l,len(feats)-1].set_ylabel(method_labels[l], fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
             
 axes[0,0].set_title(r'uGMRT$\,50\mathrm{hr}$', fontsize=fsize)
 axes[0,1].set_title(r'uGMRT$\,500\mathrm{hr}$', fontsize=fsize)
@@ -338,6 +410,7 @@ plt.show()
 plt.close()
 
 print(f"scoresg:\n{scoresg}")
+print(f"scorese:\n{scorese}")
 print(f"scoresp:\n{scoresp}")
 print(f"scoresf:\n{scoresf}")
 print(f"scoresx:\n{scoresx}")

@@ -344,6 +344,55 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         info(f'denoising {label}: χ²={chisq_noisy:.2f} χ²={chisq_denoised:.2f}')
         plt.close()
 
+def plot_los_with_so(los_test, y_test_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None):
+    label=rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}'
+    for i, (noisy, test) in enumerate(zip(los_test[:samples], y_test_so[:samples])):
+        if freq_axis is None: freq_axis=range(len(noisy))
+        plt.rcParams['axes.titlesize'] = 14
+        plt.rcParams['axes.labelsize'] = 14
+        plt.rcParams['xtick.labelsize'] = 14
+        plt.rcParams['ytick.labelsize'] = 14
+        plt.rcParams['legend.fontsize'] = 14
+        plt.figure(figsize=(5.,2.5))
+        plt.title(f'{label}')
+        plt.plot(freq_axis, noisy, label=f'Signal+Noise', c='black', linewidth=0.5)
+        plt.plot(freq_axis, test, label='Signal', c='orange')
+
+        # Enable minor ticks
+        plt.minorticks_on()
+        # Customize major ticks
+        plt.tick_params(
+                    which='major',
+                    direction='in',
+                    length=6,
+                    width=1,
+                    #labelsize=12,
+                    top=True,
+                    bottom=True,
+                    left=True,
+                    right=True
+                )
+        # Customize minor ticks
+        plt.tick_params(
+                    which='minor',
+                    direction='in',
+                    length=3,
+                    width=1,
+                    top=True,
+                    bottom=True,
+                    left=True,
+                    right=True
+                )
+        plt.xlabel(r'$\nu_{obs}$[MHz]'), 
+        plt.ylabel(r'$F_{21}=e^{-\tau_{21}}$')
+        #plt.legend(loc='best')#lower right')
+        if saveplots: 
+            plt.savefig(f"{output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf", format="pdf", bbox_inches='tight')
+            info(f"Saved denoised los plot to {output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf")
+        if i> 5: break
+        if showplots: plt.show()
+        plt.close()
+
 
 def calculate_chisq_tensor(predictions, targets, epsilon=1e-10):
     """

@@ -152,29 +152,29 @@ def main():
 
         # denoised
         if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'denoised':
-            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/mixed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250607223018/ps/"
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/f21_unet_ps_dum_train_test_uGMRT_t50.0_20250418014418/ps/"
         if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'denoised':
-            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_500/mixed_f21_unet_ps_dum_train_test_uGMRT_t500.0_20250604091744/ps/"
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_500/f21_unet_ps_dum_train_test_uGMRT_t500.0_20250511164401/ps/"
         if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'denoised':
-            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/mixed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250608062755/ps/"
+            args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250511164401/ps/"
     if args.testdatapath is None:
         ## Set the testdatapath
 
         # noisy
         if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'noisy':
-            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_g50/f21_ps_dum_train_test_uGMRT_t50.0_20250410153928/test_ps/"
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_g50/diffseed_f21_ps_dum_train_test_uGMRT_t50.0_20250827234214/test_ps/"
         if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'noisy':
-            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_500/f21_ps_dum_train_test_uGMRT_t500.0_20250511105815/test_ps/"
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_500/diffseed_f21_ps_dum_train_test_uGMRT_t500.0_20250827232844/test_ps/"
         if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'noisy':
-            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_ska/f21_ps_dum_train_test_SKA1-low_t50.0_20250511105922/test_ps/"
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/noisy_ska/diffseed_f21_ps_dum_train_test_SKA1-low_t50.0_20250827235412/test_ps/"
 
         # denoised
         if args.telescope == 'uGMRT' and args.t_int == 50 and args.pstype == 'denoised':
-            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/mixed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250607223018/test_ps/"
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_50/diffseed_f21_unet_ps_dum_train_test_uGMRT_t50.0_20250828010026/test_ps/"
         if args.telescope == 'uGMRT' and args.t_int == 500 and args.pstype == 'denoised':
-            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_500/mixed_f21_unet_ps_dum_train_test_uGMRT_t500.0_20250604091744/test_ps/"
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_500/diffseed_f21_unet_ps_dum_train_test_uGMRT_t500.0_20250828010721/test_ps/"
         if args.telescope == 'SKA1-low' and args.t_int == 50 and args.pstype == 'denoised':
-            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/mixed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250608062755/test_ps/"
+            args.testdatapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/denoised_ska/diffseed_f21_unet_ps_dum_train_test_SKA1-low_t50.0_20250828010502/test_ps/"
     output_dir = base.create_output_dir(args=args)
     logger = base.setup_logging(output_dir)
 
@@ -197,6 +197,8 @@ def main():
     logger.info(f"Training data shape: X={X_train.shape}, y={y_train.shape}")
 
     logger.info("Loading test data...")
+    # TODO: Harcoding for testing with different seed
+    args.extra_file_tag = '_diffseed'
     X_test, y_test = load_test_data(override_path=args.testdatapath, samples=args.limitsamplesize, args=args)
     logger.info(f"Test data shape: X={X_test.shape}, y={y_test.shape}")
 

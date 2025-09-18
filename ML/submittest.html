@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Button at Position</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 2000px; /* allow scrolling if needed */
+            position: relative;
+        }
+        #myButton {
+            position: absolute;
+            top: 642px;
+            left: 1103px;
+            transform: translate(-50%, -50%); /* center the button exactly at the point */
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <button id="myButton">Click Me!</button>
+
+    <script>
+        document.getElementById('myButton').addEventListener('click', function() {
+            alert('Hello, world!');
+        });
+    </script>
+</body>
+</html>

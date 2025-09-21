@@ -153,6 +153,7 @@ parser = argparse.ArgumentParser(description='Master posterior plot for all meth
 parser.add_argument('--results_dir', type=str, default="saved_output", help='')
 parser.add_argument('--show_score', action='store_true', help='')
 parser.add_argument('--maxrows', type=int, default=20, help='')
+parser.add_argument('--format', type=str, default='pdf', help='output image format')
 args = parser.parse_args()
 
 #Set parameters describing data
@@ -404,7 +405,7 @@ axes[0,2].set_title(r'SKA1-low$\,50\mathrm{hr}$', fontsize=fsize)
 fig.subplots_adjust(wspace=0.02, hspace=0.02)
 
 plt.tight_layout()
-plt.savefig('%s/posterior_plot_all_comb.pdf' % ("./tmp_out"), format='pdf', bbox_inches='tight')
+plt.savefig('%s/posterior_plot_all_comb.%s' % ("./tmp_out", args.format), format=args.format, bbox_inches='tight')
 
 plt.show()
 plt.close()

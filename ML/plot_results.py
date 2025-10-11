@@ -293,8 +293,17 @@ def plot_denoised_ps(los_test, y_test_so, y_pred_so, samples=1, showplots=False,
 
 def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None):
     label=rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}'
-    for i, (noisy, test, pred) in enumerate(zip(los_test[:samples], y_test_so[:samples], y_pred_so[:samples])):
+    
+    for i in range(samples):
+        noisy, test, pred = None, None, None
+        if los_test is not None and len(los_test) > i:
+            noisy = los_test[i]
+        if y_test_so is not None and len(y_test_so) > i:
+            test = y_test_so[i]
+        if y_pred_so is not None and len(y_pred_so) > i:
+            pred = y_pred_so[i]
         if freq_axis is None: freq_axis=range(len(noisy))
+
         plt.rcParams['axes.titlesize'] = 14
         plt.rcParams['axes.labelsize'] = 14
         plt.rcParams['xtick.labelsize'] = 14
@@ -303,10 +312,13 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         plt.figure(figsize=(5.,2.5))
         plt.title(f'{label}')
         chisq_noisy = np.sum((noisy - test)**2 / test)
-        plt.plot(freq_axis, noisy, label=f'Signal+Noise: χ²={chisq_noisy:.2f}', c='black', linewidth=0.5)
-        plt.plot(freq_axis, test, label='Signal', c='orange')
-        chisq_denoised = np.sum((pred - test)**2 / test)
-        plt.plot(freq_axis, pred+0.03-0.02*f, label=f'Denoised+{0.03-0.02*f}: χ²={chisq_denoised:.2f}')
+        if noisy is not None:
+            plt.plot(freq_axis, noisy, label=f'Signal+Noise: χ²={chisq_noisy:.2f}', c='black', linewidth=0.5)
+        if test is not None:
+            plt.plot(freq_axis, test, label='Signal', c='orange')
+            #chisq_denoised = np.sum((pred - test)**2 / test)
+        if pred is not None:
+            plt.plot(freq_axis, pred+0.03-0.02*f, label=f'Denoised+{0.03-0.02*f}: χ²={chisq_denoised:.2f}')
 
         # Enable minor ticks
         plt.minorticks_on()
@@ -341,7 +353,7 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
             info(f"Saved denoised los plot to {output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf")
         if i> 5: break
         if showplots: plt.show()
-        info(f'denoising {label}: χ²={chisq_noisy:.2f} χ²={chisq_denoised:.2f}')
+        #info(f'denoising {label}: χ²={chisq_noisy:.2f} χ²={chisq_denoised:.2f}')
         plt.close()
 
 def plot_los_with_so(los_test, y_test_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None):

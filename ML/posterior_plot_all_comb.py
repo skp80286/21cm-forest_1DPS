@@ -153,6 +153,7 @@ parser = argparse.ArgumentParser(description='Master posterior plot for all meth
 parser.add_argument('--results_dir', type=str, default="saved_output", help='')
 parser.add_argument('--show_score', action='store_true', help='')
 parser.add_argument('--maxrows', type=int, default=20, help='')
+parser.add_argument('--startrow', type=int, default=0, help='')
 parser.add_argument('--format', type=str, default='pdf', help='output image format')
 args = parser.parse_args()
 
@@ -219,9 +220,10 @@ scorese={}
 scoresp={}
 scoresf={}
 scoresx={}
-for i in range(numrows):
+for rownum in range(numrows):
+    i = rownum + args.startrow
     for j in range(len(teles)):
-        ax0 = axes[i,j]
+        ax0 = axes[rownum,j]
         g_score = 0.0
         e_score = 0.0
         f_score = 0.0
@@ -391,7 +393,7 @@ method_labels = ['Method A1', 'Method A2', 'Method B1', 'Method B2', 'Method B3'
 
 for l in range(numrows):
     axes[l,len(feats)-1].yaxis.set_label_position('right')
-    axes[l,len(feats)-1].set_ylabel(method_labels[l], fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
+    axes[l,len(feats)-1].set_ylabel(method_labels[l+args.startrow], fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
             
 axes[0,0].set_title(r'uGMRT$\,50\mathrm{hr}$', fontsize=fsize)
 axes[0,1].set_title(r'uGMRT$\,500\mathrm{hr}$', fontsize=fsize)

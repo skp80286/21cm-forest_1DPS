@@ -186,7 +186,8 @@ plt.rcParams['legend.fontsize'] = fsize
 
 teles = ['gmrt50h', 'gmrt500h', 'ska50h']
 #feats = ['noisy', 'noisydiffseed', 'denoised', 'denoiseddiffseed', 'latent', 'latentdiffseed']
-feats = ['noisy','denoised', 'latent']
+#feats = ['noisy','denoised', 'latent']
+feats = ['noisydiffseed','denoiseddiffseed', 'latentdiffseed']
 numrows = np.min([args.maxrows,len(feats)+2])
 fig, axes = plt.subplots(numrows, len(teles), figsize=(6*len(teles), 5*(numrows)), sharey=True, sharex=True)
 print(f'axes.shape={axes.shape}')
@@ -284,7 +285,7 @@ for rownum in range(numrows):
             tele = teles[j]
             feat = feats[i-2]
             filepath = f"{args.results_dir}/inference_{tele}/{feat}_*/test_results.csv"
-            #print(filepath)
+            print(filepath)
             file = glob.glob(filepath)[0]
 
             #Plot the x_HI measurements from the Lyα forest

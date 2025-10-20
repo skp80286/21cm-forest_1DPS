@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # Load and prepare data
 # ------------------------
 df = pd.read_csv(sys.argv[1])
-
+label = sys.argv[1].split('_')[1].split('/')[0]
 # Rename columns for clarity
 df.rename(columns={
     "pred_xHI": "predicted_xHI",
@@ -113,8 +113,8 @@ ax[1].set_title("PIT Histogram for log fX")
 ax[1].set_xlabel("u_logfx")
 
 plt.tight_layout()
+plt.savefig(f'saved_output/coverage_tests/pit_hist_kstest_{label}.pdf', format='pdf', bbox_inches='tight')
 plt.show()
-
 # Calibration curve plots
 fig, ax = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
 
@@ -152,5 +152,5 @@ ax[1].set_ylim(0, 1.05)
 ax[1].legend()
 
 plt.tight_layout()
+plt.savefig(f'saved_output/coverage_tests/nominal_coverage_{label}.pdf', format='pdf', bbox_inches='tight')
 plt.show()
-

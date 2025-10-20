@@ -213,7 +213,7 @@ class F21DataLoader:
                     if self.use_new_ps_calc:
                         ks,ps = PS1D.get_P_new(los,bandwidth, scaled=self.scale_ps) #Calculate 1D power spectrum
                     else:
-                        ks,ps = PS1D.get_P(los,bandwidth, scaled=self.scale_ps) #Calculate 1D power spectrum
+                        ks,ps = PS1D.get_P(los,x, scaled=self.scale_ps) #Calculate 1D power spectrum
                     power_spectrum.append(ps)
 
                 if samplenum >= Nlos or psbatchnum >= self.psbatchsize:

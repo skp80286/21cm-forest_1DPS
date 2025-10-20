@@ -291,7 +291,7 @@ def plot_denoised_ps(los_test, y_test_so, y_pred_so, samples=1, showplots=False,
     info(f'{ps_so_mean.shape}')
     plot_power_spectra(np.vstack((ps_so_mean,ps_noisy_mean,ps_pred_mean)), ks_noisy[0,:], title=label, labels=["signal-only", "noisy-signal", "reconstructed"], output_dir=output_dir)
 
-def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None):
+def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None, format='pdf'):
     label=rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}'
     
     for i in range(samples):
@@ -311,9 +311,9 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         plt.rcParams['legend.fontsize'] = 14
         plt.figure(figsize=(5.,2.5))
         plt.title(f'{label}')
-        chisq_noisy = np.sum((noisy - test)**2 / test)
+        #chisq_noisy = np.sum((noisy - test)**2 / test)
         if noisy is not None:
-            plt.plot(freq_axis, noisy, label=f'Signal+Noise: χ²={chisq_noisy:.2f}', c='black', linewidth=0.5)
+            plt.plot(freq_axis, noisy, label=f'Signal+Noise', c='black', linewidth=0.5)
         if test is not None:
             plt.plot(freq_axis, test, label='Signal', c='orange')
             #chisq_denoised = np.sum((pred - test)**2 / test)
@@ -349,7 +349,7 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         plt.ylabel(r'$F_{21}=e^{-\tau_{21}}$')
         #plt.legend(loc='best')#lower right')
         if saveplots: 
-            plt.savefig(f"{output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf", format="pdf", bbox_inches='tight')
+            plt.savefig(f"{output_dir}/denoised_flux_{x:.2f}_{f:.1f}.{format}", format=f"{format}", bbox_inches='tight')
             info(f"Saved denoised los plot to {output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf")
         if i> 5: break
         if showplots: plt.show()

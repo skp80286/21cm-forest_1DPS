@@ -181,7 +181,8 @@ class ChiSquareLoss(nn.Module):
         super(ChiSquareLoss, self).__init__()
     
     def forward(self, predictions, targets):
-        return torch.sum((predictions - targets)**2 / (targets))
+        #return torch.sum((predictions - targets)**2 / (targets))
+        return torch.sum((predictions - targets)**2 / (1000**(1-targets)))
     
 class MseNormLoss(nn.Module):
     def __init__(self):
@@ -271,7 +272,7 @@ def run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, num_ep
         # Print loss for every epoch
         logger.info(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(dataloader):.8f}')
 
-        if (epoch + 1) % 10 == 0:
+        if (epoch + 1) % args.epochsbatch == 0:
             model.eval()
             model.save_model(f"{output_dir}/unet_model_{epoch + 1}.pth")  
             logger.info(f'{model.get_timing_info()}')
@@ -377,6 +378,7 @@ parser = base.setup_args_parser()
 parser.add_argument('--test_multiple', action='store_true', help='Test 1000 sets of 10 LoS for each test point and plot it')
 parser.add_argument('--test_reps', type=int, default=10000, help='Test repetitions for each parameter combination')
 parser.add_argument('--loss', type=str, default='chisq', help='chisq/mse/msenorm/logcosh')
+parser.add_argument('--epochsbatch', type=int, default=10, help='10,20, etc')
 args = parser.parse_args()
 #if args.input_points_to_use not in [2048, 128]: raise ValueError(f"Invalid input_points_to_use {args.input_points_to_use}")
 if args.input_points_to_use >= 2048: 
@@ -392,13 +394,13 @@ logger = base.setup_logging(output_dir)
 logger.info(f"input_points={args.input_points_to_use}, kernel1={kernel1}, step={step}")
 
 datafiles = []
-args.telescope = 'uGMRT'
+args.telescope = 'SKA1-low'
 args.t_int = 50
 datafiles += base.get_datafile_list(type='noisy', args=args)
 args.telescope = 'uGMRT'
 args.t_int = 500
 datafiles += base.get_datafile_list(type='noisy', args=args)
-args.telescope = 'SKA1-low'
+args.telescope = 'uGMRT'
 args.t_int = 50
 datafiles += base.get_datafile_list(type='noisy', args=args)
 so_datafiles = base.get_datafile_list(type='signalonly', args=args)
@@ -421,7 +423,37 @@ for sof, nof in zip(so_datafiles, datafiles):
         train_files.append(nof)
         sotrain_files.append(sof)
 
-validate_filelist(train_files, sotrain_files, test_files, sotest_files)
+# Get the test files from diffseed
+args.extra_file_tag='_diffseed'
+diffdatafiles = []
+args.telescope = 'uGMRT'
+args.t_int = 50
+diffdatafiles += base.get_datafile_list(type='noisy', args=args)
+args.telescope = 'uGMRT'
+args.t_int = 500
+diffdatafiles += base.get_datafile_list(type='noisy', args=args)
+args.telescope = 'SKA1-low'
+args.t_int = 50
+diffdatafiles += base.get_datafile_list(type='noisy', args=args)
+diffso_datafiles = base.get_datafile_list(type='signalonly', args=args)
+diffso_datafiles = diffso_datafiles + diffso_datafiles + diffso_datafiles
+
+difftest_files = []
+diffsotest_files = []
+
+for sof, nof in zip(diffso_datafiles, diffdatafiles):
+    is_test_file = False
+    for p in test_points:
+        if nof.find(f"fX{p[0]:.2f}_xHI{p[1]:.2f}") >= 0:
+            difftest_files.append(nof)
+            diffsotest_files.append(sof)
+            is_test_file = True
+            break
+
+print(difftest_files)
+print(diffsotest_files)
+#validate_filelist(train_files, sotrain_files, test_files, sotest_files)
+validate_filelist(train_files, sotrain_files, difftest_files, diffsotest_files)
 scaler = Scaling.Scaler(args)
 
 # Initialize the network
@@ -452,15 +484,15 @@ if args.runmode in ("train_test", "test_only", "optimize"):
         y_train_so, _, _, keys_so, freq_axis = base.load_dataset(sotrain_files, psbatchsize=1, limitsamplesize=args.limitsamplesize, save=False)
         y_train_so = reorder_so(y_train_so, keys_so, keys)
         logger.info(f"Loaded datasets X_train:{X_train.shape} y_train:{y_train.shape} y_train_so:{y_train_so.shape}")
-    logger.info(f"Loading test dataset {len(test_files)}")
-    X_test, y_test, _, keys, _ = base.load_dataset(test_files, psbatchsize=1, limitsamplesize=args.limitsamplesize, save=False)
-    y_test_so, _, _, keys_so, _ = base.load_dataset(sotest_files, psbatchsize=1, limitsamplesize=args.limitsamplesize, save=False)
+    logger.info(f"Loading test dataset {len(difftest_files)}")
+    X_test, y_test, _, keys, _ = base.load_dataset(difftest_files, psbatchsize=1, limitsamplesize=800, save=False)
+    y_test_so, _, _, keys_so, _ = base.load_dataset(diffsotest_files, psbatchsize=1, limitsamplesize=800, save=False)
     y_test_so = reorder_so(y_test_so, keys_so, keys)
 
     logger.info(f"Loaded dataset X_test:{X_test.shape} y_test:{y_test.shape} y_test_so:{y_test_so.shape}")
     X_noise = load_noise()
     if args.runmode == "train_test":
-        run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, args.epochs, args.trainingbatchsize, lr=0.0001, kernel1=kernel1, kernel2=kernel1, dropout=0.2, step=step, input_points_to_use=args.input_points_to_use, showplots=args.interactive, criterion=criterion)
+        run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, args.epochs, args.trainingbatchsize, lr=0.00001, kernel1=kernel1, kernel2=kernel1, dropout=0.2, step=step, input_points_to_use=args.input_points_to_use, showplots=args.interactive, criterion=criterion)
     elif args.runmode == "test_only":
         logger.info(f"Loading model from file {args.modelfile}")
         model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use+2, dropout=0.2, step=step)

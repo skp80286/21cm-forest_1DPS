@@ -154,7 +154,7 @@ def main():
             args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_g500/f21_unet_latent_dum_train_test_uGMRT_t500.0_20250720193911/latent/"
         if args.telescope == 'SKA1-low' and args.t_int == 50:
             args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_ska50/f21_unet_latent_dum_train_test_SKA1-low_t50.0_20250720181435/latent/"
-
+# --datapath "output/f21_unet_latent_dum_train_test_uGMRT_t500.0_20251027071807/latent/" --testdatapath "output/f21_unet_latent_dum_train_test_uGMRT_t500.0_20251027071807/test_latent/"
         ## Set the testdatapath
 
         # noisy

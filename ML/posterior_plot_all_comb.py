@@ -82,12 +82,12 @@ def average_combined_std(data: np.ndarray) -> float:
 # y_pred = np.random.normal(loc=y_true, scale=1.0, size=50000)
 # print(average_group_std(y_true, y_pred))
 
-def kde_score(filename):
+def kde_score(filename, telescope, feature):
     print(f"calculating E-score: filename={filename}")
-    path = filename.split("inference_")[1].split("/")
-    print(f"path[0]={path[0]}")
-    telescope = path[0]
-    feature = path[1].split('_')[0]
+    #path = filename.split("inference_")[1].split("/")
+    #print(f"path[0]={path[0]}")
+    #telescope = path[0]
+    #feature = path[1].split('_')[0]
 
     print(f'processing telescope={telescope}, feature={feature}')
     # ------- 1. Read the data -------------------------------------------------------
@@ -187,7 +187,7 @@ plt.rcParams['legend.fontsize'] = fsize
 teles = ['gmrt50h', 'gmrt500h', 'ska50h']
 #feats = ['noisy', 'noisydiffseed', 'denoised', 'denoiseddiffseed', 'latent', 'latentdiffseed']
 #feats = ['noisy','denoised', 'latent']
-feats = ['noisydiffseed','denoiseddiffseed', 'latentdiffseed']
+feats = ['noisydiffseed', 'denoisedmodel2', 'latentmodel2']
 numrows = np.min([args.maxrows,len(feats)+2])
 fig, axes = plt.subplots(numrows, len(teles), figsize=(6*len(teles), 5*(numrows)), sharey=True, sharex=True)
 print(f'axes.shape={axes.shape}')
@@ -341,7 +341,7 @@ for rownum in range(numrows):
             f_score = np.sqrt(np.mean((((logfX_infer-logfX)**2))))
             x_score = np.sqrt(np.mean((((xHI_infer-xHI_mean)**2))))
             g_score = np.sqrt(np.mean((xHI_infer-xHI_mean)**2+((logfX_infer-logfX)**2)/25.0))
-            e_score = kde_score(file)
+            e_score = kde_score(file, tele, feat)
             print('G-Score=%.6f, E-score=%6f, p-value=%.6f, f-Score=%.6f, x-Score=%.6f' % (g_score, e_score, np.mean(p_values), f_score, x_score))
             scoresg[f"{feat}-{tele}"]= g_score
             scorese[f"{feat}-{tele}"]= e_score
@@ -393,8 +393,8 @@ fig.supxlabel(r'$\langle x_{\rm HI}\rangle$', fontsize=fsize)
 method_labels = ['Method A1', 'Method A2', 'Method B1', 'Method B2', 'Method B3']
 
 for l in range(numrows):
-    axes[l,len(feats)-1].yaxis.set_label_position('right')
-    axes[l,len(feats)-1].set_ylabel(method_labels[l+args.startrow], fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
+    axes[l,len(teles)-1].yaxis.set_label_position('right')
+    axes[l,len(teles)-1].set_ylabel(method_labels[l+args.startrow], fontsize=fsize, fontweight='bold', labelpad=30, rotation=270)
             
 axes[0,0].set_title(r'uGMRT$\,50\mathrm{hr}$', fontsize=fsize)
 axes[0,1].set_title(r'uGMRT$\,500\mathrm{hr}$', fontsize=fsize)

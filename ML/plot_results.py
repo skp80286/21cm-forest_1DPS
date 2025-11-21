@@ -311,14 +311,17 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         plt.rcParams['legend.fontsize'] = 14
         plt.figure(figsize=(5.,2.5))
         plt.title(f'{label}')
-        #chisq_noisy = np.sum((noisy - test)**2 / test)
+        print(f'chisq: {noisy.shape}, {test.shape}')
+        chisq_noisy = np.sum((noisy - test)**2 / (test+1e-10))
         if noisy is not None:
             plt.plot(freq_axis, noisy, label=f'Signal+Noise', c='black', linewidth=0.5)
         if test is not None:
             plt.plot(freq_axis, test, label='Signal', c='orange')
-            #chisq_denoised = np.sum((pred - test)**2 / test)
+            #
         if pred is not None:
-            plt.plot(freq_axis, pred+0.03-0.02*f, label=f'Denoised+{0.03-0.02*f}: χ²={chisq_denoised:.2f}')
+            #plt.plot(freq_axis, pred+0.03-0.02*f, label=f'Denoised+{0.03-0.02*f}: χ²={chisq_denoised:.2f}')
+            plt.plot(freq_axis, pred+0.03-0.02*f, label=f'Denoised+{0.03-0.02*f}')
+            #chisq_denoised = np.sum((pred - test)**2 / (test+1e-10))
 
         # Enable minor ticks
         plt.minorticks_on()

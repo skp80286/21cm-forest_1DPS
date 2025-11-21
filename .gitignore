@@ -14,3 +14,4 @@ ML/saved_output/inference_ska50h/latent_f21_inference_unet_with_dense_train_test
 /ML/output
 /ML/tmp_out
 /ML/saved_output/inference_diff_seed
+/plotting_temp

@@ -8,7 +8,7 @@ import logging
 
 class UnetModel(nn.Module):
     logger = logging.getLogger(__name__)
-    def __init__(self, input_size, input_channels, output_size, dropout=0.2, step=4):
+    def __init__(self, input_size, input_channels, output_size, dropout=0.2, step=4, kernel1=5, kernel2=3, latentdim=256):
         super(UnetModel, self).__init__()
         self.timing_info = {
             'enc1_time': 0,
@@ -27,13 +27,15 @@ class UnetModel(nn.Module):
             'overall_time': 0
         }
 
+        padding1 = kernel1//2
+        padding2 = kernel2//2
         # Encoder
         self.enc1 = nn.Sequential(
-            nn.Conv1d(input_channels, 64, 5, padding=2),
+            nn.Conv1d(input_channels, 64, kernel1, padding=padding1),
             nn.BatchNorm1d(64),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Conv1d(64, 64, 3, padding=1),
+            nn.Conv1d(64, 64, kernel2, padding=padding2),
             nn.BatchNorm1d(64),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
@@ -41,11 +43,11 @@ class UnetModel(nn.Module):
         )
 
         self.enc2 = nn.Sequential(
-            nn.Conv1d(64, 128, 5, padding=2),
+            nn.Conv1d(64, 128, kernel1, padding=padding1),
             nn.BatchNorm1d(128),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Conv1d(128, 128, 3, padding=1),
+            nn.Conv1d(128, 128, kernel2, padding=padding2),
             nn.BatchNorm1d(128),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
@@ -53,11 +55,11 @@ class UnetModel(nn.Module):
         )
 
         self.enc3 = nn.Sequential(
-            nn.Conv1d(128, 256, 5, padding=2),
+            nn.Conv1d(128, 256, kernel1, padding=padding1),
             nn.BatchNorm1d(256),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Conv1d(256, 256, 3, padding=1),
+            nn.Conv1d(256, 256, kernel2, padding=padding2),
             nn.BatchNorm1d(256),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
@@ -65,11 +67,11 @@ class UnetModel(nn.Module):
         )
 
         self.enc4 = nn.Sequential(
-            nn.Conv1d(256, 512, 5, padding=2),
+            nn.Conv1d(256, 512, kernel1, padding=padding1),
             nn.BatchNorm1d(512),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Conv1d(512, 512, 3, padding=1),
+            nn.Conv1d(512, 512, kernel2, padding=padding2),
             nn.BatchNorm1d(512),  # Batch normalization
             nn.ReLU(),
             nn.Dropout(dropout),
@@ -78,14 +80,14 @@ class UnetModel(nn.Module):
         
         # Bottleneck
         self.flatten = nn.Flatten()
-        self.fc1 = nn.Linear(512 * (input_size//step**4), 256) 
+        self.fc1 = nn.Linear(512 * (input_size//step**4), latentdim) 
         print("## NN architecture: input_size:", input_size)
         print("## NN architecture: step size:", step)
         print("## NN architecture: fc1 Weight shape:", self.fc1.weight.shape)
         print("## NN architecture: fc1 Bias shape:", self.fc1.bias.shape)
 
         ## Expansion starts here
-        self.fc2 = nn.Linear(256, 512 * (input_size//step**4))  # Expand back to match decoder input
+        self.fc2 = nn.Linear(latentdim, 512 * (input_size//step**4))  # Expand back to match decoder input
         print("## NN architecture: fc1 Weight shape:", self.fc1.weight.shape)
         print("## NN architecture: fc1 Bias shape:", self.fc1.bias.shape)
 

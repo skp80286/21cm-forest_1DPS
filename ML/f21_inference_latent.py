@@ -48,12 +48,12 @@ def load_training_data(override_path, samples, args):
         ##
         ## Override the xHI and logfX with the accurate values from the simulation data file
         ##
-        logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+        #logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
         data = np.fromfile('%sF21_signalonly_21cmFAST_200Mpc_z6.0_fX%.2f_xHI%.2f_8kHz.dat' % (args.path,curr_logfX,curr_xHI),dtype=np.float32)
         #logger.info(f'###data:{data[:20]}')
         curr_xHI = data[1]
         curr_logfX = data[2]
-        logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+        #logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
 
         y_train[i*numgroups:(i+1)*numgroups, 0] = curr_xHI
         y_train[i*numgroups:(i+1)*numgroups, 1] = curr_logfX
@@ -61,11 +61,13 @@ def load_training_data(override_path, samples, args):
         logger.info(f'loaded training data from file. shape: {currps.shape}')
         currps_grouped = currps.reshape(-1, 10, currps.shape[1]).mean(axis=1)
 
+        """
         if i == 0:
             logger.info(f"Original array shape: {currps.shape}")
             logger.info(f"Shape after grouping and taking mean: {currps_grouped.shape}")
             logger.info(f"currps sample:\n{currps[:10,2]}")
             logger.info(f"currps sample grouped:\n{currps_grouped[0][3]}")
+        """
         X_train[i*numgroups:(i+1)*numgroups, :] = currps_grouped[:,:]
     return X_train, y_train
 
@@ -154,7 +156,7 @@ def main():
             args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_g500/f21_unet_latent_dum_train_test_uGMRT_t500.0_20250720193911/latent/"
         if args.telescope == 'SKA1-low' and args.t_int == 50:
             args.datapath = "../../../21cm-forest/code/saved_output/train_test_psbs_dump/latent_ska50/f21_unet_latent_dum_train_test_SKA1-low_t50.0_20250720181435/latent/"
-# --datapath "output/f21_unet_latent_dum_train_test_uGMRT_t500.0_20251027071807/latent/" --testdatapath "output/f21_unet_latent_dum_train_test_uGMRT_t500.0_20251027071807/test_latent/"
+
         ## Set the testdatapath
 
         # noisy

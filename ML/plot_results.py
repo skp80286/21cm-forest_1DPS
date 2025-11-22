@@ -292,7 +292,8 @@ def plot_denoised_ps(los_test, y_test_so, y_pred_so, samples=1, showplots=False,
     plot_power_spectra(np.vstack((ps_so_mean,ps_noisy_mean,ps_pred_mean)), ks_noisy[0,:], title=label, labels=["signal-only", "noisy-signal", "reconstructed"], output_dir=output_dir)
 
 def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None, format='pdf'):
-    label=rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}'
+    if x is not None and f is not None:
+        label=rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}'
     
     for i in range(samples):
         noisy, test, pred = None, None, None
@@ -309,14 +310,14 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         plt.rcParams['xtick.labelsize'] = 14
         plt.rcParams['ytick.labelsize'] = 14
         plt.rcParams['legend.fontsize'] = 14
-        plt.figure(figsize=(5.,2.5))
         plt.title(f'{label}')
-        print(f'chisq: {noisy.shape}, {test.shape}')
-        chisq_noisy = np.sum((noisy - test)**2 / (test+1e-10))
+        if noisy is not None and test is not None:
+            print(f'chisq: {noisy.shape}, {test.shape}')
+            chisq_noisy = np.sum((noisy - test)**2 / (test+1e-10))
         if noisy is not None:
             plt.plot(freq_axis, noisy, label=f'Signal+Noise', c='black', linewidth=0.5)
         if test is not None:
-            plt.plot(freq_axis, test, label='Signal', c='orange')
+            plt.plot(freq_axis, test, label='Signal', c='orange', linewidth=2)
             #
         if pred is not None:
             #plt.plot(freq_axis, pred+0.03-0.02*f, label=f'Denoised+{0.03-0.02*f}: χ²={chisq_denoised:.2f}')
@@ -350,7 +351,7 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
                 )
         plt.xlabel(r'$\nu_{obs}$[MHz]'), 
         plt.ylabel(r'$F_{21}=e^{-\tau_{21}}$')
-        #plt.legend(loc='best')#lower right')
+        plt.legend(loc='best')#lower right')
         if saveplots: 
             plt.savefig(f"{output_dir}/denoised_flux_{x:.2f}_{f:.1f}.{format}", format=f"{format}", bbox_inches='tight')
             info(f"Saved denoised los plot to {output_dir}/denoised_flux_{x:.2f}_{f:.1f}.pdf")

@@ -1,0 +1,16 @@
+#!/bin/sh
+#PBS -l cput=800:00:00
+#PBS -l walltime=72:00:00
+#PBS -l mem=128gb
+#PBS -N f2180_300
+#PBS -o /user1/sameer.patil/pbsf21unetdensemixed.out
+#PBS -j oe
+#PBS -m abe
+#PBS -M sameerkpatil@gmail.com
+#PBS -V
+#PBS -l nodes=1:ppn=10
+
+cd /user1/sameer.patil/girish-kulkarni/21cm-forest-tomas/21cm-forest_1DPS/ML
+
+time python ./f21_predict_unet_352-15.py --limitsamplesize 200 --psbatchsize 1 --scale_y --runmode train_test --target "PSOJ352*15" -r 6.1 --label "352-15" -p /user1/21cm_forest/21cmFAST_los/F21_noisy/ --input_points_to_use 3584 --epochs 39 --epochsbatch 5 --kernel1 7 --kernel2 5 --latentdim 512
+

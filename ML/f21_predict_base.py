@@ -422,8 +422,9 @@ def setup_args_parser():
     parser.add_argument('-p', '--path', type=str, default='../../../21cm-forest/data/21cmFAST_los/F21_noisy/', help='filepath')
     parser.add_argument('-z', '--redshift', type=float, default=6, help='redshift')
     parser.add_argument('-d', '--dvH', type=float, default=0.0, help='rebinning width in km/s')
-    parser.add_argument('-r', '--spec_res', type=int, default=8, help='spectral resolution of telescope (i.e. frequency channel width) in kHz')
+    parser.add_argument('-r', '--spec_res', type=float, default=8, help='spectral resolution of telescope (i.e. frequency channel width) in kHz')
     parser.add_argument('-t', '--telescope', type=str, default='uGMRT', help='telescope')
+    parser.add_argument('--target', type=str, default='PSO352-15', help='target object')
     parser.add_argument('-s', '--s147', type=float, default=64.2, help='intrinsic flux of QSO at 147Hz in mJy')
     parser.add_argument('-a', '--alpha_r', type=float, default=-0.44, help='radio spectral index of QSO')
     parser.add_argument('-i', '--t_int', type=float, default=500, help='integration time of obsevation in hours')
@@ -459,6 +460,50 @@ def setup_args_parser():
     return parser
 
 test_points = [[-3.00,0.11],[-1.00,0.11],[-2.00,0.52], [-3.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
+
+def get_rms_datafile_list(type, args, extn='dat', filter=None, override_path=None):
+    path = args.path
+    if override_path is not None:
+        path = override_path
+    if type == 'signalandnoise':
+        #F21_signalandnoise_21cmFAST_200Mpc_z6.0_fX-0.60_xHI0.24_uGMRT_PSOJ352-15_rms6.0000mJy_6.1kHz.dat
+        filepattern = str('%sF21_signalandnoise_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res, extn))
+    elif type == 'signalonly':
+        filepattern = str('%sF21_signalonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res, extn))
+    elif type == 'noiseonly':
+        filepattern = str('%sF21_noiseonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res, extn))
+
+    logger.info(f"Loading files with pattern {filepattern}")
+
+    datafiles = glob.glob(filepattern)
+
+    # apply filter if specified
+    if filter is not None:
+        train_files = []
+        test_files = []
+        for file in datafiles:
+            is_test_file = False
+            for p in test_points:
+                if file.find(f"fX{p[0]:.2f}_xHI{p[1]:.2f}") >= 0:
+                    test_files.append(file)
+                    is_test_file = True
+                    break
+            if not is_test_file:
+                train_files.append(file)
+        if filter == 'test_only': datafiles = test_files
+        elif filter == 'train_only': datafiles = train_files
+
+    datafiles = sorted(datafiles) # sorting is important because we want to reliably reproduce the test results 
+
+    if args.maxfiles is not None:
+        datafiles = datafiles[:args.maxfiles]
+
+    logger.info(f"Found {len(datafiles)} files matching pattern")
+
+    return datafiles
 
 def get_datafile_list(type, args, extn='dat', filter=None, override_path=None):
     path = args.path

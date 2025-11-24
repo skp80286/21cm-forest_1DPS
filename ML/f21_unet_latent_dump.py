@@ -58,20 +58,31 @@ torch.backends.cudnn.benchmark=False
 
 parser = base.setup_args_parser()
 parser.add_argument('--dataset', type=str, default='full', help='one of full, test_only, small_set')
+parser.add_argument('--kernel1', type=int, default=5, help='5,3,7, etc')
+parser.add_argument('--kernel2', type=int, default=3, help='5,3,7, etc')
+parser.add_argument('--latentdim', type=int, default=256, help='256, 512, etc')
 args = parser.parse_args()
 #if args.input_points_to_use not in [2048, 128]: raise ValueError(f"Invalid input_points_to_use {args.input_points_to_use}")
 if args.input_points_to_use >= 2048: 
     step = 4
-    kernel1 = 256
 else: 
     step = 2
-    kernel1 = 16
 
 output_dir = base.create_output_dir(args=args)
 logger = base.setup_logging(output_dir)
 
 ## Loading data
-datafiles = base.get_datafile_list(type='noisy', args=args)
+datafiles = []
+if args.target == "PSOJ352-15":
+    args.telescope = 'uGMRT'
+    args.rms = 6.0
+    datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
+    args.telescope = 'uGMRT'
+    args.rms = 3.3
+    datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
+else:
+    datafiles = base.get_datafile_list(type='noisy', args=args)
+
 if args.maxfiles is not None: datafiles = datafiles[:args.maxfiles]
 
 small_dataset_points = [[-3.00,0.11],[-2.00,0.11],[-1.00,0.11],[-3.00,0.25],[-2.00,0.25],[-1.00,0.25],[-3.00,0.52],[-2.00,0.52],[-1.00,0.52], [-3.00,0.80],[-2.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
@@ -108,8 +119,8 @@ logger.info(f"### Using \"{device}\" device ###")
 logger.info("####")
 
 ## Load the trained Unet model
-logger.info(f"Loading model from file {args.modelfile}")
-model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use, dropout=0.2, step=step)
+logger.info(f"Loading model from file {args.modelfile}, output_size={args.input_points_to_use}, dropout=0.2, step={step}, kernel1={args.kernel1}, kernel2={args.kernel2}, latentdim={args.latentdim}")
+model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use, dropout=0.2, step=step, kernel1=args.kernel1, kernel2=args.kernel2, latentdim=args.latentdim)
 model.load_model(args.modelfile)
 
 logger.info(f"Loading dataset {len(datafiles)}")

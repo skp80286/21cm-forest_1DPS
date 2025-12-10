@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
+import torch.nn.functional as F
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
@@ -19,7 +20,6 @@ import plot_results as pltr
 import Scaling
 import PS1D
 import F21Stats as f21stats
-from UnetModelWithDense import UnetModel
 
 import numpy as np
 import sys
@@ -58,7 +58,11 @@ class ModelTester:
             test_input, test_output = convert_to_pytorch_tensors(los_test, y_test, los_so, self.noise, silent=silent)
             if not silent: logger.info(f"Shape of test_input, test_output: {test_input.shape}, {test_output.shape}")
             y_pred_tensor = self.model(test_input)
-            test_loss = self.criterion(y_pred_tensor, test_output)
+            if args.loss.startswith('ssim'):
+                pred = y_pred_tensor.unsqueeze(1)       # [32, 3584] -> [32, 1, 3584]
+                out = y_pred_tensor.unsqueeze(1)       # [32, 3584] -> [32, 1, 3584]
+                test_loss = criterion(pred, out)
+            else: test_loss = self.criterion(y_pred_tensor, test_output)
             if not silent: logger.info(f'Test Loss: {test_loss.item():.8f}')
 
             # Calculate R2 scores
@@ -178,6 +182,65 @@ class CustomLoss(nn.Module):
 
         return total_loss
     
+
+
+def gaussian_window(window_size, sigma, channels):
+    """Create a 1D Gaussian window."""
+    coords = torch.arange(window_size).float() - window_size // 2
+    g = torch.exp(-(coords ** 2) / (2 * sigma ** 2))
+    g /= g.sum()  # normalize
+
+    # shape: (channels, 1, window_size)
+    window = g.view(1, 1, window_size).repeat(channels, 1, 1)
+    return window
+
+
+class SSIM1D(nn.Module):
+    def __init__(self, window_size=11, sigma=1.5, channels=1):
+        super().__init__()
+        self.window_size = window_size
+        self.sigma = sigma
+        self.channels = channels
+
+        # Gaussian window buffer
+        window = gaussian_window(window_size, sigma, channels)
+        self.register_buffer('window', window)
+
+        # stability constants
+        self.C1 = 0.01 ** 2
+        self.C2 = 0.03 ** 2
+
+    def forward(self, x, y):
+        """
+        x, y: tensors of shape (batch, channels, length)
+        Returns: SSIM loss = 1 - mean SSIM
+        """
+
+        # Local means
+        mu_x = F.conv1d(x, self.window, padding=self.window_size // 2, groups=self.channels)
+        mu_y = F.conv1d(y, self.window, padding=self.window_size // 2, groups=self.channels)
+
+        # Local variances
+        mu_x2 = mu_x * mu_x
+        mu_y2 = mu_y * mu_y
+        mu_xy = mu_x * mu_y
+
+        sigma_x2 = F.conv1d(x * x, self.window, padding=self.window_size // 2,
+                            groups=self.channels) - mu_x2
+        sigma_y2 = F.conv1d(y * y, self.window, padding=self.window_size // 2,
+                            groups=self.channels) - mu_y2
+        sigma_xy = F.conv1d(x * y, self.window, padding=self.window_size // 2,
+                            groups=self.channels) - mu_xy
+
+        # SSIM formula
+        ssim_num = (2 * mu_x * mu_y + self.C1) * (2 * sigma_xy + self.C2)
+        ssim_den = (mu_x2 + mu_y2 + self.C1) * (sigma_x2 + sigma_y2 + self.C2)
+
+        ssim_map = ssim_num / (ssim_den + 1e-8)
+
+        # SSIM loss = 1 - mean SSIM
+        return 1 - ssim_map.mean()
+
 class ChiSquareLoss(nn.Module):
     def __init__(self):
         super(ChiSquareLoss, self).__init__()
@@ -240,7 +303,7 @@ def run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, num_ep
 
     num_channels = 1
     if args.use_noise_channel: num_channels = 2
-    model = UnetModel(input_size=len(X_train[0]), input_channels=num_channels, output_size=len(X_train[0]), dropout=dropout, step=step, kernel1=kernel1, kernel2=kernel2, latentdim=args.latentdim)
+    model = UnetModel(input_size=len(X_train[0]), input_channels=num_channels, output_size=len(X_train[0]), dropout=dropout, step=step, kernel1=kernel1, kernel2=kernel2, latentdim=args.latentdim, pooling=args.pooling, activation=args.activation)
     logger.info(f"Created model: {model}")
     
     optimizer = optim.Adam(model.parameters(), lr=lr)
@@ -260,7 +323,11 @@ def run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, num_ep
             
             # Compute the loss
 
-            loss = criterion(predictions.view(-1), output_batch.view(-1))
+            if args.loss.startswith('ssim'):
+                pred = predictions.unsqueeze(1)       # [32, 3584] -> [32, 1, 3584]
+                out = output_batch.unsqueeze(1)       # [32, 3584] -> [32, 1, 3584]
+                loss = criterion(pred, out)
+            else: loss = criterion(predictions.view(-1), output_batch.view(-1))
             #if i == 50: logger.info(f'predictions:{predictions}\input_batch:{input_batch}\noutput_batch:{output_batch}\nloss:{loss}')
 
             # Backpropagation
@@ -379,12 +446,22 @@ def reorder_so(y_so, keys_so, keys):
 parser = base.setup_args_parser()
 parser.add_argument('--test_multiple', action='store_true', help='Test 1000 sets of 10 LoS for each test point and plot it')
 parser.add_argument('--test_reps', type=int, default=10000, help='Test repetitions for each parameter combination')
-parser.add_argument('--loss', type=str, default='chisq', help='chisq/mse/msenorm/logcosh')
+parser.add_argument('--loss', type=str, default='chisq', help='chisq/mse/msenorm/logcosh/ssim')
 parser.add_argument('--epochsbatch', type=int, default=10, help='10,20, etc')
 parser.add_argument('--kernel1', type=int, default=5, help='5,3,7, etc')
 parser.add_argument('--kernel2', type=int, default=3, help='5,3,7, etc')
 parser.add_argument('--latentdim', type=int, default=256, help='256, 512, etc')
+parser.add_argument('--dropout', type=float, default=0.2, help='value between 0 and 1')
+parser.add_argument('--pooling', type=str, default='max', help='max, avg, etc')
+parser.add_argument('--activation', type=str, default='relu', help='relu, elu, leaky, etc')
+parser.add_argument('--unet_model', type=str, default='skip', help='skip, noskip, etc')
 args = parser.parse_args()
+
+if args.unet_model == 'skip':
+    from UnetModelWithDense import UnetModel
+else:
+    from UnetModelNoSkip import UnetModel
+
 #if args.input_points_to_use not in [2048, 128]: raise ValueError(f"Invalid input_points_to_use {args.input_points_to_use}")
 if args.input_points_to_use >= 2048: 
     step = 4
@@ -394,7 +471,7 @@ else:
 output_dir = base.create_output_dir(args=args)
 logger = base.setup_logging(output_dir)
 
-logger.info(f"input_points={args.input_points_to_use}, kernel1={args.kernel1}, step={step}")
+logger.info(f"input_points={args.input_points_to_use}, kernel1={args.kernel1}, kernel2={args.kernel2}, dropout={args.dropout}, step={step}")
 
 datafiles = []
 so_datafiles = []
@@ -447,6 +524,11 @@ if args.runmode in ("train_test", "test_only", "optimize"):
     if args.loss == 'chisq': criterion = ChiSquareLoss() 
     elif args.loss == 'mse': criterion = nn.MSELoss()
     elif args.loss == 'logcosh': criterion = LogCoshLoss()
+    elif args.loss == 'ssim': criterion = SSIM1D()
+    elif args.loss == 'ssim3': criterion = SSIM1D(window_size=3)
+    elif args.loss == 'ssim5': criterion = SSIM1D(window_size=5)
+    elif args.loss == 'ssim7': criterion = SSIM1D(window_size=7)
+    elif args.loss == 'ssim15': criterion = SSIM1D(window_size=15)
     else: criterion = MseNormLoss() 
     
     if args.runmode in ("train_test", "optimize") :
@@ -463,10 +545,10 @@ if args.runmode in ("train_test", "test_only", "optimize"):
     logger.info(f"Loaded dataset X_test:{X_test.shape} y_test:{y_test.shape} y_test_so:{y_test_so.shape}")
     X_noise = load_noise()
     if args.runmode == "train_test":
-        run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, args.epochs, args.trainingbatchsize, lr=0.00001, kernel1=args.kernel1, kernel2=args.kernel2, dropout=0.2, step=step, input_points_to_use=args.input_points_to_use, showplots=args.interactive, criterion=criterion)
+        run(X_train, X_test, y_train, y_train_so, y_test, y_test_so, X_noise, args.epochs, args.trainingbatchsize, lr=0.00001, kernel1=args.kernel1, kernel2=args.kernel2, dropout=args.dropout, step=step, input_points_to_use=args.input_points_to_use, showplots=args.interactive, criterion=criterion)
     elif args.runmode == "test_only":
         logger.info(f"Loading model from file {args.modelfile}")
-        model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use+2, dropout=0.2, step=step, kernel1=args.kernel1, kernel2=args.kernel2, latentdim=args.latentdim)
+        model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use+2, dropout=args.dropout, step=step, kernel1=args.kernel1, kernel2=args.kernel2, latentdim=args.latentdim, pooling=args.pooling, activation=args.activation)
         model.load_model(args.modelfile)
         logger.info(f"testing with {len(X_test)} test cases")
         test(X_test, y_test, y_test_so, None, model, criterion, args.input_points_to_use, "test_only")

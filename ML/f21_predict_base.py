@@ -403,6 +403,8 @@ def create_output_dir(args):
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
         print("created " + output_dir)
+    else:
+        raise ValueError(f'Output directory already exists! {output_dir}')
     return output_dir
 
 def setup_logging(output_dir):
@@ -424,7 +426,8 @@ def setup_args_parser():
     parser.add_argument('-d', '--dvH', type=float, default=0.0, help='rebinning width in km/s')
     parser.add_argument('-r', '--spec_res', type=float, default=8, help='spectral resolution of telescope (i.e. frequency channel width) in kHz')
     parser.add_argument('-t', '--telescope', type=str, default='uGMRT', help='telescope')
-    parser.add_argument('--target', type=str, default='PSO352-15', help='target object')
+    parser.add_argument('--target', type=str, default='PSOJ352*15', help='target object')
+    parser.add_argument('--rms', type=float, help='The rms, in case of PSOJ352-15 data')
     parser.add_argument('-s', '--s147', type=float, default=64.2, help='intrinsic flux of QSO at 147Hz in mJy')
     parser.add_argument('-a', '--alpha_r', type=float, default=-0.44, help='radio spectral index of QSO')
     parser.add_argument('-i', '--t_int', type=float, default=500, help='integration time of obsevation in hours')
@@ -467,14 +470,14 @@ def get_rms_datafile_list(type, args, extn='dat', filter=None, override_path=Non
         path = override_path
     if type == 'signalandnoise':
         #F21_signalandnoise_21cmFAST_200Mpc_z6.0_fX-0.60_xHI0.24_uGMRT_PSOJ352-15_rms6.0000mJy_6.1kHz.dat
-        filepattern = str('%sF21_signalandnoise_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz.%s' % 
-               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res, extn))
+        filepattern = str('%sF21_signalandnoise_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz%s.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res,args.extra_file_tag,extn))
     elif type == 'signalonly':
-        filepattern = str('%sF21_signalonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz.%s' % 
-               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res, extn))
+        filepattern = str('%sF21_signalonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz%s.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res,args.extra_file_tag,extn))
     elif type == 'noiseonly':
-        filepattern = str('%sF21_noiseonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz.%s' % 
-               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res, extn))
+        filepattern = str('%sF21_noiseonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz%s.%s' % 
+               (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res,args.extra_file_tag,extn))
 
     logger.info(f"Loading files with pattern {filepattern}")
 

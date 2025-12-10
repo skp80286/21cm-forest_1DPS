@@ -35,10 +35,15 @@ import os
 
 def load_training_data(override_path, samples, args):
     # little hack to load _diffseed files only for testing
-    args.extra_file_tag=''
-    files = base.get_datafile_list('noisy', args, extn='npy', override_path=override_path)
+    #print(f'Loading training data for target {args.target}')
+    if args.target.startswith('PSOJ352'): 
+        files = base.get_rms_datafile_list('signalandnoise', args, extn='npy', override_path=override_path)
+    else:
+        args.extra_file_tag=''
+        files = base.get_datafile_list('noisy', args, extn='npy', override_path=override_path)
+
     numgroups = samples//args.training_sample_group_size
-    X_train = np.zeros((numgroups*len(files), 256))
+    X_train = np.zeros((numgroups*len(files), args.latentdim))
     y_train = np.zeros((numgroups*len(files), 2))
     
     for i, file in enumerate(files):
@@ -57,25 +62,31 @@ def load_training_data(override_path, samples, args):
 
         y_train[i*numgroups:(i+1)*numgroups, 0] = curr_xHI
         y_train[i*numgroups:(i+1)*numgroups, 1] = curr_logfX
-        currps = np.load(file)[:samples,:256]
-        logger.info(f'loaded training data from file. shape: {currps.shape}')
-        currps_grouped = currps.reshape(-1, 10, currps.shape[1]).mean(axis=1)
+        currps = np.load(file)[:samples,:args.latentdim]
+        #logger.info(f'loaded training data from file. shape: {currps.shape}')
+        if args.training_sample_group_size > 1:
+            currps_grouped = currps.reshape(-1, 10, currps.shape[1]).mean(axis=1)
+        else:
+            currps_grouped = currps
 
-        """
         if i == 0:
             logger.info(f"Original array shape: {currps.shape}")
             logger.info(f"Shape after grouping and taking mean: {currps_grouped.shape}")
             logger.info(f"currps sample:\n{currps[:10,2]}")
             logger.info(f"currps sample grouped:\n{currps_grouped[0][3]}")
-        """
         X_train[i*numgroups:(i+1)*numgroups, :] = currps_grouped[:,:]
     return X_train, y_train
 
 def load_test_data(override_path, samples, args):
     # little hack to load _diffseed files only for testing
     args.extra_file_tag='_diffseed'
-    files = base.get_datafile_list('noisy', args, extn='npy', override_path=override_path)
-    X_test = np.zeros((10000*len(files), 256))
+    #args.extra_file_tag=''
+    if args.target.startswith('PSOJ352'): 
+        files = base.get_rms_datafile_list('signalandnoise', args, extn='npy', override_path=override_path)
+    else:
+        files = base.get_datafile_list('noisy', args, extn='npy', override_path=override_path)
+
+    X_test = np.zeros((10000*len(files), args.latentdim))
     y_test = np.zeros((10000*len(files), 2))
     for i, file in enumerate(files):
         curr_xHI = float(file.split('xHI')[1].split('_')[0])
@@ -93,8 +104,8 @@ def load_test_data(override_path, samples, args):
         
         y_test[i*10000:(i+1)*10000, 0] = curr_xHI
         y_test[i*10000:(i+1)*10000, 1] = curr_logfX
-        currps = np.load(file)[samples:,:256]
-        logger.info(f'loaded training data from file. shape: {currps.shape}')
+        currps = np.load(file)[samples:,:args.latentdim]
+        #logger.info(f'loaded training data from file. shape: {currps.shape}')
 
         currps_boot = f21stats.bootstrap(ps=currps, reps=10000, size=10)
         X_test[i*10000:(i+1)*10000, :] = currps_boot
@@ -143,6 +154,8 @@ def main():
     parser.add_argument('--datapath', type=str, help='PS data path')
     parser.add_argument('--testdatapath', type=str, help='test PS data path')
     parser.add_argument('--training_sample_group_size', type=int, default=10, help='Number of samples of spectrum to be grouped')
+    parser.add_argument('--latentdim', type=int, default=256, help='256, 512, etc')
+
     
     args = parser.parse_args()
 

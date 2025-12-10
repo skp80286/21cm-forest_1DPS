@@ -1,0 +1,19 @@
+Training Data:
+output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052824
+
+2025-12-06 05:28:24 INFO     Commandline: ./f21_unet_latent_dump.py --limitsamplesize 1000 --psbatchsize 1 --target PSOJ352*15 -r 6.1 --kernel1 5 --kernel2 3 --latentdim 512 --input_points_to_use 3584 --target PSOJ352*15 --label latent dump PSO352-15 -p /user1/21cm_forest/21cmFAST_los/F21_noisy/ --dataset full --modelfile output/f21_predict_unet_352-15_train_test_uGMRT_t500_20251202222943/unet_model_50.pth --dropout 0.2 --pooling avg
+
+Test Data:
+output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052249
+2025-12-06 05:22:49 INFO     Commandline: ./f21_unet_latent_dump.py --limitsamplesize 1000 --psbatchsize 1 --dataset test_only --extra_file_tag _diffseed --target PSOJ352*15 -r 6.1 --kernel1 5 --kernel2 3 --latentdim 512 --input_points_to_use 3584 --target PSOJ352*15 --label latent dump PSO352-15 -p /user1/21cm_forest/21cmFAST_los/F21_noisy/ --dataset full --modelfile output/f21_predict_unet_352-15_train_test_uGMRT_t500_20251202222943/unet_model_50.pth --dropout 0.2 --pooling avg
+
+python f21_inference_latent.py --limitsamplesize 200 --t_int 50 -t uGMRT --datapath "output/f21_unet_latent_dum_train_test_uGMRT_t50.0_20251027065235/latent/" --testdatapath "output/f21_unet_latent_dum_train_test_uGMRT_t50.0_20251027070059/test_latent/"
+
+python f21_inference_latent.py --limitsamplesize 200 --target "PSOJ352*15" -r 6.1 --latentdim 512 -p /user1/21cm_forest/21cmFAST_los/F21_noisy/ --datapath "output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052824/latent/" --testdatapath "output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052249/test_latent/" --rms 6
+
+python f21_inference_latent.py --limitsamplesize 200 --target "PSOJ352*15" -r 6.1 --latentdim 512 -p /user1/21cm_forest/21cmFAST_los/F21_noisy/ --datapath "output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052824/latent/" --testdatapath "output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052249/test_latent/" --rms 3.3
+
+python f21_inference_latent.py --limitsamplesize 200 --target "PSOJ352*15" -r 6.1 --latentdim 512 -p /user1/21cm_forest/21cmFAST_los/F21_noisy/ --datapath "output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052824/latent/" --testdatapath "output/f21_unet_latent_dum_train_test_uGMRT_t500_20251206052824/test_latent/" --rms 3.3
+
+python f21_inf_cnn1.py --limitsamplesize 200 --target "PSOJ352*15" -r 6.1  -p /user1/21cm_forest/21cmFAST_los/F21_noisy/  --input_points_to_use 3584 
+

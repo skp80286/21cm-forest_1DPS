@@ -291,9 +291,9 @@ def plot_denoised_ps(los_test, y_test_so, y_pred_so, samples=1, showplots=False,
     info(f'{ps_so_mean.shape}')
     plot_power_spectra(np.vstack((ps_so_mean,ps_noisy_mean,ps_pred_mean)), ks_noisy[0,:], title=label, labels=["signal-only", "noisy-signal", "reconstructed"], output_dir=output_dir)
 
-def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None, format='pdf'):
+def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False, saveplots=True, output_dir='tmp_out', x=None, f=None,freq_axis=None, format='pdf', label=''):
     if x is not None and f is not None:
-        label=rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}'
+        label = rf'$\langle xHI\rangle$={x:.2f}, log$(f_X)$={f:.1f}, ' + label
     
     for i in range(samples):
         noisy, test, pred = None, None, None
@@ -310,6 +310,7 @@ def plot_denoised_los(los_test, y_test_so, y_pred_so, samples=1, showplots=False
         plt.rcParams['xtick.labelsize'] = 14
         plt.rcParams['ytick.labelsize'] = 14
         plt.rcParams['legend.fontsize'] = 14
+        plt.figure(figsize=(7.,5))
         plt.title(f'{label}')
         if noisy is not None and test is not None:
             print(f'chisq: {noisy.shape}, {test.shape}')

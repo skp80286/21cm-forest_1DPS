@@ -61,6 +61,10 @@ parser.add_argument('--dataset', type=str, default='full', help='one of full, te
 parser.add_argument('--kernel1', type=int, default=5, help='5,3,7, etc')
 parser.add_argument('--kernel2', type=int, default=3, help='5,3,7, etc')
 parser.add_argument('--latentdim', type=int, default=256, help='256, 512, etc')
+parser.add_argument('--dropout', type=float, default=0.2, help='value between 0 and 1')
+parser.add_argument('--pooling', type=str, default='max', help='max, avg, etc')
+parser.add_argument('--activation', type=str, default='relu', help='relu, elu, leaky, etc')
+
 args = parser.parse_args()
 #if args.input_points_to_use not in [2048, 128]: raise ValueError(f"Invalid input_points_to_use {args.input_points_to_use}")
 if args.input_points_to_use >= 2048: 
@@ -73,7 +77,7 @@ logger = base.setup_logging(output_dir)
 
 ## Loading data
 datafiles = []
-if args.target == "PSOJ352-15":
+if args.target.startswith("PSOJ352"):
     args.telescope = 'uGMRT'
     args.rms = 6.0
     datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
@@ -86,7 +90,7 @@ else:
 if args.maxfiles is not None: datafiles = datafiles[:args.maxfiles]
 
 small_dataset_points = [[-3.00,0.11],[-2.00,0.11],[-1.00,0.11],[-3.00,0.25],[-2.00,0.25],[-1.00,0.25],[-3.00,0.52],[-2.00,0.52],[-1.00,0.52], [-3.00,0.80],[-2.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
-test_points = [[-3,0.11], [-3,0.80], [-1,0.11], [-1,0.80], [-2,0.52]]
+test_points = [[-3,0.11], [-3,0.80], [-1,0.11], [-1,0.80], [-2,0.52], [-3.6,0.80], [-3.6,0.51], [-3.6,0.24]]
 
 train_files = []
 test_files = []
@@ -120,7 +124,7 @@ logger.info("####")
 
 ## Load the trained Unet model
 logger.info(f"Loading model from file {args.modelfile}, output_size={args.input_points_to_use}, dropout=0.2, step={step}, kernel1={args.kernel1}, kernel2={args.kernel2}, latentdim={args.latentdim}")
-model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use, dropout=0.2, step=step, kernel1=args.kernel1, kernel2=args.kernel2, latentdim=args.latentdim)
+model = UnetModel(input_size=args.input_points_to_use, input_channels=1, output_size=args.input_points_to_use, dropout=0.2, step=step, kernel1=args.kernel1, kernel2=args.kernel2, latentdim=args.latentdim, pooling=args.pooling, activation=args.activation)
 model.load_model(args.modelfile)
 
 logger.info(f"Loading dataset {len(datafiles)}")

@@ -15,3 +15,16 @@ ML/saved_output/inference_ska50h/latent_f21_inference_unet_with_dense_train_test
 /ML/tmp_out
 /ML/saved_output/inference_diff_seed
 /plotting_temp
+ML/.testing_f21_inference.txt.swp
+/datasets
+ML/coverage_calibration_20251210170552/coverage_alpha.pdf
+ML/coverage_calibration_20251210170552/coverage_alpha.png
+ML/coverage_calibration_20251210170552/coverage_calibration.log
+ML/coverage_calibration_20251210170552/coverage_results.csv
+ML/coverage_calibration_20251210171817/coverage_alpha.pdf
+ML/coverage_calibration_20251210171817/coverage_alpha.png
+ML/coverage_calibration_20251210171817/coverage_calibration.log
+ML/coverage_calibration_20251210171817/coverage_results.csv
+ML/summary.csv
+ML/test.py
+ML/testing_f21_inference.rtf

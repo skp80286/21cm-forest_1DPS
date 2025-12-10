@@ -8,7 +8,7 @@ import logging
 
 class UnetModel(nn.Module):
     logger = logging.getLogger(__name__)
-    def __init__(self, input_size, input_channels, output_size, dropout=0.2, step=4, kernel1=5, kernel2=3, latentdim=256):
+    def __init__(self, input_size, input_channels, output_size, dropout=0.2, step=4, kernel1=5, kernel2=3, latentdim=256, pooling='max', activation='relu'):
         super(UnetModel, self).__init__()
         self.timing_info = {
             'enc1_time': 0,
@@ -27,6 +27,15 @@ class UnetModel(nn.Module):
             'overall_time': 0
         }
 
+        if pooling == 'max': PoolClass = nn.MaxPool1d
+        elif pooling == 'avg': PoolClass = nn.AvgPool1d
+        else: raise ValueError(f'Invalid pooling {pooling}')
+
+        if activation == 'relu': ActivationClass = nn.ReLU
+        elif activation == 'leaky': ActivationClass = nn.LeakyReLU
+        elif activation == 'elu': ActivationClass = nn.ELU
+        else: raise ValueError(f'Invalid activation {activation}')
+
         padding1 = kernel1//2
         padding2 = kernel2//2
         print(f'Padding sizes: {padding1}, {padding2}')
@@ -34,49 +43,49 @@ class UnetModel(nn.Module):
         self.enc1 = nn.Sequential(
             nn.Conv1d(input_channels, 64, kernel1, padding=padding1),
             nn.BatchNorm1d(64),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
             nn.Conv1d(64, 64, kernel2, padding=padding2),
             nn.BatchNorm1d(64),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
-            nn.MaxPool1d(step)
+            PoolClass(step)
         )
 
         self.enc2 = nn.Sequential(
             nn.Conv1d(64, 128, kernel1, padding=padding1),
             nn.BatchNorm1d(128),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
             nn.Conv1d(128, 128, kernel2, padding=padding2),
             nn.BatchNorm1d(128),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
-            nn.MaxPool1d(step)
+            PoolClass(step)
         )
 
         self.enc3 = nn.Sequential(
             nn.Conv1d(128, 256, kernel1, padding=padding1),
             nn.BatchNorm1d(256),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
             nn.Conv1d(256, 256, kernel2, padding=padding2),
             nn.BatchNorm1d(256),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
-            nn.MaxPool1d(step)
+            PoolClass(step)
         )
 
         self.enc4 = nn.Sequential(
             nn.Conv1d(256, 512, kernel1, padding=padding1),
             nn.BatchNorm1d(512),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
             nn.Conv1d(512, 512, kernel2, padding=padding2),
             nn.BatchNorm1d(512),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout),
-            nn.MaxPool1d(step)
+            PoolClass(step)
         )
         
         # Bottleneck
@@ -96,30 +105,30 @@ class UnetModel(nn.Module):
 
         # Decoder
         self.dec0 = nn.Sequential(
-            nn.ConvTranspose1d(1024, 256, step, stride=step, output_padding=0),
+            nn.ConvTranspose1d(512, 256, step, stride=step, output_padding=0),
             nn.BatchNorm1d(256),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout)
         )
 
         self.dec1 = nn.Sequential(
-            nn.ConvTranspose1d(512, 128, step, stride=step, output_padding=0),
+            nn.ConvTranspose1d(256, 128, step, stride=step, output_padding=0),
             nn.BatchNorm1d(128),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout)
         )
 
         self.dec2 = nn.Sequential(
-            nn.ConvTranspose1d(256, 64, step, stride=step, output_padding=0),
+            nn.ConvTranspose1d(128, 64, step, stride=step, output_padding=0),
             nn.BatchNorm1d(64),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout)
         )
 
         self.dec3 = nn.Sequential(
-            nn.ConvTranspose1d(128, 32, step, stride=step, output_padding=0),
+            nn.ConvTranspose1d(64, 32, step, stride=step, output_padding=0),
             nn.BatchNorm1d(32),  # Batch normalization
-            nn.ReLU(),
+            ActivationClass(),
             nn.Dropout(dropout)
         )
 
@@ -166,7 +175,7 @@ class UnetModel(nn.Module):
         ## Expansion starts here
         x = self.fc2(x)
         x = self.unflatten(x)
-        x = torch.cat([x, enc4], dim=1)
+        #x = torch.cat([x, enc4], dim=1)
         self.timing_info['dense_time'] += (time.time() - dense_start)  # Time taken for dense
 
         # Decoder with skip connections
@@ -175,7 +184,7 @@ class UnetModel(nn.Module):
         self.timing_info['dec0_time'] += (time.time() - dec0_start)  # Time taken for dec0
         #print(f"After dec0: {dec0.shape}")  
         dec0cat_start = time.time()  # Start timing for dec1
-        dec0 = torch.cat([dec0, enc3], dim=1)
+        #dec0 = torch.cat([dec0, enc3], dim=1)
         self.timing_info['dec0cat_time'] += (time.time() - dec0cat_start)  # Time taken for dec1cat
 
         dec1_start = time.time()  # Start timing for dec1
@@ -184,7 +193,7 @@ class UnetModel(nn.Module):
         #print(f"After dec1: {dec1.shape}")  
 
         dec1cat_start = time.time()  # Start timing for dec1
-        dec1 = torch.cat([dec1, enc2], dim=1)
+        #dec1 = torch.cat([dec1, enc2], dim=1)
         self.timing_info['dec1cat_time'] += (time.time() - dec1cat_start)  # Time taken for dec1cat
         #print(f"After dec1-cat: {dec1.shape}")        
 
@@ -195,7 +204,7 @@ class UnetModel(nn.Module):
         #print(f"After dec1: {dec1.shape}")        
 
         dec2cat_start = time.time()  # Start timing for dec1
-        dec2 = torch.cat([dec2, enc1], dim=1)
+        #dec2 = torch.cat([dec2, enc1], dim=1)
         self.timing_info['dec2cat_time'] += (time.time() - dec2cat_start)  # Time taken for dec1
         #print(f"After dec1-cat: {dec1.shape}")        
         
@@ -203,7 +212,7 @@ class UnetModel(nn.Module):
         dec3 = self.dec3(dec2)
         self.timing_info['dec3_time'] += (time.time() - dec3_start)  # Time taken for dec3
         #print(f"After dec2: {dec2.shape}")        
-        #dec3 = torch.cat([dec3, x], dim=1)
+        ##dec3 = torch.cat([dec3, x], dim=1)
                  
         #print(f"Before final: {dec4.shape}")
         out = self.final(dec3)

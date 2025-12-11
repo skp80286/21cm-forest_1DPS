@@ -222,7 +222,7 @@ class FeatureGridPoint:
     features: np.ndarray  # shape (n_samples, n_features)
 
 
-def parse_params_from_filename(filename: str) -> Tuple[float, float]:
+def parse_params_from_filename(filename: str, losdatapath='/user1/21cm_forest/21cmFAST_los/F21_noisy/') -> Tuple[float, float]:
     """Extract (xHI, logfX) from a .npy filename.
 
     The function assumes that the filename contains patterns like
@@ -253,8 +253,17 @@ def parse_params_from_filename(filename: str) -> Tuple[float, float]:
             f"Cannot parse xHI/logfX from filename: {filename}.\n"
             "Expected something like '...xHI0.10_logfX-2.0.npy'"
         )
-    xHI_str, logfX_str = match.groups()
-    return float(xHI_str), float(logfX_str)
+    curr_logfX, curr_xHI = match.groups()
+    ##  
+    ## Override the xHI and logfX with the accurate values from the simulation data file
+    ##
+    #LOGGER.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+    data = np.fromfile('%sF21_signalonly_21cmFAST_200Mpc_z6.0_fX%s_xHI%s_8kHz.dat' % (losdatapath,curr_logfX,curr_xHI),dtype=np.float32)
+    #logger.info(f'###data:{data[:20]}')
+    curr_xHI = data[1]
+    curr_logfX = data[2]
+    #LOGGER.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+    return curr_xHI, curr_logfX
 
 
 def load_feature_grid(features_dir: str) -> List[FeatureGridPoint]:
@@ -805,8 +814,8 @@ def run_coverage_pipeline(
 
     # (i) Draw N = n_mocks true parameter vectors from the priors
     for j in range(n_mocks):
-        xHI_true = rng.uniform(0.0, 1.0)          # <xHI> ~ Uniform(0, 1)
-        log10_fX_true = rng.uniform(-4.0, +1.0)    # log10(fX) ~ Uniform(-4, +1)
+        xHI_true = rng.uniform(0.1, 0.9)          # <xHI> ~ Uniform(0, 1)
+        log10_fX_true = rng.uniform(-3.5, -1.0)    # log10(fX) ~ Uniform(-4, +1)
 
         theta_true = np.array([xHI_true, log10_fX_true], dtype=float)
         true_params_list.append(theta_true)
@@ -837,10 +846,11 @@ def run_coverage_pipeline(
         # Fit a 2D Gaussian to the predictive samples to define iso-contours
         mean, cov = gaussian_posterior_from_predictions(preds_mc)
         LOGGER.info(f'mean.shape={mean.shape}, cov.shape={cov.shape}')
+        LOGGER.info(f'mean={mean}, cov={cov}')
 
         # Compute squared Mahalanobis distance of theta_true from the posterior mean
         d2 = mahalanobis_sq(theta_true, mean, cov)
-        LOGGER.info(f'd2.shape={d2.shape}')
+        LOGGER.info(f'd2={d2}')
         d2_list.append(d2)
 
     true_params_arr = np.vstack(true_params_list)
@@ -881,6 +891,7 @@ def run_coverage_pipeline_1(
     n_mc_samples: int = 1000,
     k_neighbors: int = 4,
     seed: int = 1234,
+    grouping: int = 10,
 ) -> None:
     """Run the full coverage-calibration pipeline.
 
@@ -916,6 +927,10 @@ def run_coverage_pipeline_1(
     for idx, row in df_test.iterrows():
         test_xHI = float(row["test_xHI"])
         test_logfX = float(row["test_logfX"])
+        if np.abs(test_xHI-0.11) > 0.01 or np.abs(test_logfX+0.3) > 0.01 : continue
+
+        test_xHI = float(row["pred_xHI"])
+        test_logfX = float(row["pred_logfX"])
         true_params = np.array([test_xHI, test_logfX], dtype=float)
 
         LOGGER.info(
@@ -931,6 +946,7 @@ def run_coverage_pipeline_1(
             n_samples=n_mc_samples,
             k_neighbors=k_neighbors,
             rng=rng,
+            grouping=grouping,
         )
         preds_mc = model.predict(features_mc)
 
@@ -945,7 +961,7 @@ def run_coverage_pipeline_1(
         true_params_list.append(true_params)
         d2_list.append(d2)
 
-    true_params_arr = np.vstack(true_params_list)
+    true_params_arr = np.array(true_params_list)
     d2_arr = np.asarray(d2_list)
 
     LOGGER.info("Computed Mahalanobis distances for %d test points", d2_arr.size)
@@ -1041,6 +1057,12 @@ def parse_args() -> argparse.Namespace:
         default=10,
         help="Grouping of features"
     )
+    parser.add_argument(
+        "--method",
+        type=str,
+        default="uniform",
+        help="method1 for single test point, uniform for a uniform prior, ",
+    )
 
     return parser.parse_args()
 
@@ -1057,16 +1079,29 @@ def main() -> None:
     LOGGER.info("Features dir: %s", args.features_dir)
     LOGGER.info("Output dir: %s", output_dir)
 
-    run_coverage_pipeline(
-        model_path=args.model,
-        #test_csv=args.test_csv,
-        features_dir=args.features_dir,
-        output_dir=output_dir,
-        #n_mc_samples=args.n_mc_samples,
-        #k_neighbors=args.k_neighbors,
-        #seed=args.seed,
-        grouping=args.grouping,
-    )
+    if args.method == "method1":
+        run_coverage_pipeline_1(
+            model_path=args.model,
+            test_csv=args.test_csv,
+            features_dir=args.features_dir,
+            output_dir=output_dir,
+            n_mc_samples=args.n_mc_samples,
+            k_neighbors=args.k_neighbors,
+            seed=args.seed,
+            grouping=args.grouping,
+        )
+    else:
+        run_coverage_pipeline(
+            model_path=args.model,
+            #test_csv=args.test_csv,
+            features_dir=args.features_dir,
+            output_dir=output_dir,
+            #n_mc_samples=args.n_mc_samples,
+            #k_neighbors=args.k_neighbors,
+            #seed=args.seed,
+            grouping=args.grouping,
+        )
+
 
     LOGGER.info("Coverage calibration finished successfully.")
 

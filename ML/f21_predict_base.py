@@ -16,6 +16,7 @@ import os
 import sys
 import glob
 import pickle
+import csv
 
 import F21DataLoader as dl
 
@@ -711,6 +712,29 @@ def unscale_y(y, args):
     
     return y
 
+def save_predictions_to_csv(y_pred, y_true, filename="tmp_out/test_results.csv"):
+    """
+    y_pred : numpy array of shape (N, 2)
+    y_true : numpy array of shape (N, 2)
+    filename : output CSV filename
+    """
+
+    # Safety checks
+    assert y_pred.shape == y_true.shape, "Shapes of y_pred and y_true must match"
+    assert y_pred.shape[1] == 2, "Each prediction must have 2 parameters"
+
+    header = ["pred_xHI", "pred_logfX", "test_xHI", "test_logfX"]
+
+    # Stack predicted + true values horizontally: (N, 4)
+    data = np.hstack([y_pred, y_true])
+
+    # Write CSV
+    with open(filename, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(header)     # write header
+        writer.writerows(data)      # write rows
+
+    print(f"Saved CSV file with {data.shape[0]} rows {filename}")
 
 
     

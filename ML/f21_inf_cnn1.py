@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.utils.data as tud
 from CNN21cm import CNN21cm
-from CNN21cm import create_model,train_model, test_model, report_test_scores
+from CNN21cm import create_model,train_model, test_model, report_test_scores, save_model, load_model
 import argparse
 import glob
 from datetime import datetime
@@ -29,10 +29,11 @@ parser.add_argument('--kernel2', type=int, default=3, help='5,3,7, etc')
 parser.add_argument('--dropout', type=float, default=0.1, help='value between 0 and 1')
 parser.add_argument('--pooling', type=str, default='avg', help='max, avg, etc')
 parser.add_argument('--activation', type=str, default='elu', help='relu, elu, leaky, etc')
+parser.add_argument('--model_dir', type=str, default=None, help='Director to load model from (test_only)')
 args = parser.parse_args()
-            
-        
+
 output_dir = base.create_output_dir(args=args)
+if args.runmode == "test_only": model_dir = args.model_dir
 logger = base.setup_logging(output_dir)
 
 logger.info(f"input_points={args.input_points_to_use}, kernel1={args.kernel1}, kernel2={args.kernel2}, dropout={args.dropout}")
@@ -45,7 +46,8 @@ args.telescope = 'uGMRT'
 args.rms = 3.3
 datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
 
-test_points = [[-3.00,0.11],[-2.00,0.11],[-1.00,0.11],[-3.00,0.25],[-2.00,0.25],[-1.00,0.25],[-3.00,0.52],[-2.00,0.52],[-1.00,0.52], [-3.00,0.80],[-2.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
+#test_points = [[-3.00,0.11],[-2.00,0.11],[-1.00,0.11],[-3.00,0.25],[-2.00,0.25],[-1.00,0.25],[-3.00,0.52],[-2.00,0.52],[-1.00,0.52], [-3.00,0.80],[-2.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
+test_points = [[-3.6,0.8],[-3.6,0.51],[-3.6,0.24]]
 train_files = []
 test_files = []
 sotrain_files = []
@@ -63,57 +65,69 @@ for snof in datafiles:
 
 criterion = nn.MSELoss()
 
-logger.info(f"Loading train dataset {len(train_files)}")
-X_train, y_train, _, keys, freq_axis = base.load_dataset(train_files, psbatchsize=1, limitsamplesize=args.limitsamplesize, save=False)
-logger.info(f"Loaded datasets X_train:{X_train.shape} y_train:{y_train.shape}")
+if args.runmode == 'train_test':
+    logger.info(f"Loading train dataset {len(train_files)}")
+    X_train, y_train, _, keys, freq_axis = base.load_dataset(train_files, psbatchsize=1, limitsamplesize=args.limitsamplesize, save=False)
+    logger.info(f"Loaded datasets X_train:{X_train.shape} y_train:{y_train.shape}")
+    #run(X_train, X_test, y_train, None, y_test, None, None, args.epochs, args.trainingbatchsize, lr=0.00001, kernel1=args.kernel1, kernel2=args.kernel2, dropout=args.dropout, step=step, input_points_to_use=args.input_points_to_use, showplots=args.interactive, criterion=criterion)
+
+    X_train = torch.from_numpy(X_train).float()
+    y_train = torch.from_numpy(y_train).float()
+
+    train_dataset = tud.TensorDataset(X_train, y_train)
+
+
+    # ----------------------------------------------------------
+    # 2. Create the model (configurable)
+    # ----------------------------------------------------------
+
+    k1,k2 = args.kernel1, args.kernel2
+    model = create_model(
+        input_length=args.input_points_to_use,
+        in_channels=1,
+        conv_channels=(32, 64, 128, 256),        # 4 convolutional blocks
+        kernel_sizes=((k1, k2), (k1, k2), (k1, k2), (k1, k2)),
+        fc_layers=(256, 128, 64),                # 3 dense layers
+        output_dim=2,
+        activation=args.activation,                        # relu, elu, leakyrelu
+        pooling=args.pooling,                           # max or avg pooling
+        dropout=args.dropout,
+    )
+
+    logger.info(model)
+
+
+    # ----------------------------------------------------------
+    # 3. Train the model
+    # ----------------------------------------------------------
+
+    trained_model = train_model(
+        model,
+        train_dataset,
+        num_epochs=args.epochs,
+        batch_size=args.trainingbatchsize,
+        lr=1e-3,
+        weight_decay=1e-5,
+    )
+
+    logger.info(f"Saving trained model to: {output_dir}")
+    logger.info(f"Saving trained model : {trained_model}")
+    save_model(trained_model, f'{output_dir}/trained_model')
+    model_dir = output_dir
+
+# In test_only runmode, execution starts here
+
 logger.info(f"Loading test dataset {len(test_files)}")
 X_test, y_test, _, keys, _ = base.load_dataset(test_files, psbatchsize=1, limitsamplesize=800, save=False)
 logger.info(f"Loaded dataset X_test:{X_test.shape} y_test:{y_test.shape} ")
 
-#run(X_train, X_test, y_train, None, y_test, None, None, args.epochs, args.trainingbatchsize, lr=0.00001, kernel1=args.kernel1, kernel2=args.kernel2, dropout=args.dropout, step=step, input_points_to_use=args.input_points_to_use, showplots=args.interactive, criterion=criterion)
-
-X_train = torch.from_numpy(X_train).float()
-y_train = torch.from_numpy(y_train).float()
-
 X_test = torch.from_numpy(X_test).float()
 y_test = torch.from_numpy(y_test).float()
 
-train_dataset = tud.TensorDataset(X_train, y_train)
 test_dataset = tud.TensorDataset(X_test, y_test)
 
-
-# ----------------------------------------------------------
-# 2. Create the model (configurable)
-# ----------------------------------------------------------
-
-k1,k2 = args.kernel1, args.kernel2
-model = create_model(
-    input_length=args.input_points_to_use,
-    in_channels=1,
-    conv_channels=(32, 64, 128, 256),        # 4 convolutional blocks
-    kernel_sizes=((k1, k2), (k1, k2), (k1, k2), (k1, k2)),
-    fc_layers=(256, 128, 64),                # 3 dense layers
-    output_dim=2,
-    activation=args.activation,                        # relu, elu, leakyrelu
-    pooling=args.pooling,                           # max or avg pooling
-    dropout=args.dropout,
-)
-
-logger.info(model)
-
-
-# ----------------------------------------------------------
-# 3. Train the model
-# ----------------------------------------------------------
-
-trained_model = train_model(
-    model,
-    train_dataset,
-    num_epochs=args.epochs,
-    batch_size=args.trainingbatchsize,
-    lr=1e-3,
-    weight_decay=1e-5,
-)
+logger.info(f"Loading trained model from {model_dir}")
+trained_model, _ = load_model(f'{model_dir}/trained_model')
 
 # ----------------------------------------------------------
 # 4. Test the model
@@ -125,11 +139,15 @@ y_true, y_pred = test_model(
     batch_size=64,
 )
 
-
 # ----------------------------------------------------------
 # 5. Print test metrics
 # ----------------------------------------------------------
 
 metrics = report_test_scores(y_true, y_pred)
+y_true_np =y_true.detach().cpu().numpy()
+y_pred_np =y_pred.detach().cpu().numpy()
+logger.info(f'y_true_np.shape={y_true_np.shape}, {y_pred_np.shape}')
+#logger.info(f'y_true={y_true_np}\n\n {y_pred_np}')
+base.save_predictions_to_csv(y_pred_np, y_true_np, filename=f'{output_dir}/test_results.csv')
 logger.info(metrics)
 

@@ -45,25 +45,42 @@ def load_training_data(override_path, samples, args):
     numgroups = samples//args.training_sample_group_size
     X_train = np.zeros((numgroups*len(files), args.latentdim))
     y_train = np.zeros((numgroups*len(files), 2))
+    logger.info(f'Created X_train.shape={X_train.shape}, y_train.shape={y_train.shape}')
     
     for i, file in enumerate(files):
         curr_xHI = float(file.split('xHI')[1].split('_')[0])
         curr_logfX = float(file.split('fX')[1].split('_')[0])
 
+        """
         ##
         ## Override the xHI and logfX with the accurate values from the simulation data file
         ##
-        #logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
-        data = np.fromfile('%sF21_signalonly_21cmFAST_200Mpc_z6.0_fX%.2f_xHI%.2f_8kHz.dat' % (args.path,curr_logfX,curr_xHI),dtype=np.float32)
-        #logger.info(f'###data:{data[:20]}')
-        curr_xHI = data[1]
-        curr_logfX = data[2]
-        #logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+        if curr_xHI > 1 or curr_xHI < 0 or curr_logfX > 1 or curr_logfX < -4:
+            logger.error(f'Invalid: curr_xHI={curr_xHI}, curr_logfx={curr_logfX}, file={file}')
+            logger.error(file.split('xHI')[1])
+            logger.error(file.split('xHI')[1].split('_')[0])
+        data = np.fromfile(file)
+        logger.info(f'####data:{np.array2string(data[:30], formatter={'float_kind':lambda x: f"{x:.2f},"})}')
+        sofilepattern = file.replace('^.*/F21_noisy',f'{args.path}/F21_signalonly').replace('^.*/F21_signalandnoise', '{args.path}/F21_signalonly')
+        sofiles = glob.glob(sofilepattern)
+        if len(sofiles) == 1:
+            data = np.fromfile(sofiles[0])
+            #data = np.fromfile(str('%sF21_signalonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz%s.%s' %
+            #       (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res,args.extra_file_tag,extn))
+            logger.info(f'####sodata:{np.array2string(data[:30], formatter={'float_kind':lambda x: f"{x:.2f},"})}')
+            curr_logfX = data[2]
+            curr_xHI = data[3]
+            if curr_xHI > 1 or curr_xHI < 0 or curr_logfX > 1 or curr_logfX < -4:
+                logger.error(f'Invalid from sofile: curr_xHI={curr_xHI}, curr_logfx={curr_logfX}, sofile={sofiles[0]}')
+        else:
+            logger.info(f'Did not find signalonly file for curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+        """
 
         y_train[i*numgroups:(i+1)*numgroups, 0] = curr_xHI
         y_train[i*numgroups:(i+1)*numgroups, 1] = curr_logfX
         currps = np.load(file)[:samples,:args.latentdim]
-        #logger.info(f'loaded training data from file. shape: {currps.shape}')
+        logger.info(f'loaded training data from file {file}. shape: {currps.shape}')
+        logger.info(f'Loading data into X_train from rows: {i*numgroups} to {(i+1)*numgroups}')
         if args.training_sample_group_size > 1:
             currps_grouped = currps.reshape(-1, 10, currps.shape[1]).mean(axis=1)
         else:
@@ -79,36 +96,53 @@ def load_training_data(override_path, samples, args):
 
 def load_test_data(override_path, samples, args):
     # little hack to load _diffseed files only for testing
-    args.extra_file_tag='_diffseed'
     #args.extra_file_tag=''
+    args.extra_file_tag='_diffseed'
     if args.target.startswith('PSOJ352'): 
-        files = base.get_rms_datafile_list('signalandnoise', args, extn='npy', override_path=override_path)
+        #args.extra_file_tag='_seed370'
+        files = base.get_rms_datafile_list('signalandnoise', args, extn='npy', filter="test_only", override_path=override_path)
     else:
         files = base.get_datafile_list('noisy', args, extn='npy', override_path=override_path)
 
-    X_test = np.zeros((10000*len(files), args.latentdim))
-    y_test = np.zeros((10000*len(files), 2))
+    num_samples = 10000
+    if args.training_sample_group_size == 1:
+        num_samples = args.limitsamplesize
+    X_test = np.zeros((num_samples*len(files), args.latentdim))
+    y_test = np.zeros((num_samples*len(files), 2))
+    logger.info(f'Created X_test.shape={X_test.shape}, y_test.shape={y_test.shape}')
     for i, file in enumerate(files):
         curr_xHI = float(file.split('xHI')[1].split('_')[0])
         curr_logfX = float(file.split('fX')[1].split('_')[0])
 
+        """
         ##
         ## Override the xHI and logfX with the accurate values from the simulation data file
         ##
-        logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
-        data = np.fromfile('%sF21_signalonly_21cmFAST_200Mpc_z6.0_fX%.2f_xHI%.2f_8kHz.dat' % (args.path,curr_logfX,curr_xHI),dtype=np.float32)
-        #logger.info(f'###data:{data[:20]}')
-        curr_xHI = data[1]
-        curr_logfX = data[2]
-        logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
-        
-        y_test[i*10000:(i+1)*10000, 0] = curr_xHI
-        y_test[i*10000:(i+1)*10000, 1] = curr_logfX
-        currps = np.load(file)[samples:,:args.latentdim]
-        #logger.info(f'loaded training data from file. shape: {currps.shape}')
+        #logger.info(f'curr_xHI={curr_xHI}, curr_logfx={curr_logfX}')
+        sofilepattern = file.replace('^.*/F21_noisy',f'{args.path}/F21_signalonly').replace('^.*/F21_signalandnoise', '{args.path}/F21_signalonly')
+        sofiles = glob.glob(sofilepattern)
+        if len(sofiles) == 1:
+            data = np.fromfile(sofiles[0])
+            #data = np.fromfile(str('%sF21_signalonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz%s.%s' %
+            #       (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res,args.extra_file_tag,extn)) 
+            logger.info(f'Changing xHI, logfX. From filename: curr_xHI={curr_xHI}, curr_logfx={curr_logfX}, inside SO file: curr_xHI={data[3]}, curr_logfx={data[2]}')
+            #curr_xHI = data[1]
+            #curr_logfX = data[2]
+        else:
+            logger.info(f'Did not find signalonly file for curr_xHI={curr_xHI}, curr_logfx={curr_logfX}, pattern used: {sofilepattern}')
+        """
 
-        currps_boot = f21stats.bootstrap(ps=currps, reps=10000, size=10)
-        X_test[i*10000:(i+1)*10000, :] = currps_boot
+        y_test[i*num_samples:(i+1)*num_samples, 0] = curr_xHI
+        y_test[i*num_samples:(i+1)*num_samples, 1] = curr_logfX
+        currps = np.load(file)[:num_samples,:args.latentdim]
+        logger.info(f'loaded testing data from file {file}. shape: {currps.shape}')
+        logger.info(f'Loading data into X_test from rows: {i*num_samples} to {(i+1)*num_samples}')
+
+        if args.training_sample_group_size > 1:
+            currps_boot = f21stats.bootstrap(ps=currps, reps=10000, size=args.training_sample_group_size)
+            X_test[i*num_samples:(i+1)*num_samples, :] = currps_boot
+        else:
+            X_test[i*num_samples:(i+1)*num_samples, :] = currps
     return X_test, y_test
 
 def save_model(model, modelfile):
@@ -211,6 +245,18 @@ def main():
     model = XGBRegressor(
         random_state=42
     )
+
+    logger.info(f"dtype: {X_train.dtype}")
+    logger.info(f"min: {np.nanmin(X_train)}")
+    logger.info(f"max: {np.nanmax(X_train)}")
+    logger.info(f"contains NaN: {np.isnan(X_train).any()}")
+    logger.info(f"contains Inf: {np.isinf(X_train).any()}")
+    logger.info(f"dtype: {y_train.dtype}")
+    logger.info(f"min: {np.nanmin(y_train)}")
+    logger.info(f"max: {np.nanmax(y_train)}")
+    logger.info(f"contains NaN: {np.isnan(y_train).any()}")
+    logger.info(f"contains Inf: {np.isinf(y_train).any()}")
+
     model.fit(X_train, y_train)
 
     logger.info(f"Fitted regressor: {model}")

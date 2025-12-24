@@ -464,6 +464,8 @@ def setup_args_parser():
     return parser
 
 test_points = [[-3.00,0.11],[-1.00,0.11],[-2.00,0.52], [-3.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
+test_points_36 = [[-3.6,0.8],[-3.6,0.51],[-3.6,0.24]]
+
 
 def get_rms_datafile_list(type, args, extn='dat', filter=None, override_path=None):
     path = args.path
@@ -480,7 +482,7 @@ def get_rms_datafile_list(type, args, extn='dat', filter=None, override_path=Non
         filepattern = str('%sF21_noiseonly_21cmFAST_200Mpc_z%.1f_fX%s_xHI%s_%s_%s_rms%.4fmJy_%.1fkHz%s.%s' % 
                (path, args.redshift,args.log_fx, args.xHI, args.telescope, args.target, args.rms, args.spec_res,args.extra_file_tag,extn))
 
-    logger.info(f"Loading files with pattern {filepattern}")
+    logger.info(f"Loading files with pattern {filepattern}, filter {filter}")
 
     datafiles = glob.glob(filepattern)
 
@@ -490,7 +492,7 @@ def get_rms_datafile_list(type, args, extn='dat', filter=None, override_path=Non
         test_files = []
         for file in datafiles:
             is_test_file = False
-            for p in test_points:
+            for p in test_points_36:
                 if file.find(f"fX{p[0]:.2f}_xHI{p[1]:.2f}") >= 0:
                     test_files.append(file)
                     is_test_file = True

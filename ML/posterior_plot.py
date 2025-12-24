@@ -75,6 +75,33 @@ def average_combined_std(data: np.ndarray) -> float:
     return float(np.mean(group_stds))
 
 
+def extend_results(all_results, repeats):
+    """
+    Extend a 2-D numpy array by duplicating its rows so that the final
+    number of rows becomes repeats * Nsteps.
+
+    Parameters
+    ----------
+    all_results : np.ndarray
+        2-D array of shape (R, C)
+    Nsteps : int
+    repeats : int
+        Final number of rows will be repeats * Nsteps.
+
+    Returns
+    -------
+    np.ndarray
+        Array with exactly (repeats * Nsteps) rows.
+    """
+    # How many full tilings required
+    n_tiles = int(repeats)
+
+    # Duplicate rows
+    extended = np.tile(all_results, (n_tiles, 1))
+
+    return extended
+
+
 # Example usage:
 # y_true = np.repeat(np.array([0, 1, 2, 3, 4]), 10000)
 # y_pred = np.random.normal(loc=y_true, scale=1.0, size=50000)
@@ -88,6 +115,9 @@ parser.add_argument('-t', '--telescope', type=str, default='uGMRT', help='telesc
 parser.add_argument('-i', '--t_int', type=float, default=500, help='integration time of obsevation in hours')
 parser.add_argument('--title', type=str)
 parser.add_argument('--format', type=str, default='pdf', help='output image format')
+parser.add_argument('--selectiveparams', action="store_true", help='output image format')
+parser.add_argument('--limitsamplesize', type=int, default=10000, help='')
+
 args = parser.parse_args()
 
 #Set parameters describing data
@@ -99,14 +129,18 @@ S147 = 64.2
 alphaR = -0.44
 Nsteps = 10000
 
+
+
 telescope = args.telescope
 tint = args.t_int
-#xHI_mean = [0.11,0.80,0.52,0.11,0.80]
-#logfX    = [-1.0,-1.0,-2.0,-3.0,-3.0]
 
 
 #Start plotting
 fsize = 20
+fsize_meas = 16
+fsize_legend = 14
+
+
 colours  = ['royalblue','fuchsia','forestgreen','darkorange','red','lightcoral','slateblue','limegreen','teal','navy']
 #colours = ['#1A9892', '#44328E', '#9E0142', '#216633', '#08306B']
 #colours = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
@@ -114,22 +148,50 @@ colours  = ['royalblue','fuchsia','forestgreen','darkorange','red','lightcoral',
 fig = plt.figure(figsize=(8.,8.))
 gs = gridspec.GridSpec(1,1)
 ax0 = plt.subplot(gs[0,0])
+
+#Plot the x_HI measurements from the Lyα forest
+colours_lit = ['grey','brown','darkviolet','navy']
+rot = 36
+
+"""
+ax0.axvspan(0.21-0.07,0.21+0.17,alpha=0.2,color=colours_lit[0])
+ax0.text(0.15,-1.8,'?~Nurov?~Míková+24',color=colours_lit[0],rotation=rot,fontsize=fsize_meas)  #?~Nurov?~Míková et al. 2024, ApJ, 969, 162
+
+ax0.axvspan(0.17-0.11,0.17+0.09,alpha=0.2,color=colours_lit[1])
+ax0.text(0.08,-1.8,'Gaikwad+23',color=colours_lit[1],rotation=rot,fontsize=fsize_meas)      #Gaikwad et al. 2023, MNRAS, 525, 4093
+
+ax0.axvspan(0,0.21,alpha=0.2,color=colours_lit[2])
+ax0.text(0.005,-1.8,'Greig+24',color=colours_lit[2],rotation=rot,fontsize=fsize_meas)       #Greig et al. 2024, MNRAS, 530, 3208
+"""
+ax0.axvspan(0,0.21+0.17,alpha=0.2,color=colours_lit[0])
+ax0.text(0.02, -1.15,r'Limit from Ly$\alpha$ data',color='darkgrey',fontsize=fsize_meas)       # Combined Ly-alpha limit
+
+
 print(f"loading result file using pattern {args.filepath}")
 if args.filepath.endswith('.csv'):
     all_results = np.loadtxt(args.filepath, delimiter=",", skiprows=1)
 elif args.filepath.endswith('.npy'):
     all_results = np.load(args.filepath)
+
+print(f'all_results.shape={all_results.shape}')
+
+all_results = extend_results(all_results, Nsteps/args.limitsamplesize)
 xHI_mean = np.reshape(all_results[:,2],(-1,Nsteps))[:,0]
+print(f'xHI_mean.shape={xHI_mean.shape}')
 logfX    = np.reshape(all_results[:,3],(-1,Nsteps))[:,0]
+print(f'logfX.shape={logfX.shape}')
 #print(xHI_mean)
 #print(logfX)
 xHI_mean_post = np.reshape(all_results[:,0],(-1,Nsteps))
+print(f'xHI_mean_post.shape={xHI_mean_post.shape}')
 logfX_post = np.reshape(all_results[:,1],(-1,Nsteps))
+print(f'logfX_post.shape={logfX_post.shape}')
 print(xHI_mean_post)
 print(logfX_post)
 logfX_infer = np.empty(len(logfX))
 xHI_infer = np.empty(len(logfX))
-for i in range(len(logfX)):
+for i in range(len(logfX)): #i in [0,1,3,4,2]:
+   if args.selectiveparams and logfX[i] > -2: continue
    #Plot the posterior distributions from the MCMC using corner package (Foreman-Mackey 2016, The Journal of Open Source Software, 1, 24)
    pltr.hist2d(xHI_mean_post[i],logfX_post[i], smooth=False,levels=[1-np.exp(-0.5),1-np.exp(-2.)],
                plot_datapoints=False,plot_density=False,fill_contours=True,color=colours[i],
@@ -138,8 +200,8 @@ for i in range(len(logfX)):
    logfX_infer[i] = np.median(logfX_post[i])
    xHI_infer[i] = np.median(xHI_mean_post[i])
    #Plot the best fit and true values
-   ax0.scatter(xHI_infer[i],logfX_infer[i],marker='o',s=200,linewidths=1.,color=colours[i],edgecolors='black',alpha=1)
-   ax0.scatter(xHI_mean[i],logfX[i],marker='*',s=200,linewidths=1.,color=colours[i],edgecolors='black',alpha=1)
+   ax0.scatter(xHI_infer[i],logfX_infer[i],marker='o',s=200,linewidths=1.,color=colours[i],edgecolors='black',alpha=1, zorder=100)
+   ax0.scatter(xHI_mean[i],logfX[i],marker='*',s=200,linewidths=1.,color=colours[i],edgecolors='black',alpha=1, zorder=100)
 print('Mock xHI and fX values')
 print(xHI_mean)
 print(logfX)

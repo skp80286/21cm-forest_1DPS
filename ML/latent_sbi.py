@@ -5,6 +5,7 @@ import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
 import f21_predict_base as base
+from scipy.stats import gaussian_kde
 
 from sbi.inference import NPE
 from sbi.utils import BoxUniform
@@ -129,6 +130,136 @@ def infer_posterior_for_test(posterior, x_test, n_samples=2000):
     all_samples = np.concatenate(all_samples, axis=0)
     return all_samples
 
+def compute_credible_levels(samples, levels=[0.683, 0.954, 0.997], gridsize=200):
+    """
+    samples: array of shape (N, 2)
+    returns:
+        X, Y : grid
+        Z    : KDE evaluated on grid
+        z_levels : density thresholds for given credible levels
+    """
+    x = samples[:, 0]
+    y = samples[:, 1]
+
+    kde = gaussian_kde(np.vstack([x, y]))
+
+    # Grid
+    xmin, xmax = x.min(), x.max()
+    ymin, ymax = y.min(), y.max()
+
+    X, Y = np.meshgrid(
+        np.linspace(xmin, xmax, gridsize),
+        np.linspace(ymin, ymax, gridsize)
+    )
+
+    Z = kde(np.vstack([X.ravel(), Y.ravel()]))
+    Z = Z.reshape(X.shape)
+
+    # Sort densities (descending)
+    Z_flat = Z.ravel()
+    idx = np.argsort(Z_flat)[::-1]
+    Z_sorted = Z_flat[idx]
+
+    # Cumulative probability
+    cumsum = np.cumsum(Z_sorted)
+    cumsum /= cumsum[-1]
+
+    # Find density thresholds
+    z_levels = []
+    for cl in levels:
+        z_levels.append(Z_sorted[np.searchsorted(cumsum, cl)])
+
+    return X, Y, Z, z_levels
+
+def plot_sigma_contours(samples, color, level, label=None):
+    """
+    Draws 1σ, 2σ, 3σ credible contours.
+    samples shape: (N,2) with [xHI, logfX]
+    """
+    X, Y, Z, z_levels = compute_credible_levels(samples, levels=[level])
+
+    plt.contour(
+        X, Y, Z,
+        levels=z_levels,
+        colors=color,
+        linewidths=[2.5],
+        linestyles=["solid"], #, "dashed", "dotted"]
+    )
+
+def save_posteriors_npy(posteriors, true_thetas):
+    """
+    posteriors: list of arrays, each shape (Nsamples, 2)
+                columns: [xHI, logfX]
+    true_thetas: list of tuples (xHI, logfX)
+    """
+    data = {
+        "posteriors": posteriors,
+        "true_thetas": np.array(true_thetas, dtype=np.float32)
+    }
+
+    filename = f"{output_dir}/posteriors.npy"
+    np.save(filename, data, allow_pickle=True)
+    logger.info(f"Saved posterior data to {filename}")
+
+def load_posteriors_npy(posterior_dir):
+    filename = f"{posterior_dir}/posteriors.npy"
+
+    data = np.load(filename, allow_pickle=True).item()
+
+    posteriors = data["posteriors"]
+    true_thetas = data["true_thetas"]
+
+    print(f"Loaded {len(posteriors)} posteriors from {filename}")
+    return posteriors, true_thetas
+
+
+def plot_three_posteriors_sigma(posteriors, true_thetas):
+    posterior_means = [
+        (p[:,0].mean(), p[:,1].mean())
+        for p in posteriors
+    ]
+
+    for level in [0.683, 0.954, 0.997]:
+        colors = ["red", "green", "blue"]
+    
+        plt.figure(figsize=(8,6))
+    
+        for i, samples in enumerate(posteriors):
+            color = colors[i]
+    
+            # Draw 1σ / 2σ / 3σ contours
+            plot_sigma_contours(samples, color=color, level=level)
+    
+            xHI = samples[:,0]
+            logfX = samples[:,1]
+    
+    
+            # True value (star)
+            xHI_true, logfX_true = true_thetas[i]
+            plt.scatter(
+                xHI_true, logfX_true,
+                marker="*", s=180, color=color, edgecolor="black", zorder=5
+            )
+    
+            # Posterior mean (circle)
+            plt.scatter(
+                xHI.mean(), logfX.mean(),
+                marker="o", s=100, color=color, edgecolor="black", zorder=5
+            )
+    
+        plt.xlim(0, 1)
+        plt.ylim(-4, 1)
+        plt.xlabel("xHI")
+        plt.ylabel("logfX")
+        plt.title(f"{level*100:.1f}% Credible Posterior Contours {args.target} RMS={args.rms:.2f}")
+        plt.grid(alpha=0.2)
+        plt.tight_layout()
+    
+        filename = f"{output_dir}/posterior_sigma_{level}.png"
+        plt.savefig(filename, dpi=300, format="png")
+        logger.info(f"Saved posterior-sigma plot to {filename}")
+
+
 def plot_three_posteriors(posteriors, true_thetas):
     colors = ["red", "green", "blue"]
     labels = ["xHI=0.24", "xHI=0.51", "xHI=0.80"]
@@ -141,7 +272,7 @@ def plot_three_posteriors(posteriors, true_thetas):
 
         sns.kdeplot(
             x=xHI, y=logfX,
-            levels=15,
+            levels=5,
             color=colors[i],
             linewidths=1.5
         )
@@ -163,7 +294,11 @@ def plot_three_posteriors(posteriors, true_thetas):
     plt.title("SBI NPE Posterior Distributions")
     plt.grid(alpha=0.2)
     plt.tight_layout()
-    plt.savefig(f"{out_dir}/posterior.png", dpi=300, format="png")
+
+    filename = f"{output_dir}/posterior_levels.png"
+    plt.savefig(filename, dpi=300, format="png")
+    logger.info(f"Saved posterior-levels plot to {filename}")
+
 
 if __name__ == "__main__":
     global logger
@@ -181,6 +316,7 @@ if __name__ == "__main__":
     parser.add_argument('--testdatapath', type=str, help='test PS data path')
     parser.add_argument('--training_sample_group_size', type=int, default=10, help='Number of samples of spectrum to be grouped')
     parser.add_argument('--latentdim', type=int, default=512, help='Size of latent feature vector')
+    parser.add_argument('--posterior_dir', type=str, default="tmp_out", help='directory to load posterior file from')
     
     args = parser.parse_args()
 
@@ -189,8 +325,8 @@ if __name__ == "__main__":
     device = (
         "cuda"
         if torch.cuda.is_available()
-        else "mps"
-        if torch.backends.mps.is_available()
+        #else "mps"
+        #if torch.backends.mps.is_available()
         else "cpu"
     )
 
@@ -198,33 +334,40 @@ if __name__ == "__main__":
     logger.info(f"### Using \"{device}\" device ###")
     logger.info("####")
 
-    # Load training and test data
-    logger.info(f"Loading training data from {args.datapath}...")
-    X_train, theta_train = load_training_data(override_path=args.datapath, samples=args.limitsamplesize, args=args)
-    logger.info(f"Training data shape: X={X_train.shape}, y={theta_train.shape}")
+    if args.runmode == "train_test":
+        # Load training and test data
+        logger.info(f"Loading training data from {args.datapath}...")
+        X_train, theta_train = load_training_data(override_path=args.datapath, samples=args.limitsamplesize, args=args)
+        logger.info(f"Training data shape: X={X_train.shape}, y={theta_train.shape}")
+    
+        logger.info(f"Loading test data from {args.testdatapath}...")
+        test_sets = load_test_data(override_path=args.testdatapath, samples=args.limitsamplesize, args=args)
+        logger.info(f"Test data length: test_sets={len(test_sets)}")
+    
+        prior = BoxUniform(
+            low=torch.tensor([0.0, -4.0], device=device),
+            high=torch.tensor([1.0,  1.0], device=device)
+        )
+        
+        # Train
+        posterior = train_npe(X_train, theta_train)
+        
+        posteriors = []
+        true_thetas = [
+            (0.24, -3.6),
+            (0.51, -3.6),
+            (0.80, -3.6)
+        ]
+        
+        for test in test_sets:
+            samples = infer_posterior_for_test(posterior, test["x"])
+            posteriors.append(samples)
 
-    logger.info(f"Loading test data from {args.testdatapath}...")
-    test_sets = load_test_data(override_path=args.testdatapath, samples=args.limitsamplesize, args=args)
-    logger.info(f"Test data length: test_sets={len(test_sets)}")
-
-    prior = BoxUniform(
-        low=torch.tensor([0.0, -4.0], device=device),
-        high=torch.tensor([1.0,  1.0], device=device)
-    )
-    
-    # Train
-    posterior = train_npe(X_train, theta_train)
-    
-    posteriors = []
-    true_thetas = [
-        (0.24, -3.6),
-        (0.51, -3.6),
-        (0.80, -3.6)
-    ]
-    
-    for test in test_sets:
-        samples = infer_posterior_for_test(posterior, test["x"])
-        posteriors.append(samples)
+        save_posteriors_npy(posteriors, true_thetas)
+    else:
+        posteriors, true_theta = load_posteriors_npy(args.posterior_dir)
     
     plot_three_posteriors(posteriors, true_thetas)
+
+    plot_three_posteriors_sigma(posteriors, true_thetas)
 

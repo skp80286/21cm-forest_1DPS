@@ -465,6 +465,7 @@ def setup_args_parser():
 
 test_points = [[-3.00,0.11],[-1.00,0.11],[-2.00,0.52], [-3.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
 test_points_36 = [[-3.6,0.8],[-3.6,0.51],[-3.6,0.24]]
+test_points_36_1 = [[-3.6,0.86],[-3.6,0.52],[-3.6,0.25]]
 
 
 def get_rms_datafile_list(type, args, extn='dat', filter=None, override_path=None):

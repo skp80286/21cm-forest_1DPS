@@ -7,7 +7,7 @@ import seaborn as sns
 import f21_predict_base as base
 from scipy.stats import gaussian_kde
 
-from sbi.inference import NPE
+from sbi.inference import NPE, MCMCPosterior
 from sbi.utils import BoxUniform
 
 def parse_labels_from_filename(fname):
@@ -89,6 +89,7 @@ def load_test_data(override_path, samples, args):
 
 
     test_sets = []
+    true_thetas = []
 
     for i, file in enumerate(files):
         curr_xHI = float(file.split('xHI')[1].split('_')[0])
@@ -101,8 +102,9 @@ def load_test_data(override_path, samples, args):
             "x": torch.tensor(latents, device=device),
             "true_theta": (curr_xHI, curr_logfX)
         })
+        true_thetas.append((curr_xHI, curr_logfX))
 
-    return test_sets
+    return test_sets, true_thetas
 
 def train_npe(x, theta):
     inference = NPE(prior=prior, density_estimator="maf", device=device)
@@ -114,7 +116,8 @@ def train_npe(x, theta):
         max_num_epochs=50
     )
 
-    posterior = inference.build_posterior(density_estimator)
+    #posterior = inference.build_posterior(density_estimator)
+    posterior = inference.build_posterior(density_estimator, sample_with="mcmc")
     return posterior
 
 def infer_posterior_for_test(posterior, x_test, n_samples=2000):
@@ -220,7 +223,7 @@ def plot_three_posteriors_sigma(posteriors, true_thetas):
     ]
 
     for level in [0.683, 0.954, 0.997]:
-        colors = ["red", "green", "blue"]
+        colors = ["red", "green", "blue", "orange", "violet"]
     
         plt.figure(figsize=(8,6))
     
@@ -251,7 +254,12 @@ def plot_three_posteriors_sigma(posteriors, true_thetas):
         plt.ylim(-4, 1)
         plt.xlabel("xHI")
         plt.ylabel("logfX")
-        plt.title(f"{level*100:.1f}% Credible Posterior Contours {args.target} RMS={args.rms:.2f}")
+        if args.target.startswith('PSOJ352'):
+            title_suffix = f"RMS={args.rms:.2f}"
+        else:
+            title_suffix = f"{args.telescope} {args.t_int:.0f}h"
+
+        plt.title(f"{level*100:.1f}% Credible Posterior Contours {args.target} {title_suffix}")
         plt.grid(alpha=0.2)
         plt.tight_layout()
     
@@ -261,7 +269,7 @@ def plot_three_posteriors_sigma(posteriors, true_thetas):
 
 
 def plot_three_posteriors(posteriors, true_thetas):
-    colors = ["red", "green", "blue"]
+    colors = ["red", "green", "blue", "orange", "violet"]
     labels = ["xHI=0.24", "xHI=0.51", "xHI=0.80"]
 
     plt.figure(figsize=(8,6))
@@ -341,7 +349,7 @@ if __name__ == "__main__":
         logger.info(f"Training data shape: X={X_train.shape}, y={theta_train.shape}")
     
         logger.info(f"Loading test data from {args.testdatapath}...")
-        test_sets = load_test_data(override_path=args.testdatapath, samples=args.limitsamplesize, args=args)
+        test_sets, true_thetas = load_test_data(override_path=args.testdatapath, samples=args.limitsamplesize, args=args)
         logger.info(f"Test data length: test_sets={len(test_sets)}")
     
         prior = BoxUniform(
@@ -353,11 +361,22 @@ if __name__ == "__main__":
         posterior = train_npe(X_train, theta_train)
         
         posteriors = []
-        true_thetas = [
-            (0.24, -3.6),
-            (0.51, -3.6),
-            (0.80, -3.6)
-        ]
+        """
+        if args.target.startswith('PSOJ352'):
+            true_thetas = [
+                (0.24, -3.6),
+                (0.51, -3.6),
+                (0.80, -3.6)
+            ]
+        else:
+            true_thetas = [
+                (0.11, -1.0),
+                (0.11, -3.0),
+                (0.80, -3.0)
+                (0.80, -3.0),
+                (0.52, -2.0)
+            ]
+        """
         
         for test in test_sets:
             samples = infer_posterior_for_test(posterior, test["x"])
@@ -365,7 +384,7 @@ if __name__ == "__main__":
 
         save_posteriors_npy(posteriors, true_thetas)
     else:
-        posteriors, true_theta = load_posteriors_npy(args.posterior_dir)
+        posteriors, true_thetas = load_posteriors_npy(args.posterior_dir)
     
     plot_three_posteriors(posteriors, true_thetas)
 

@@ -26,7 +26,7 @@ import sys
 import os
 import matplotlib.pyplot as plt
 
-import optuna
+#import optuna
 
 class ModelTester:
     def __init__(self, model, criterion, input_points_to_use, noise, test_output_dir):
@@ -120,9 +120,14 @@ def validate_filelist(train_files, so_train_files, test_files, so_test_files):
         raise ValueError(f'Mismatch in length of noisy and signalonly training files! {len(train_files)} != {len(so_train_files)}')
     if len(test_files) != len(so_test_files):
         raise ValueError(f'Mismatch in length of noisy and signalonly training files! {len(test_files)} != {len(so_test_files)}')
-    indices1 = [0,2,3,4,5,6,7,8]
-    indices2 = [0,2,3,4,5,6,7,8]
-        
+
+    if args.target.startswith('PSOJ352'): 
+        indices1 = [0,2,3,4,5,6,7,8]
+        indices2 = [0,2,3,4,5,6,7,8]
+    else:
+        indices1 = [0,2,3,4,5,6,8]
+        indices2 = [0,2,3,4,5,6,7]
+
     for train_file, so_train_file in zip(train_files, so_train_files):
         #print(f'train_file:{train_file}, so_train_file:{so_train_file}')
         train_file_parts =       [train_file.rstrip('.dat').split('/')[-1].split('_')[i] for i in indices1]
@@ -475,14 +480,28 @@ logger.info(f"input_points={args.input_points_to_use}, kernel1={args.kernel1}, k
 
 datafiles = []
 so_datafiles = []
-args.telescope = 'uGMRT'
-args.rms = 6.0
-datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
-so_datafiles += base.get_rms_datafile_list(type='signalonly', args=args)
-args.telescope = 'uGMRT'
-args.rms = 3.3
-datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
-so_datafiles += base.get_rms_datafile_list(type='signalonly', args=args)
+#args.telescope = 'uGMRT'
+
+if args.target.startswith('PSOJ352'): 
+    args.rms = 6.0
+    args.telescope = 'uGMRT'
+    datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
+    so_datafiles += base.get_rms_datafile_list(type='signalonly', args=args)
+    args.rms = 3.3
+    datafiles += base.get_rms_datafile_list(type='signalandnoise', args=args)
+    so_datafiles += base.get_rms_datafile_list(type='signalonly', args=args)
+else:
+    args.telescope = 'SKA1-low'
+    args.t_int = 50
+    datafiles += base.get_datafile_list(type='noisy', args=args)
+    args.telescope = 'uGMRT'
+    args.t_int = 500
+    datafiles += base.get_datafile_list(type='noisy', args=args)
+    args.telescope = 'uGMRT'
+    args.t_int = 50
+    datafiles += base.get_datafile_list(type='noisy', args=args)
+    so_datafiles = base.get_datafile_list(type='signalonly', args=args)
+    so_datafiles = so_datafiles + so_datafiles + so_datafiles
 
 test_points = [[-3.00,0.11],[-2.00,0.11],[-1.00,0.11],[-3.00,0.25],[-2.00,0.25],[-1.00,0.25],[-3.00,0.52],[-2.00,0.52],[-1.00,0.52], [-3.00,0.80],[-2.00,0.80],[-1.00,0.80]]#,[0.00,0.80]]
 train_files = []

@@ -9,6 +9,16 @@ from scipy.stats import gaussian_kde
 
 from sbi.inference import NPE, MCMCPosterior
 from sbi.utils import BoxUniform
+from xgboost import XGBRegressor
+from sbi.inference import simulate_for_sbi
+from sklearn.multioutput import MultiOutputRegressor
+
+def xgb_simulator(theta):
+    """
+    theta: tensor shape (N,2)  [xHI, logfX]
+    returns: tensor shape (N,512)
+    """
+    return torch.tensor(emulator.predict(theta.cpu().numpy()), dtype=torch.float32)
 
 def parse_labels_from_filename(fname):
     logfX = float(re.search(r"logfX(-?\d+\.?\d*)", fname).group(1))
@@ -106,7 +116,18 @@ def load_test_data(override_path, samples, args):
 
     return test_sets, true_thetas
 
-def train_npe(x, theta):
+def posterior_using_xgb_sim(x, theta, prior):
+    inference = inference.append_simulations(theta, x)
+    density_estimator = inference.train(
+        training_batch_size=1024,
+        learning_rate=5e-4,
+        max_num_epochs=50
+    )
+    posterior = inference.build_posterior(density_estimator, sample_with="mcmc")
+    return posterior
+
+
+def train_npe(x, theta, prior):
     inference = NPE(prior=prior, density_estimator="maf", device=device)
 
     inference.append_simulations(theta, x)
@@ -325,7 +346,8 @@ if __name__ == "__main__":
     parser.add_argument('--training_sample_group_size', type=int, default=10, help='Number of samples of spectrum to be grouped')
     parser.add_argument('--latentdim', type=int, default=512, help='Size of latent feature vector')
     parser.add_argument('--posterior_dir', type=str, default="tmp_out", help='directory to load posterior file from')
-    
+    parser.add_argument('--use_xgb_simulator', action='store_true', help='Use XGBoostRegressor as simulator for latent features')
+
     args = parser.parse_args()
 
     output_dir = base.create_output_dir(args=args)
@@ -357,9 +379,25 @@ if __name__ == "__main__":
             high=torch.tensor([1.0,  1.0], device=device)
         )
         
-        # Train
-        posterior = train_npe(X_train, theta_train)
-        
+        if args.use_xgb_simulator:
+            logger.info(f"Fitting XGB emulator")
+            emulator = MultiOutputRegressor(XGBRegressor())
+            emulator.fit(theta_train, X_train)
+            logger.info(f"Starting simulation for sbi")
+            theta, x = simulate_for_sbi(
+                simulator=xgb_simulator,
+                prior=prior,
+                num_simulations=50000
+            )
+            logger.info(f"Creating posterior")
+            posterior = posterior_using_xgb_sim(x, theta, prior)
+        else:
+            # Train
+            logger.info(f"Training NPE")
+            posterior = train_npe(X_train, theta_train, prior)
+
+        logger.info(f"Created posterior")
+
         posteriors = []
         """
         if args.target.startswith('PSOJ352'):
@@ -389,4 +427,5 @@ if __name__ == "__main__":
     plot_three_posteriors(posteriors, true_thetas)
 
     plot_three_posteriors_sigma(posteriors, true_thetas)
+
 
